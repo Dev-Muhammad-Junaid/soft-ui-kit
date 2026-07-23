@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview"
   },
+  "homepage": "https://dev-muhammad-junaid.github.io/soft-ui-kit/",
   "dependencies": {
     "border-beam": "^1.3.0",
     "clsx": "^2.1.1",

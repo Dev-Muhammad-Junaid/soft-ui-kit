@@ -1,16 +1,30 @@
-# React + Vite
+# Soft UI Kit
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Glass / soft UI playground — themes, Taste dials, component catalog, charts, and SaaS samples.
 
-Currently, two official plugins are available:
+## Live demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**[Try it on GitHub Pages →](https://dev-muhammad-junaid.github.io/soft-ui-kit/)**
 
-## React Compiler
+Open **Taste** (bottom-right) to tweak radius, glass, color, and optional motion effects live.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Local
 
-## Expanding the Oxlint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Build for production (base path `/soft-ui-kit/` for Pages):
+
+```bash
+npm run build
+npm run preview
+```
+
+## Stack
+
+- React 19 + Vite
+- React Router
+- Themes via CSS tokens + Taste playground
+- Optional packs: `border-beam`, `metal-fx`
