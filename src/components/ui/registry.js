@@ -181,6 +181,14 @@ export const COMPONENT_REGISTRY = [
     animated: true,
   },
   {
+    id: "dashboard-shell",
+    name: "Dashboard shell",
+    category: "layout",
+    description: "App dashboard layout with collapsible sidebar (icon rail).",
+    tags: ["layout", "dashboard", "sidebar", "collapse"],
+    animated: true,
+  },
+  {
     id: "separator",
     name: "Separator",
     category: "layout",

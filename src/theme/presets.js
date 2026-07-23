@@ -1,6 +1,22 @@
 import { DEFAULT_TWEAKS } from "./ThemeProvider";
 
 export const SAAS_PRESETS = {
+  dashboard: {
+    id: "dashboard",
+    name: "Ops dashboard",
+    tagline: "KPI strip, charts & service health with collapsible nav",
+    suggestedTheme: "soft-glass",
+    why: "Shows the Dashboard shell collapse control — icon rail for more canvas, outside Taste.",
+    path: "/saas/dashboard",
+    tweaks: {
+      ...DEFAULT_TWEAKS,
+      glassBlur: 20,
+      glassOpacity: 0.52,
+      accentHue: 199,
+      hoverLift: 0.25,
+      shadowIntensity: 1,
+    },
+  },
   autumn: {
     id: "autumn",
     name: "Autumn Insight",

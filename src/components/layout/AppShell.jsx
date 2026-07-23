@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import {
   Activity,
   BarChart3,
   BookOpen,
   Boxes,
   Briefcase,
+  LayoutDashboard,
   Plane,
   SlidersHorizontal,
   Sparkles,
@@ -19,12 +19,14 @@ import { PlaygroundDrawer } from "../playground/PlaygroundDrawer";
 import { IconButton } from "../ui";
 import { useTheme } from "../../theme/ThemeProvider";
 import { ThemeFab } from "./ThemeFab";
+import { DashboardShell, useSidebarCollapsed } from "./DashboardShell";
 
 const LINKS = [
   { to: "/catalog", label: "Catalog", icon: BookOpen },
   { to: "/charts", label: "Charts", icon: BarChart3 },
   { to: "/effects", label: "Effects", icon: Wand2 },
   { to: "/saas", label: "SaaS samples", icon: Store },
+  { to: "/saas/dashboard", label: "Ops dashboard", icon: LayoutDashboard },
   { to: "/saas/autumn", label: "Autumn Insight", icon: TrendingUp },
   { to: "/saas/travel", label: "Travel CRM", icon: Plane },
   { to: "/saas/finance", label: "Finance", icon: Wallet },
@@ -35,6 +37,7 @@ const LINKS = [
 export function AppShell({ children, sidebarOpen, setSidebarOpen }) {
   const { themeId, themes } = useTheme();
   const [playgroundOpen, setPlaygroundOpen] = useState(false);
+  const [collapsed, setCollapsed] = useSidebarCollapsed(false);
   const themeName = themes.find((t) => t.id === themeId)?.name;
 
   return (
@@ -45,55 +48,36 @@ export function AppShell({ children, sidebarOpen, setSidebarOpen }) {
         onClick={() => setSidebarOpen(false)}
         aria-hidden="true"
       />
-      <div className="app-shell">
-        <aside className={`app-sidebar glass${sidebarOpen ? " is-open" : ""}`}>
-          <div className="brand">
+
+      <DashboardShell
+        collapsed={collapsed}
+        onCollapsedChange={setCollapsed}
+        mobileOpen={sidebarOpen}
+        onMobileOpenChange={setSidebarOpen}
+        brand={{
+          name: "Soft UI Kit",
+          tag: themeName,
+          icon: (
             <GlassRing size={44} tone="sky" active>
               <Sparkles size={18} strokeWidth={1.7} />
             </GlassRing>
-            <div className="brand__text">
-              <span className="brand__name">Soft UI Kit</span>
-              <span className="brand__tag">{themeName}</span>
-            </div>
-          </div>
-
-          <nav className="side-nav" aria-label="Primary">
-            {LINKS.map((link) => {
-              const Icon = link.icon;
-              return (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.end}
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <Icon size={18} strokeWidth={1.7} />
-                  {link.label}
-                </NavLink>
-              );
-            })}
-          </nav>
-
-          <div className="side-meta glass">
-            Theme and Taste FABs stay available on every page — switch look, then
-            fine-tune frost and motion.
-          </div>
-        </aside>
-
-        <div className="app-main">
-          <div className="page-actions" style={{ marginBottom: 12 }}>
-            <IconButton
-              className="mobile-nav-toggle"
-              variant="glass"
-              label="Open navigation"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <Boxes size={18} />
-            </IconButton>
-          </div>
-          {children}
+          ),
+        }}
+        items={LINKS}
+        footer="Collapse the sidebar for more canvas — Theme and Taste FABs stay available on every page."
+      >
+        <div className="page-actions page-actions--shell">
+          <IconButton
+            className="mobile-nav-toggle"
+            variant="glass"
+            label="Open navigation"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <Boxes size={18} />
+          </IconButton>
         </div>
-      </div>
+        {children}
+      </DashboardShell>
 
       <div className="fab-stack">
         <ThemeFab />

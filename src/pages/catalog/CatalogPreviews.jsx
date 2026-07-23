@@ -17,6 +17,7 @@ import {
   TimelineBar,
 } from "../../components/charts/DotMatrixChart";
 import { GlassRing } from "../../components/effects/GlassRing";
+import { DashboardShellPreview } from "../../components/layout/DashboardShell";
 import {
   Accordion,
   Alert,
@@ -179,6 +180,8 @@ export function CatalogPreview({ id }) {
           Content
         </Card>
       );
+    case "dashboard-shell":
+      return <DashboardShellPreview />;
     case "separator":
       return <Separator label="Or" />;
     case "scroll-area":

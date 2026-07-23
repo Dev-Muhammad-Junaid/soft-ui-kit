@@ -11,6 +11,7 @@ import { LoginPage, SignupPage } from "./pages/SignupPage";
 import { AutumnInsightDashboard } from "./pages/saas/AutumnInsightDashboard";
 import { FinanceDashboard } from "./pages/saas/FinanceDashboard";
 import { KanbanDashboard } from "./pages/saas/KanbanDashboard";
+import { OpsDashboard } from "./pages/saas/OpsDashboard";
 import { TravelDashboard } from "./pages/saas/TravelDashboard";
 
 const MARKETING = new Set(["/", "/signup", "/login"]);
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/charts" element={<ChartsGalleryPage />} />
           <Route path="/effects" element={<EffectsPage />} />
           <Route path="/saas" element={<SaasHubPage />} />
+          <Route path="/saas/dashboard" element={<OpsDashboard />} />
           <Route path="/saas/autumn" element={<AutumnInsightDashboard />} />
           <Route path="/saas/travel" element={<TravelDashboard />} />
           <Route path="/saas/finance" element={<FinanceDashboard />} />
