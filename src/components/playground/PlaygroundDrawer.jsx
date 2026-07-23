@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { X } from "lucide-react";
+import { X } from "../icons";
 import { IconButton } from "../ui";
 import { TasteControls } from "./TasteControls";
 

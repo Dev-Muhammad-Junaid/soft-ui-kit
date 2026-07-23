@@ -4,7 +4,7 @@ import {
   MapPin,
   Plane,
   Users,
-} from "lucide-react";
+} from "../../components/icons";
 import { BarChart, DonutChart, LineChart } from "../../components/charts/Charts";
 import { GlassRing } from "../../components/effects/GlassRing";
 import { SuggestedTasteBanner } from "../../components/saas/SuggestedTasteBanner";

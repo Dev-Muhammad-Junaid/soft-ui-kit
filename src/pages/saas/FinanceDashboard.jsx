@@ -5,7 +5,7 @@ import {
   CreditCard,
   PiggyBank,
   Wallet,
-} from "lucide-react";
+} from "../../components/icons";
 import { BarChart, DonutChart, LineChart, Sparkline } from "../../components/charts/Charts";
 import { GlassRing } from "../../components/effects/GlassRing";
 import { SuggestedTasteBanner } from "../../components/saas/SuggestedTasteBanner";

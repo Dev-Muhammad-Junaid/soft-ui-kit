@@ -8,7 +8,7 @@ import {
   Search,
   Server,
   Users,
-} from "lucide-react";
+} from "../../components/icons";
 import { BarChart, LineChart, Sparkline } from "../../components/charts/Charts";
 import {
   Badge,

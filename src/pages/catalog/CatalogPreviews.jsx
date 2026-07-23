@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, Check, Info, Search } from "lucide-react";
+import { Bell, Check, Info, Search } from "../../components/icons";
 import { BorderBeam } from "border-beam";
 import { MetalFx } from "metal-fx";
 import { BarChart, DonutChart, LineChart, Sparkline } from "../../components/charts";

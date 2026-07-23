@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "../components/icons";
 import { Card } from "../components/ui";
 import { useTheme } from "../theme/ThemeProvider";
 import { SAAS_PRESETS } from "../theme/presets";

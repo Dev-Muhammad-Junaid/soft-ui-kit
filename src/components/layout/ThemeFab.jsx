@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Palette } from "lucide-react";
+import { Palette } from "../icons";
 import { useTheme } from "../../theme/ThemeProvider";
 
 /** Floating theme switcher — separate from Taste playground. */

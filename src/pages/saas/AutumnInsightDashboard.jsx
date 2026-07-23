@@ -9,7 +9,7 @@ import {
   Settings,
   Sparkles,
   User,
-} from "lucide-react";
+} from "../../components/icons";
 import {
   DotMatrixChart,
   SegmentedBar,

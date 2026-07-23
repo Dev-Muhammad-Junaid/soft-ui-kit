@@ -1,6 +1,6 @@
 import { BorderBeam } from "border-beam";
 import { MetalFx } from "metal-fx";
-import { Sparkles } from "lucide-react";
+import { Sparkles } from "../components/icons";
 import { Badge, Button, Card } from "../components/ui";
 import { useTheme } from "../theme/ThemeProvider";
 

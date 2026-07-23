@@ -4,7 +4,7 @@ import {
   GripVertical,
   Plus,
   Timer,
-} from "lucide-react";
+} from "../../components/icons";
 import { BarChart, LineChart } from "../../components/charts/Charts";
 import { GlassRing } from "../../components/effects/GlassRing";
 import { SuggestedTasteBanner } from "../../components/saas/SuggestedTasteBanner";

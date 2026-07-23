@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw } from "../icons";
 import { IconButton } from "../ui";
 import { useTheme } from "../../theme/ThemeProvider";
 import { SAAS_PRESETS } from "../../theme/presets";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, SlidersHorizontal } from "lucide-react";
+import { Sparkles, SlidersHorizontal } from "../components/icons";
 import { GlassOrbField, GlassRing } from "../components/effects/GlassRing";
 import { PlaygroundDrawer } from "../components/playground/PlaygroundDrawer";
 import { ThemeFab } from "../components/layout/ThemeFab";

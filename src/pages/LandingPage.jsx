@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Check, Sparkles, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, Check, Sparkles, SlidersHorizontal } from "../components/icons";
 import { useState } from "react";
 import { GlassOrbField, GlassRing } from "../components/effects/GlassRing";
 import { PlaygroundDrawer } from "../components/playground/PlaygroundDrawer";

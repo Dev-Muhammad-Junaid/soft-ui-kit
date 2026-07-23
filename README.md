@@ -67,4 +67,5 @@ npm run preview:capture
 
 - React 19 + Vite + React Router
 - CSS tokens + Taste playground
+- Icons: [`@phosphor-icons/react`](https://phosphoricons.com/) (light strokes for glass UI)
 - Optional packs: [`border-beam`](https://www.npmjs.com/package/border-beam), [`metal-fx`](https://www.npmjs.com/package/metal-fx)

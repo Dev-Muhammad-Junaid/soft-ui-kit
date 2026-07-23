@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Home, PanelLeft, PanelLeftClose, Users } from "lucide-react";
+import { Home, PanelLeft, PanelLeftClose, Users } from "../icons";
 import clsx from "clsx";
 import { IconButton } from "../ui";
 

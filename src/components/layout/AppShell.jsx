@@ -13,7 +13,7 @@ import {
   TrendingUp,
   Wand2,
   Wallet,
-} from "lucide-react";
+} from "../icons";
 import { GlassOrbField, GlassRing } from "../effects/GlassRing";
 import { PlaygroundDrawer } from "../playground/PlaygroundDrawer";
 import { IconButton } from "../ui";

@@ -12,9 +12,9 @@
   },
   "homepage": "https://dev-muhammad-junaid.github.io/soft-ui-kit/",
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "border-beam": "^1.3.0",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.25.0",
     "metal-fx": "^1.0.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "../icons";
 
 function useEscapeClose(open, onClose) {
   useEffect(() => {
