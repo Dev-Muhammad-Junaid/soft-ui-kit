@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:capture": "node scripts/capture-preview.mjs"
   },
   "homepage": "https://dev-muhammad-junaid.github.io/soft-ui-kit/",
   "dependencies": {
@@ -24,6 +25,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
+    "playwright": "^1.61.1",
     "vite": "^8.1.1"
   }
 }

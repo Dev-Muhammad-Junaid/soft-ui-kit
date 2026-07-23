@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local full-res capture frames (keep gif + sm jpgs in docs/preview)
+docs/preview/*.png
