@@ -2,7 +2,7 @@ import { useEffect, useId, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Home, PanelLeft, PanelLeftClose, Users } from "lucide-react";
 import clsx from "clsx";
-import { IconButton, Tooltip } from "../ui";
+import { IconButton } from "../ui";
 
 const COLLAPSE_KEY = "suk-sidebar-collapsed";
 
@@ -81,61 +81,37 @@ export function DashboardShell({
             </div>
           </div>
           {collapsible ? (
-            <Tooltip content={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
-              <IconButton
-                className="sidebar-collapse-btn desktop-only"
-                variant="ghost"
-                label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-                aria-pressed={collapsed}
-                onClick={toggleCollapsed}
-              >
-                {collapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
-              </IconButton>
-            </Tooltip>
+            <IconButton
+              className="sidebar-collapse-btn desktop-only"
+              variant="ghost"
+              label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-pressed={collapsed}
+              onClick={toggleCollapsed}
+            >
+              {collapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
+            </IconButton>
           ) : null}
         </div>
 
         <nav className="side-nav" aria-label="Primary">
           {items.map((item) => {
             const Icon = item.icon;
-            const link = (
+            return (
               <NavLink
+                key={item.to || item.id}
                 to={item.to}
                 end={item.end}
-                title={collapsed ? item.label : undefined}
+                aria-label={item.label}
                 onClick={() => onMobileOpenChange?.(false)}
               >
                 {Icon ? <Icon size={18} strokeWidth={1.7} aria-hidden /> : null}
                 <span className="side-nav__label">{item.label}</span>
               </NavLink>
             );
-
-            if (!collapsed) {
-              return <div key={item.to || item.id}>{link}</div>;
-            }
-
-            return (
-              <Tooltip key={item.to || item.id} content={item.label}>
-                {link}
-              </Tooltip>
-            );
           })}
         </nav>
 
         {footer ? <div className="side-meta glass">{footer}</div> : null}
-
-        {collapsible ? (
-          <button
-            type="button"
-            className="sidebar-collapse-rail desktop-only"
-            onClick={toggleCollapsed}
-            aria-pressed={collapsed}
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {collapsed ? <PanelLeft size={16} /> : <PanelLeftClose size={16} />}
-            <span className="side-nav__label">{collapsed ? "Expand" : "Collapse"}</span>
-          </button>
-        ) : null}
       </aside>
 
       <div className="app-main">{children}</div>

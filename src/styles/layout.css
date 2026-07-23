@@ -42,6 +42,7 @@
 .app-sidebar.is-collapsed .dashboard-shell__brand-row {
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 .app-sidebar.is-collapsed .brand {
@@ -51,19 +52,8 @@
 
 .app-sidebar.is-collapsed .brand__text,
 .app-sidebar.is-collapsed .side-nav__label,
-.app-sidebar.is-collapsed .side-meta,
-.app-sidebar.is-collapsed .sidebar-collapse-btn {
+.app-sidebar.is-collapsed .side-meta {
   display: none;
-}
-
-.side-nav .ui-tooltip {
-  display: block;
-  width: 100%;
-}
-
-.side-nav .ui-tooltip > a,
-.side-nav > div > a {
-  width: 100%;
 }
 
 .app-sidebar.is-collapsed .side-nav a {
@@ -76,35 +66,9 @@
   flex-shrink: 0;
 }
 
-.sidebar-collapse-rail {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  margin-top: auto;
-  padding: 10px 12px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink-muted);
-  border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg) 35%, transparent);
-  transition: background 140ms ease, color 140ms ease;
-}
-
-.app-sidebar.is-collapsed .sidebar-collapse-rail {
-  display: inline-flex;
-  padding: 12px 0;
-}
-
-.sidebar-collapse-rail:hover {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--accent-soft) 45%, transparent);
-}
-
-.app-sidebar.is-collapsed .sidebar-collapse-rail .side-nav__label {
-  display: none;
+.app-sidebar.is-collapsed .sidebar-collapse-btn {
+  width: 40px;
+  height: 40px;
 }
 
 .desktop-only {
@@ -191,10 +155,6 @@
   font-size: 12px;
   color: var(--ink-muted);
   line-height: 1.45;
-}
-
-.app-sidebar.is-collapsed .side-meta {
-  display: none;
 }
 
 .app-main {
@@ -588,13 +548,11 @@
 
   .app-sidebar.is-collapsed .brand__text,
   .app-sidebar.is-collapsed .side-nav__label,
-  .app-sidebar.is-collapsed .side-meta,
-  .app-sidebar.is-collapsed .sidebar-collapse-btn {
+  .app-sidebar.is-collapsed .side-meta {
     display: revert;
   }
 
   .app-sidebar.is-collapsed .brand__text,
-  .app-sidebar.is-collapsed .side-nav__label,
   .app-sidebar.is-collapsed .side-meta {
     display: flex;
   }
@@ -609,8 +567,7 @@
     gap: 10px;
   }
 
-  .desktop-only,
-  .sidebar-collapse-rail {
+  .desktop-only {
     display: none !important;
   }
 

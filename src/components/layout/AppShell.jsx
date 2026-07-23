@@ -64,7 +64,7 @@ export function AppShell({ children, sidebarOpen, setSidebarOpen }) {
           ),
         }}
         items={LINKS}
-        footer="Collapse the sidebar for more canvas — Theme and Taste FABs stay available on every page."
+        footer="Use the sidebar icon to collapse to a rail — Theme and Taste FABs stay on every page."
       >
         <div className="page-actions page-actions--shell">
           <IconButton
