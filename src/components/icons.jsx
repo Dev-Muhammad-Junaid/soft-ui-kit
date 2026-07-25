@@ -17,6 +17,7 @@ import {
   Check as PhCheck,
   CheckCircle,
   Clock as PhClock,
+  CopySimple as PhCopySimple,
   CreditCard as PhCreditCard,
   Cube,
   DotsSixVertical,
@@ -87,6 +88,7 @@ export const Check = withKitDefaults(PhCheck);
 export const CheckCircle2 = withKitDefaults(CheckCircle);
 export const ChevronDown = withKitDefaults(CaretDown);
 export const Clock3 = withKitDefaults(PhClock);
+export const CopySimple = withKitDefaults(PhCopySimple);
 export const CreditCard = withKitDefaults(PhCreditCard);
 export const Eye = withKitDefaults(PhEye);
 export const EyeOff = withKitDefaults(EyeSlash);

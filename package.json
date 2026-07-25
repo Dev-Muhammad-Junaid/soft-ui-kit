@@ -1,31 +1,89 @@
 {
   "name": "soft-ui-kit",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Glass + soft UI kit for React — themes, Taste dials, components, and charts.",
   "type": "module",
+  "license": "MIT",
+  "author": "Dev-Muhammad-Junaid",
+  "homepage": "https://dev-muhammad-junaid.github.io/soft-ui-kit/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dev-Muhammad-Junaid/soft-ui-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dev-Muhammad-Junaid/soft-ui-kit/issues"
+  },
+  "keywords": [
+    "react",
+    "ui-kit",
+    "design-system",
+    "glassmorphism",
+    "components",
+    "charts",
+    "soft-ui"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist/lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/lib/soft-ui-kit.js",
+  "module": "./dist/lib/soft-ui-kit.js",
+  "exports": {
+    ".": {
+      "import": "./dist/lib/soft-ui-kit.js",
+      "default": "./dist/lib/soft-ui-kit.js"
+    },
+    "./styles.css": "./dist/lib/soft-ui-kit.css",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build:demo": "vite build",
+    "build:lib": "vite build --config vite.lib.config.js",
+    "build": "npm run build:demo && npm run build:lib",
+    "prepare": "npm run build:lib",
+    "prepublishOnly": "npm run test && npm run build:lib",
     "lint": "oxlint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "preview": "vite preview",
     "preview:capture": "node scripts/capture-preview.mjs"
   },
-  "homepage": "https://dev-muhammad-junaid.github.io/soft-ui-kit/",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "react-router-dom": ">=6"
+  },
+  "peerDependenciesMeta": {
+    "react-router-dom": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "border-beam": "^1.3.0",
     "clsx": "^2.1.1",
-    "metal-fx": "^1.0.4",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "metal-fx": "^1.0.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "jsdom": "^29.0.1",
     "oxlint": "^1.71.0",
     "playwright": "^1.61.1",
-    "vite": "^8.1.1"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1",
+    "vite": "^8.1.1",
+    "vitest": "^4.1.2"
   }
 }
