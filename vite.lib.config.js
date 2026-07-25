@@ -25,7 +25,6 @@ export default defineConfig({
         "@phosphor-icons/react",
         /^@phosphor-icons\/react\//,
         "border-beam",
-        "metal-fx",
       ],
       output: {
         assetFileNames: "soft-ui-kit.[ext]",

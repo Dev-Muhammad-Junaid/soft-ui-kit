@@ -1775,7 +1775,7 @@ var COMPONENT_REGISTRY = [
 		id: "bar-chart",
 		name: "Bar Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Interactive bars with hover tooltips.",
 		tags: ["analytics"],
 		animated: true
@@ -1784,7 +1784,7 @@ var COMPONENT_REGISTRY = [
 		id: "line-chart",
 		name: "Line / Area Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "SVG line with optional area fill and draw animation.",
 		tags: ["analytics"],
 		animated: true
@@ -1793,7 +1793,7 @@ var COMPONENT_REGISTRY = [
 		id: "donut-chart",
 		name: "Donut Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Segmented donut with legend hover.",
 		tags: ["analytics"],
 		animated: true
@@ -1802,6 +1802,7 @@ var COMPONENT_REGISTRY = [
 		id: "sparkline",
 		name: "Sparkline",
 		category: "charts",
+		span: "wide",
 		description: "Inline trend glyph for KPI cards.",
 		tags: ["kpi"],
 		animated: true
@@ -1810,7 +1811,7 @@ var COMPONENT_REGISTRY = [
 		id: "dot-matrix",
 		name: "Dot Matrix Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Autumn-style square pixel columns with glass tooltip.",
 		tags: ["analytics", "ops"],
 		animated: true
@@ -1837,7 +1838,7 @@ var COMPONENT_REGISTRY = [
 		id: "heatmap",
 		name: "Heatmap",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Intensity grid for activity and ops.",
 		tags: ["analytics"],
 		animated: true
@@ -1855,7 +1856,7 @@ var COMPONENT_REGISTRY = [
 		id: "radial-bars",
 		name: "Radial Bars",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Multi-ring activity metrics.",
 		tags: ["kpi"],
 		animated: true
@@ -1864,7 +1865,7 @@ var COMPONENT_REGISTRY = [
 		id: "radar-chart",
 		name: "Radar Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Spider chart for multi-axis scores.",
 		tags: ["analytics"],
 		animated: true
@@ -1873,7 +1874,7 @@ var COMPONENT_REGISTRY = [
 		id: "funnel-chart",
 		name: "Funnel Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Conversion stage funnel.",
 		tags: ["analytics"],
 		animated: true
@@ -1882,7 +1883,7 @@ var COMPONENT_REGISTRY = [
 		id: "scatter-chart",
 		name: "Scatter Chart",
 		category: "charts",
-		span: "wide",
+		span: "full",
 		description: "Point cloud for correlation views.",
 		tags: ["analytics"],
 		animated: true
@@ -1902,15 +1903,6 @@ var COMPONENT_REGISTRY = [
 		category: "effects",
 		span: "full",
 		description: "Animated traveling / pulse border glow (border-beam).",
-		tags: ["motion", "npm"],
-		animated: true
-	},
-	{
-		id: "metal-fx",
-		name: "Metal FX",
-		category: "effects",
-		span: "full",
-		description: "WebGL liquid-metal ring for buttons (metal-fx).",
 		tags: ["motion", "npm"],
 		animated: true
 	}
@@ -2085,8 +2077,7 @@ var TWEAK_GROUPS = [
 ];
 var DEFAULT_EFFECTS = {
 	borderBeam: "off",
-	borderBeamColor: "ocean",
-	metalFx: "off"
+	borderBeamColor: "ocean"
 };
 TWEAK_GROUPS.flatMap((g) => g.controls);
 //#endregion
@@ -2191,10 +2182,12 @@ function ThemeProvider({ children }) {
 	const [effects, setEffects] = useState(() => {
 		try {
 			const raw = localStorage.getItem("suk-effects");
-			return raw ? {
+			if (!raw) return DEFAULT_EFFECTS;
+			const { metalFx: _legacyMetal, ...rest } = JSON.parse(raw);
+			return {
 				...DEFAULT_EFFECTS,
-				...JSON.parse(raw)
-			} : DEFAULT_EFFECTS;
+				...rest
+			};
 		} catch {
 			return DEFAULT_EFFECTS;
 		}
@@ -2218,7 +2211,7 @@ function ThemeProvider({ children }) {
 	useEffect(() => {
 		localStorage.setItem("suk-effects", JSON.stringify(effects));
 		document.documentElement.dataset.beam = effects.borderBeam;
-		document.documentElement.dataset.metal = effects.metalFx;
+		delete document.documentElement.dataset.metal;
 	}, [effects]);
 	useEffect(() => {
 		function onKeyDown(e) {

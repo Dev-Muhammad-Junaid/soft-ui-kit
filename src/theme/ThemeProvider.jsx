@@ -117,7 +117,10 @@ export function ThemeProvider({ children }) {
   const [effects, setEffects] = useState(() => {
     try {
       const raw = localStorage.getItem("suk-effects");
-      return raw ? { ...DEFAULT_EFFECTS, ...JSON.parse(raw) } : DEFAULT_EFFECTS;
+      if (!raw) return DEFAULT_EFFECTS;
+      const parsed = JSON.parse(raw);
+      const { metalFx: _legacyMetal, ...rest } = parsed;
+      return { ...DEFAULT_EFFECTS, ...rest };
     } catch {
       return DEFAULT_EFFECTS;
     }
@@ -146,7 +149,7 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     localStorage.setItem("suk-effects", JSON.stringify(effects));
     document.documentElement.dataset.beam = effects.borderBeam;
-    document.documentElement.dataset.metal = effects.metalFx;
+    delete document.documentElement.dataset.metal;
   }, [effects]);
 
   // Shift+1 … Shift+N cycles themes by index (1-based).

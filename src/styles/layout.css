@@ -1575,19 +1575,6 @@
   gap: 12px;
   justify-items: start;
 }
-.metal-host {
-  position: relative;
-}
-.metal-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--glass-base);
-  border: 1px solid var(--line);
-  color: var(--ink);
-}
 .catalog-card__preview {
   overflow: visible;
 }
@@ -1667,12 +1654,6 @@
 .catalog-effect-demo__stage {
   width: 100%;
 }
-.catalog-effect-demo__stage--metal {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  align-items: center;
-}
 .catalog-effect-demo__card {
   padding: 16px;
   border-radius: var(--radius-lg);
@@ -1687,6 +1668,65 @@
   font-size: 12px;
   color: var(--ink-muted);
   line-height: 1.4;
+}
+
+/* Catalog chart previews — consistent height / alignment */
+.catalog-chart {
+  width: 100%;
+  min-height: 240px;
+  display: grid;
+  align-content: stretch;
+}
+.catalog-chart--center {
+  place-items: center;
+  align-content: center;
+}
+.catalog-chart--donut {
+  align-content: center;
+}
+.catalog-chart--spark,
+.catalog-chart--bar-flat {
+  min-height: 120px;
+  align-content: center;
+}
+.catalog-chart .chart,
+.catalog-chart .dot-chart {
+  width: 100%;
+}
+.catalog-chart .chart-svg,
+.catalog-chart .scatter-svg {
+  height: 240px;
+}
+.catalog-chart .chart-bars,
+.catalog-chart .chart-bars--interactive {
+  height: 200px;
+}
+.catalog-chart .heatmap-grid {
+  min-height: 200px;
+}
+.catalog-chart .chart--funnel {
+  min-height: 220px;
+  align-content: center;
+}
+.catalog-chart .funnel-bar {
+  min-height: 40px;
+}
+.catalog-chart .chart--donut {
+  min-height: 220px;
+  align-items: center;
+}
+.catalog-chart .chart--radar,
+.catalog-chart .chart--radial,
+.catalog-chart .chart--radial-bars {
+  min-height: 240px;
+  justify-content: center;
+  align-items: center;
+}
+.catalog-chart .dot-chart__body {
+  min-height: 200px;
+}
+.catalog-card__preview > .catalog-chart {
+  width: 100%;
 }
 
 .dash-preview {

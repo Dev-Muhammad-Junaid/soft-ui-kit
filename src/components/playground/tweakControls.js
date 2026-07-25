@@ -123,17 +123,9 @@ export const BORDER_BEAM_COLORS = [
   { id: "mono", label: "Mono" },
 ];
 
-export const METAL_FX_OPTIONS = [
-  { id: "off", label: "Off" },
-  { id: "chromatic", label: "Chromatic" },
-  { id: "gold", label: "Gold" },
-  { id: "silver", label: "Silver" },
-];
-
 export const DEFAULT_EFFECTS = {
   borderBeam: "off",
   borderBeamColor: "ocean",
-  metalFx: "off",
 };
 
 /** Flat list of slider controls. */

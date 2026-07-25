@@ -1,11 +1,9 @@
 import { BorderBeam } from "border-beam";
-import { MetalFx } from "metal-fx";
 import { Button, Card, Slider } from "../ui";
 import { useTheme } from "../../theme/ThemeProvider";
 import {
   BORDER_BEAM_COLORS,
   BORDER_BEAM_OPTIONS,
-  METAL_FX_OPTIONS,
   TWEAK_GROUPS,
 } from "./tweakControls";
 
@@ -63,21 +61,12 @@ function EffectsTasteBlock({
   resetEffects,
 }) {
   const beamOn = effects.borderBeam !== "off";
-  const metalOn = effects.metalFx !== "off";
 
   const previewCard = (
     <div className="taste-effect-preview__card glass sheen">
       <strong>Preview surface</strong>
-      <p>Try beam + metal before you commit them in product UI.</p>
-      {metalOn ? (
-        <MetalFx variant="button" preset={effects.metalFx} theme={effectTheme} strength={0.85}>
-          <button type="button" className="ui-btn ui-btn--primary ui-btn--sm metal-host">
-            Metal CTA
-          </button>
-        </MetalFx>
-      ) : (
-        <Button size="sm">Primary CTA</Button>
-      )}
+      <p>Try border beam before you commit it in product UI.</p>
+      <Button size="sm">Primary CTA</Button>
     </div>
   );
 
@@ -121,26 +110,13 @@ function EffectsTasteBlock({
         ) : null}
       </section>
 
-      <section className="taste-group">
-        <header className="taste-group__head">
-          <h3>Metal FX</h3>
-          <p>Liquid-metal ring on buttons (`metal-fx`) — use sparingly</p>
-        </header>
-        <OptionChips
-          ariaLabel="Metal FX preset"
-          options={METAL_FX_OPTIONS}
-          value={effects.metalFx}
-          onChange={(id) => updateEffect("metalFx", id)}
-        />
-      </section>
-
       <section className="taste-group taste-effect-preview">
         <header className="taste-group__head">
           <h3>Live preview</h3>
           <p>
-            {beamOn || metalOn
-              ? "Your current effect mix on a sample surface"
-              : "Effects are off — turn one on above to preview"}
+            {beamOn
+              ? "Your current beam on a sample surface"
+              : "Effects are off — turn beam on above to preview"}
           </p>
         </header>
         {beamOn ? (
@@ -148,14 +124,14 @@ function EffectsTasteBlock({
             size={effects.borderBeam}
             colorVariant={effects.borderBeamColor}
             theme={effectTheme}
-            strength={0.85}
+            strength={1}
           >
             {previewCard}
           </BorderBeam>
         ) : (
           previewCard
         )}
-        {(beamOn || metalOn) && (
+        {beamOn && (
           <div className="row" style={{ marginTop: 10 }}>
             <Button variant="secondary" size="sm" onClick={resetEffects}>
               Clear effects

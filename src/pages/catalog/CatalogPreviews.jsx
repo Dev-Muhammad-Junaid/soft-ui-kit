@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { Bell, Check, Info, Search, Sparkles } from "../../components/icons";
+import { Bell, Check, Info, Search } from "../../components/icons";
 import { BorderBeam } from "border-beam";
-import { MetalFx } from "metal-fx";
 import { useTheme } from "../../theme/ThemeProvider";
 import {
   BORDER_BEAM_COLORS,
   BORDER_BEAM_OPTIONS,
-  METAL_FX_OPTIONS,
 } from "../../components/playground/tweakControls";
 import { BarChart, DonutChart, LineChart, Sparkline } from "../../components/charts";
 import {
@@ -62,6 +60,61 @@ import {
   Tooltip,
 } from "../../components/ui";
 
+function randInt(min, max) {
+  return Math.floor(min + Math.random() * (max - min + 1));
+}
+
+function makeSeries(count, min, max) {
+  return Array.from({ length: count }, () => randInt(min, max));
+}
+
+const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const WEEK_LABELS = Array.from({ length: 16 }, (_, i) => `W${i + 1}`);
+
+/** Stable-enough demo series for catalog cards (generated once per page load). */
+const CHART_DEMO = {
+  barValues: makeSeries(12, 42, 98),
+  barLabels: MONTHS_SHORT,
+  lineValues: makeSeries(16, 22, 94),
+  lineLabels: WEEK_LABELS,
+  sparkValues: makeSeries(24, 8, 28),
+  donut: [
+    { label: "Product", value: randInt(28, 40), color: "#38bdf8" },
+    { label: "Services", value: randInt(18, 28), color: "#a78bfa" },
+    { label: "Support", value: randInt(12, 20), color: "#34d399" },
+    { label: "Other", value: randInt(8, 16), color: "#fb923c" },
+    { label: "Partner", value: randInt(6, 12), color: "#f472b6" },
+  ],
+  dots: makeSeries(12, 90, 280),
+  heatmap: Array.from({ length: 7 * 16 }, () => randInt(8, 96)),
+  radar: makeSeries(6, 48, 96),
+  funnel: [
+    { label: "Visitors", value: 100, color: "#38bdf8" },
+    { label: "Signups", value: randInt(68, 82), color: "#818cf8" },
+    { label: "Trials", value: randInt(42, 58), color: "#a78bfa" },
+    { label: "Paid", value: randInt(24, 36), color: "#34d399" },
+    { label: "Retained", value: randInt(12, 22), color: "#fbbf24" },
+  ],
+  scatter: Array.from({ length: 28 }, () => ({
+    x: randInt(4, 96),
+    y: randInt(8, 92),
+  })),
+  radialValue: randInt(68, 92),
+  radialBars: [
+    { label: "Active", value: randInt(72, 94), color: "#fb7185" },
+    { label: "Engaged", value: randInt(55, 80), color: "#34d399" },
+    { label: "Converted", value: randInt(40, 70), color: "#38bdf8" },
+    { label: "NPS", value: randInt(60, 90), color: "#a78bfa" },
+  ],
+  segments: [
+    { label: "Direct", value: randInt(18, 28), color: "#f97316" },
+    { label: "Search", value: randInt(16, 26), color: "#fbbf24" },
+    { label: "Social", value: randInt(12, 22), color: "#2dd4bf" },
+    { label: "Referral", value: randInt(10, 18), color: "#38bdf8" },
+    { label: "Email", value: randInt(8, 16), color: "#a78bfa" },
+  ],
+};
+
 /** Live preview for each catalog registry id. */
 export function CatalogPreview({ id }) {
   const { effectTheme } = useTheme();
@@ -76,7 +129,6 @@ export function CatalogPreview({ id }) {
   const [pressed, setPressed] = useState(false);
   const [beamSize, setBeamSize] = useState("md");
   const [beamColor, setBeamColor] = useState("ocean");
-  const [metalPreset, setMetalPreset] = useState("chromatic");
 
   switch (id) {
     case "button":
@@ -456,93 +508,104 @@ export function CatalogPreview({ id }) {
         />
       );
     case "bar-chart":
-      return <BarChart values={[20, 35, 28, 44]} labels={["A", "B", "C", "D"]} />;
+      return (
+        <div className="catalog-chart">
+          <BarChart values={CHART_DEMO.barValues} labels={CHART_DEMO.barLabels} />
+        </div>
+      );
     case "line-chart":
-      return <LineChart fill values={[10, 18, 14, 24, 20]} labels={["1", "2", "3", "4", "5"]} />;
+      return (
+        <div className="catalog-chart">
+          <LineChart fill values={CHART_DEMO.lineValues} labels={CHART_DEMO.lineLabels} />
+        </div>
+      );
     case "donut-chart":
       return (
-        <DonutChart
-          segments={[
-            { label: "A", value: 40, color: "#38bdf8" },
-            { label: "B", value: 35, color: "#a78bfa" },
-            { label: "C", value: 25, color: "#34d399" },
-          ]}
-        />
+        <div className="catalog-chart catalog-chart--donut">
+          <DonutChart segments={CHART_DEMO.donut} centerLabel="Share" />
+        </div>
       );
     case "sparkline":
       return (
-        <div className="preview-row">
-          <strong>KPI</strong>
-          <Sparkline values={[8, 12, 10, 16, 14, 20]} />
+        <div className="catalog-chart catalog-chart--spark">
+          <div className="preview-row">
+            <div>
+              <strong>Revenue</strong>
+              <p className="preview-note">24-point trend</p>
+            </div>
+            <Sparkline values={CHART_DEMO.sparkValues} />
+          </div>
         </div>
       );
     case "dot-matrix":
       return (
-        <DotMatrixChart
-          series={[80, 120, 100, 160, 140, 180]}
-          labels={["J", "F", "M", "A", "M", "J"]}
-          rows={12}
-          max={200}
-        />
+        <div className="catalog-chart">
+          <DotMatrixChart
+            series={CHART_DEMO.dots}
+            labels={MONTHS_SHORT}
+            rows={18}
+            max={300}
+          />
+        </div>
       );
     case "segmented-bar":
       return (
-        <SegmentedBar
-          segments={[
-            { label: "A", value: 30, color: "#f97316" },
-            { label: "B", value: 25, color: "#fbbf24" },
-            { label: "C", value: 45, color: "#2dd4bf" },
-          ]}
-        />
+        <div className="catalog-chart catalog-chart--bar-flat">
+          <SegmentedBar segments={CHART_DEMO.segments} />
+        </div>
       );
     case "timeline-bar":
       return (
-        <TimelineBar
-          markers={[
-            { label: "12", at: "20%", weight: 1, color: "#93c5fd" },
-            { label: "64%", at: "70%", weight: 2, color: "#3b82f6" },
-          ]}
-        />
+        <div className="catalog-chart catalog-chart--bar-flat">
+          <TimelineBar
+            markers={[
+              { label: "Kickoff", at: "12%", weight: 1, color: "#93c5fd" },
+              { label: "Alpha", at: "34%", weight: 1, color: "#60a5fa" },
+              { label: "Beta", at: "58%", weight: 2, color: "#3b82f6" },
+              { label: "GA", at: "82%", weight: 2, color: "#2563eb" },
+            ]}
+          />
+        </div>
       );
     case "heatmap":
-      return <HeatmapChart rows={5} cols={8} />;
+      return (
+        <div className="catalog-chart">
+          <HeatmapChart rows={7} cols={16} values={CHART_DEMO.heatmap} />
+        </div>
+      );
     case "radial-progress":
-      return <RadialProgress value={72} size={96} label="Score" />;
+      return (
+        <div className="catalog-chart catalog-chart--center">
+          <RadialProgress value={CHART_DEMO.radialValue} size={168} label="Score" />
+        </div>
+      );
     case "radial-bars":
       return (
-        <RadialBars
-          series={[
-            { label: "A", value: 80, color: "#fb7185" },
-            { label: "B", value: 60, color: "#34d399" },
-            { label: "C", value: 90, color: "#38bdf8" },
-          ]}
-        />
+        <div className="catalog-chart catalog-chart--center">
+          <RadialBars series={CHART_DEMO.radialBars} size={220} />
+        </div>
       );
     case "radar-chart":
       return (
-        <RadarChart axes={["A", "B", "C", "D", "E"]} values={[70, 55, 80, 60, 75]} />
+        <div className="catalog-chart catalog-chart--center">
+          <RadarChart
+            axes={["Speed", "UX", "A11y", "Scale", "Cost", "Trust"]}
+            values={CHART_DEMO.radar}
+            size={280}
+          />
+        </div>
       );
     case "funnel-chart":
       return (
-        <FunnelChart
-          stages={[
-            { label: "In", value: 100, color: "#38bdf8" },
-            { label: "Mid", value: 62, color: "#a78bfa" },
-            { label: "Out", value: 28, color: "#34d399" },
-          ]}
-        />
+        <div className="catalog-chart">
+          <FunnelChart stages={CHART_DEMO.funnel} />
+        </div>
       );
     case "scatter-chart":
       return (
-        <ScatterChart
-          points={[
-            { x: 10, y: 20 },
-            { x: 25, y: 35 },
-            { x: 40, y: 30 },
-            { x: 55, y: 55 },
-            { x: 70, y: 48 },
-          ]}
-        />
+        <div className="catalog-chart">
+          <ScatterChart points={CHART_DEMO.scatter} />
+        </div>
       );
     case "glass-ring":
       return (
@@ -595,7 +658,7 @@ export function CatalogPreview({ id }) {
             ))}
           </div>
           <div className="catalog-effect-demo__stage">
-            <BorderBeam size={beamSize} colorVariant={beamColor} theme={effectTheme} strength={0.85}>
+            <BorderBeam size={beamSize} colorVariant={beamColor} theme={effectTheme} strength={1}>
               <div className="catalog-effect-demo__card glass sheen">
                 <strong>{beamSize}</strong>
                 <p>Travel, compact, line, pulse, and halo — pick a color variant.</p>
@@ -604,40 +667,6 @@ export function CatalogPreview({ id }) {
                 </Button>
               </div>
             </BorderBeam>
-          </div>
-        </div>
-      );
-    case "metal-fx":
-      return (
-        <div className="preview-stack catalog-effect-demo">
-          <div className="preview-row">
-            {METAL_FX_OPTIONS.filter((o) => o.id !== "off").map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                className={`taste-option-chip${metalPreset === opt.id ? " is-active" : ""}`}
-                onClick={() => setMetalPreset(opt.id)}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <div className="catalog-effect-demo__stage catalog-effect-demo__stage--metal">
-            <MetalFx variant="button" preset={metalPreset} theme={effectTheme} strength={0.9}>
-              <button type="button" className="ui-btn ui-btn--primary ui-btn--md metal-host">
-                {metalPreset} metal
-              </button>
-            </MetalFx>
-            <MetalFx variant="button" preset={metalPreset} theme={effectTheme}>
-              <button type="button" className="ui-btn ui-btn--outline ui-btn--md metal-host">
-                Outline host
-              </button>
-            </MetalFx>
-            <MetalFx variant="circle" preset={metalPreset} theme={effectTheme}>
-              <button type="button" className="metal-circle" aria-label="Spark">
-                <Sparkles size={18} />
-              </button>
-            </MetalFx>
           </div>
         </div>
       );
