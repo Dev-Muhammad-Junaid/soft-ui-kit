@@ -216,9 +216,9 @@ export function AutumnInsightDashboard() {
           </div>
           <SegmentedBar
             segments={[
-              { label: "Issues", value: 18, color: "#f97316" },
-              { label: "Moderate", value: 24, color: "#fbbf24" },
-              { label: "Stable", value: 58, color: "#2dd4bf" },
+              { label: "Issues", value: 18, color: "var(--warning)" },
+              { label: "Moderate", value: 24, color: "var(--chart-4)" },
+              { label: "Stable", value: 58, color: "var(--success)" },
             ]}
           />
           <ul className="workflow-list">
@@ -253,9 +253,9 @@ export function AutumnInsightDashboard() {
           </div>
           <TimelineBar
             markers={[
-              { label: "15", at: "18%", weight: 1.2, color: "#93c5fd" },
-              { label: "24", at: "42%", weight: 1.6, color: "#60a5fa" },
-              { label: "87%", at: "78%", weight: 2.2, color: "#3b82f6" },
+              { label: "15", at: "18%", weight: 1.2, color: "var(--chart-4)" },
+              { label: "24", at: "42%", weight: 1.6, color: "var(--chart-1)" },
+              { label: "87%", at: "78%", weight: 2.2, color: "var(--accent)" },
             ]}
           />
           <p className="autumn-note">

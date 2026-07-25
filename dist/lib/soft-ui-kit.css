@@ -2052,8 +2052,8 @@ a.ui-btn {
   flex: 0.7;
   background: repeating-linear-gradient(
     -45deg,
-    color-mix(in srgb, #93c5fd 55%, transparent),
-    color-mix(in srgb, #93c5fd 55%, transparent) 4px,
+    color-mix(in srgb, var(--chart-1) 55%, transparent),
+    color-mix(in srgb, var(--chart-1) 55%, transparent) 4px,
     transparent 4px,
     transparent 8px
   );

@@ -140,9 +140,9 @@ export function LandingPage() {
             </ul>
             <DonutChart
               segments={[
-                { label: "UI", value: 45, color: "#38bdf8" },
-                { label: "Charts", value: 30, color: "#a78bfa" },
-                { label: "Themes", value: 25, color: "#34d399" },
+                { label: "UI", value: 45, color: "var(--chart-1)" },
+                { label: "Charts", value: 30, color: "var(--chart-2)" },
+                { label: "Themes", value: 25, color: "var(--chart-3)" },
               ]}
             />
           </Card>

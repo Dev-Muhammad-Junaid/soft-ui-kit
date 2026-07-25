@@ -151,7 +151,7 @@ export function TimelineBar({ markers, className, stripedTail = true }) {
             className="timeline-bar__seg"
             style={{
               flex: m.weight || 1,
-              background: m.color || "hsl(210 80% 70%)",
+              background: m.color || "var(--chart-1)",
               opacity: 0.55 + i * 0.12,
             }}
           />

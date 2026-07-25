@@ -103,11 +103,11 @@ export function FinanceDashboard() {
             centerLabel="Spend"
             centerValue="$740k"
             segments={[
-              { label: "Payroll", value: 42, color: "#111827" },
-              { label: "Cloud", value: 18, color: "#2563eb" },
-              { label: "Marketing", value: 16, color: "#059669" },
-              { label: "Ops", value: 14, color: "#d97706" },
-              { label: "Other", value: 10, color: "#6b7280" },
+              { label: "Payroll", value: 42, color: "var(--chart-1)" },
+              { label: "Cloud", value: 18, color: "var(--chart-2)" },
+              { label: "Marketing", value: 16, color: "var(--chart-3)" },
+              { label: "Ops", value: 14, color: "var(--chart-4)" },
+              { label: "Other", value: 10, color: "var(--ink-muted)" },
             ]}
           />
         </Card>
@@ -157,7 +157,7 @@ export function FinanceDashboard() {
                   key: "amount",
                   label: "Amount",
                   render: (r) => (
-                    <span style={{ color: r.amount.startsWith("+") ? "#059669" : "var(--ink)" }}>
+                    <span style={{ color: r.amount.startsWith("+") ? "var(--success)" : "var(--ink)" }}>
                       {r.amount}
                     </span>
                   ),

@@ -29,32 +29,32 @@ const DEMO = {
   radar: makeSeries(6, 48, 96),
   scatter: Array.from({ length: 28 }, () => ({ x: randInt(4, 96), y: randInt(8, 92) })),
   donut: [
-    { label: "Product", value: randInt(28, 40), color: "#38bdf8" },
-    { label: "Services", value: randInt(18, 28), color: "#a78bfa" },
-    { label: "Support", value: randInt(12, 20), color: "#34d399" },
-    { label: "Other", value: randInt(8, 16), color: "#fb923c" },
-    { label: "Partner", value: randInt(6, 12), color: "#f472b6" },
+    { label: "Product", value: randInt(28, 40), color: "var(--chart-1)" },
+    { label: "Services", value: randInt(18, 28), color: "var(--chart-2)" },
+    { label: "Support", value: randInt(12, 20), color: "var(--chart-3)" },
+    { label: "Other", value: randInt(8, 16), color: "var(--chart-4)" },
+    { label: "Partner", value: randInt(6, 12), color: "var(--accent)" },
   ],
   funnel: [
-    { label: "Visitors", value: 1200, color: "#38bdf8" },
-    { label: "Signups", value: randInt(620, 780), color: "#818cf8" },
-    { label: "Trials", value: randInt(300, 420), color: "#a78bfa" },
-    { label: "Paid", value: randInt(120, 180), color: "#34d399" },
-    { label: "Retained", value: randInt(60, 110), color: "#fb923c" },
+    { label: "Visitors", value: 1200, color: "var(--chart-1)" },
+    { label: "Signups", value: randInt(620, 780), color: "var(--chart-2)" },
+    { label: "Trials", value: randInt(300, 420), color: "var(--chart-3)" },
+    { label: "Paid", value: randInt(120, 180), color: "var(--chart-4)" },
+    { label: "Retained", value: randInt(60, 110), color: "var(--accent)" },
   ],
   segments: [
-    { label: "Direct", value: randInt(18, 28), color: "#f97316" },
-    { label: "Search", value: randInt(16, 26), color: "#fbbf24" },
-    { label: "Social", value: randInt(12, 22), color: "#2dd4bf" },
-    { label: "Referral", value: randInt(10, 18), color: "#38bdf8" },
-    { label: "Email", value: randInt(8, 16), color: "#a78bfa" },
+    { label: "Direct", value: randInt(18, 28), color: "var(--chart-1)" },
+    { label: "Search", value: randInt(16, 26), color: "var(--chart-2)" },
+    { label: "Social", value: randInt(12, 22), color: "var(--chart-3)" },
+    { label: "Referral", value: randInt(10, 18), color: "var(--chart-4)" },
+    { label: "Email", value: randInt(8, 16), color: "var(--accent)" },
   ],
   radial: randInt(68, 92),
   radialBars: [
-    { label: "Move", value: randInt(72, 94), color: "#fb7185" },
-    { label: "Exercise", value: randInt(55, 80), color: "#34d399" },
-    { label: "Stand", value: randInt(70, 96), color: "#38bdf8" },
-    { label: "Focus", value: randInt(48, 78), color: "#a78bfa" },
+    { label: "Move", value: randInt(72, 94), color: "var(--chart-1)" },
+    { label: "Exercise", value: randInt(55, 80), color: "var(--chart-2)" },
+    { label: "Stand", value: randInt(70, 96), color: "var(--chart-3)" },
+    { label: "Focus", value: randInt(48, 78), color: "var(--chart-4)" },
   ],
   sparks: [
     makeSeries(24, 10, 28),
@@ -129,10 +129,10 @@ export function ChartsGalleryPage() {
         <Card className="is-hoverable chart-card--lg" title="Timeline + sparklines" description="Ops + KPI glyphs">
           <TimelineBar
             markers={[
-              { label: "Kickoff", at: "12%", weight: 1, color: "#93c5fd" },
-              { label: "Alpha", at: "34%", weight: 1.2, color: "#60a5fa" },
-              { label: "Beta", at: "58%", weight: 1.6, color: "#3b82f6" },
-              { label: "GA", at: "82%", weight: 2, color: "#2563eb" },
+              { label: "Kickoff", at: "12%", weight: 1, color: "var(--chart-4)" },
+              { label: "Alpha", at: "34%", weight: 1.2, color: "var(--chart-1)" },
+              { label: "Beta", at: "58%", weight: 1.6, color: "var(--chart-2)" },
+              { label: "GA", at: "82%", weight: 2, color: "var(--accent)" },
             ]}
           />
           <div className="row" style={{ marginTop: 18, justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>

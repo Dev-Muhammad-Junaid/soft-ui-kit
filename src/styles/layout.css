@@ -266,10 +266,10 @@
 }
 
 .stat-card__delta.up {
-  color: #059669;
+  color: var(--success);
 }
 .stat-card__delta.down {
-  color: #e11d48;
+  color: var(--danger);
 }
 
 .chart-bars {
@@ -1231,8 +1231,8 @@
 .kpi-tab__label { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
 .kpi-tab__value { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
 .kpi-tab__delta { font-size: 12px; font-weight: 700; }
-.kpi-tab__delta.up, .autumn-hero-stat .up, .workflow-list .up { color: #16a34a; }
-.kpi-tab__delta.down, .workflow-list .down { color: #dc2626; }
+.kpi-tab__delta.up, .autumn-hero-stat .up, .workflow-list .up { color: var(--success); }
+.kpi-tab__delta.down, .workflow-list .down { color: var(--danger); }
 
 .autumn-hero-stat {
   display: flex;
@@ -1341,7 +1341,7 @@
   border-radius: calc(14px * var(--t-radius));
   background: color-mix(in srgb, var(--bg) 70%, transparent);
 }
-.flow-steps__icon { color: #16a34a; margin-top: 2px; }
+.flow-steps__icon { color: var(--success); margin-top: 2px; }
 .flow-steps a {
   display: block;
   font-weight: 800;

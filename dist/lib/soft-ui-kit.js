@@ -1957,11 +1957,16 @@ function applyDocumentTheme(themeId, tweaks) {
 	root.style.setProperty("--t-hover-lift", String(tweaks.hoverLift));
 	root.style.setProperty("--t-motion", String(tweaks.motionStrength));
 	const isDark = themeId === "dusk" || themeId === "midnight";
-	root.style.setProperty("--accent", `hsl(${hue} 85% ${isDark ? 58 : 48}%)`);
+	const accent = `hsl(${hue} 85% ${isDark ? 58 : 48}%)`;
+	root.style.setProperty("--accent", accent);
 	root.style.setProperty("--accent-soft", isDark ? `hsl(${hue} 42% 20%)` : `hsl(${hue} 90% 92%)`);
 	root.style.setProperty("--accent-ink", isDark ? `hsl(${hue} 90% 78%)` : `hsl(${hue} 70% 28%)`);
 	root.style.setProperty("--focus-ring", `hsl(${hue} 85% ${isDark ? 62 : 52}%)`);
 	root.style.setProperty("--focus-glow", `hsl(${hue} 90% 60% / 0.28)`);
+	root.style.setProperty("--chart-1", accent);
+	root.style.setProperty("--chart-2", `hsl(${(hue + 48) % 360} 75% ${isDark ? 68 : 58}%)`);
+	root.style.setProperty("--chart-3", `hsl(${(hue + 130) % 360} 70% ${isDark ? 58 : 46}%)`);
+	root.style.setProperty("--chart-4", `hsl(${(hue + 210) % 360} 80% ${isDark ? 62 : 52}%)`);
 }
 function ThemeProvider({ children }) {
 	const [themeId, setThemeIdState] = useState(() => {
@@ -2414,15 +2419,15 @@ function RadialBars({ series = [], className = "", size = 200 }) {
 					cy,
 					r,
 					strokeWidth: size * .07,
-					stroke: s.color || "var(--chart-1)",
+					stroke: s.color || `var(--chart-${i % 4 + 1})`,
 					strokeDasharray: `${dash} ${c}`,
 					transform: `rotate(-90 ${cx} ${cy})`
 				})] }, s.label);
 			})
 		}), /* @__PURE__ */ jsx("ul", {
 			className: "radial-bars__legend",
-			children: series.map((s) => /* @__PURE__ */ jsxs("li", { children: [
-				/* @__PURE__ */ jsx("i", { style: { background: s.color } }),
+			children: series.map((s, i) => /* @__PURE__ */ jsxs("li", { children: [
+				/* @__PURE__ */ jsx("i", { style: { background: s.color || `var(--chart-${i % 4 + 1})` } }),
 				/* @__PURE__ */ jsx("span", { children: s.label }),
 				/* @__PURE__ */ jsxs("strong", { children: [s.value, "%"] })
 			] }, s.label))
@@ -2709,7 +2714,7 @@ function TimelineBar({ markers, className, stripedTail = true }) {
 				className: "timeline-bar__seg",
 				style: {
 					flex: m.weight || 1,
-					background: m.color || "hsl(210 80% 70%)",
+					background: m.color || "var(--chart-1)",
 					opacity: .55 + i * .12
 				}
 			}, m.id || m.label)), stripedTail ? /* @__PURE__ */ jsx("div", { className: "timeline-bar__tail" }) : null]

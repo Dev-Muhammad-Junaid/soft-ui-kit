@@ -126,7 +126,7 @@ export function RadialBars({
                 cy={cy}
                 r={r}
                 strokeWidth={size * 0.07}
-                stroke={s.color || "var(--chart-1)"}
+                stroke={s.color || `var(--chart-${(i % 4) + 1})`}
                 strokeDasharray={`${dash} ${c}`}
                 transform={`rotate(-90 ${cx} ${cy})`}
               />
@@ -135,9 +135,9 @@ export function RadialBars({
         })}
       </svg>
       <ul className="radial-bars__legend">
-        {series.map((s) => (
+        {series.map((s, i) => (
           <li key={s.label}>
-            <i style={{ background: s.color }} />
+            <i style={{ background: s.color || `var(--chart-${(i % 4) + 1})` }} />
             <span>{s.label}</span>
             <strong>{s.value}%</strong>
           </li>

@@ -86,9 +86,10 @@ function applyDocumentTheme(themeId, tweaks) {
   root.style.setProperty("--t-hover-lift", String(tweaks.hoverLift));
   root.style.setProperty("--t-motion", String(tweaks.motionStrength));
 
-  // Keep semantic accent tokens in sync with the active hue (themes may override in CSS).
+  // Keep semantic accent + primary chart tokens in sync with the active hue.
   const isDark = themeId === "dusk" || themeId === "midnight";
-  root.style.setProperty("--accent", `hsl(${hue} 85% ${isDark ? 58 : 48}%)`);
+  const accent = `hsl(${hue} 85% ${isDark ? 58 : 48}%)`;
+  root.style.setProperty("--accent", accent);
   root.style.setProperty(
     "--accent-soft",
     isDark ? `hsl(${hue} 42% 20%)` : `hsl(${hue} 90% 92%)`,
@@ -99,6 +100,20 @@ function applyDocumentTheme(themeId, tweaks) {
   );
   root.style.setProperty("--focus-ring", `hsl(${hue} 85% ${isDark ? 62 : 52}%)`);
   root.style.setProperty("--focus-glow", `hsl(${hue} 90% 60% / 0.28)`);
+  // Chart series follow Taste hue; offsets keep multi-series readable.
+  root.style.setProperty("--chart-1", accent);
+  root.style.setProperty(
+    "--chart-2",
+    `hsl(${(hue + 48) % 360} 75% ${isDark ? 68 : 58}%)`,
+  );
+  root.style.setProperty(
+    "--chart-3",
+    `hsl(${(hue + 130) % 360} 70% ${isDark ? 58 : 46}%)`,
+  );
+  root.style.setProperty(
+    "--chart-4",
+    `hsl(${(hue + 210) % 360} 80% ${isDark ? 62 : 52}%)`,
+  );
 }
 
 export function ThemeProvider({ children }) {

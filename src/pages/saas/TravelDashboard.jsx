@@ -95,10 +95,10 @@ export function TravelDashboard() {
             centerLabel="Trips"
             centerValue="128"
             segments={[
-              { label: "Europe", value: 48, color: "#38bdf8" },
-              { label: "APAC", value: 32, color: "#a78bfa" },
-              { label: "Americas", value: 28, color: "#34d399" },
-              { label: "MENA", value: 20, color: "#fb923c" },
+              { label: "Europe", value: 48, color: "var(--chart-1)" },
+              { label: "APAC", value: 32, color: "var(--chart-2)" },
+              { label: "Americas", value: 28, color: "var(--chart-3)" },
+              { label: "MENA", value: 20, color: "var(--chart-4)" },
             ]}
           />
         </Card>
