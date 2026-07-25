@@ -1251,8 +1251,8 @@ function useToast() {
 //#endregion
 //#region src/components/ui/registry.js
 /**
-* Soft UI Kit — component registry (shadcn-style catalog).
-* Used by Components page for search, filters, and docs anchors.
+* Soft UI Kit — UI Kit catalog registry.
+* Charts live on /charts · Effects live on /effects.
 */
 var COMPONENT_CATEGORIES = [
 	{
@@ -1282,14 +1282,6 @@ var COMPONENT_CATEGORIES = [
 	{
 		id: "navigation",
 		label: "Navigation"
-	},
-	{
-		id: "charts",
-		label: "Charts"
-	},
-	{
-		id: "effects",
-		label: "Effects"
 	}
 ];
 var COMPONENT_REGISTRY = [
@@ -1343,7 +1335,11 @@ var COMPONENT_REGISTRY = [
 		name: "Form Field",
 		category: "forms",
 		description: "Composable label + control + hint/error wrapper.",
-		tags: ["form", "compose"],
+		tags: [
+			"form",
+			"compose",
+			"label"
+		],
 		animated: false
 	},
 	{
@@ -1398,7 +1394,7 @@ var COMPONENT_REGISTRY = [
 		id: "switch",
 		name: "Switch",
 		category: "forms",
-		description: "Animated on/off control.",
+		description: "Animated on/off control for settings and forms.",
 		tags: ["form", "toggle"],
 		animated: true
 	},
@@ -1408,14 +1404,6 @@ var COMPONENT_REGISTRY = [
 		category: "forms",
 		description: "Range input with neumorphic thumb.",
 		tags: ["form", "range"],
-		animated: true
-	},
-	{
-		id: "toggle",
-		name: "Toggle",
-		category: "forms",
-		description: "Pressed-state toggle button.",
-		tags: ["form"],
 		animated: true
 	},
 	{
@@ -1460,14 +1448,6 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
-		id: "label",
-		name: "Label",
-		category: "forms",
-		description: "Accessible field label.",
-		tags: ["form", "a11y"],
-		animated: false
-	},
-	{
 		id: "card",
 		name: "Card",
 		category: "layout",
@@ -1479,20 +1459,6 @@ var COMPONENT_REGISTRY = [
 			"flat",
 			"soft",
 			"outline"
-		],
-		animated: true
-	},
-	{
-		id: "dashboard-shell",
-		name: "Dashboard shell",
-		category: "layout",
-		span: "full",
-		description: "App dashboard layout with collapsible sidebar (icon rail).",
-		tags: [
-			"layout",
-			"dashboard",
-			"sidebar",
-			"collapse"
 		],
 		animated: true
 	},
@@ -1531,20 +1497,16 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
-		id: "collapsible",
-		name: "Collapsible",
-		category: "layout",
-		description: "Expand/collapse content block.",
-		tags: ["layout"],
-		animated: true
-	},
-	{
 		id: "accordion",
 		name: "Accordion",
 		category: "layout",
 		span: "wide",
-		description: "Stacked disclosure sections.",
-		tags: ["layout", "faq"],
+		description: "Stacked disclosure sections (covers single collapsible too).",
+		tags: [
+			"layout",
+			"faq",
+			"collapsible"
+		],
 		animated: true
 	},
 	{
@@ -1584,15 +1546,6 @@ var COMPONENT_REGISTRY = [
 		animated: false
 	},
 	{
-		id: "table",
-		name: "Table",
-		category: "data",
-		span: "wide",
-		description: "Basic data table.",
-		tags: ["crm", "dashboard"],
-		animated: true
-	},
-	{
 		id: "data-table",
 		name: "Data Table",
 		category: "data",
@@ -1601,7 +1554,8 @@ var COMPONENT_REGISTRY = [
 		tags: [
 			"crm",
 			"sort",
-			"select"
+			"select",
+			"table"
 		],
 		animated: true
 	},
@@ -1650,16 +1604,12 @@ var COMPONENT_REGISTRY = [
 		name: "Dialog",
 		category: "overlay",
 		span: "wide",
-		description: "Modal dialog with description and footer actions.",
-		tags: ["modal"],
-		animated: true
-	},
-	{
-		id: "alert-dialog",
-		name: "Alert Dialog",
-		category: "overlay",
-		description: "Confirm/destructive modal pattern.",
-		tags: ["modal", "confirm"],
+		description: "Modal dialog — includes confirm / destructive patterns.",
+		tags: [
+			"modal",
+			"confirm",
+			"alert"
+		],
 		animated: true
 	},
 	{
@@ -1675,16 +1625,16 @@ var COMPONENT_REGISTRY = [
 		id: "dropdown",
 		name: "Dropdown Menu",
 		category: "overlay",
-		description: "Action menu anchored to a trigger.",
-		tags: ["menu"],
+		description: "Action menu — also covers right-click / context patterns.",
+		tags: ["menu", "context"],
 		animated: true
 	},
 	{
 		id: "popover",
 		name: "Popover",
 		category: "overlay",
-		description: "Lightweight floating content.",
-		tags: ["overlay"],
+		description: "Lightweight floating content (click or hover rich previews).",
+		tags: ["overlay", "hover"],
 		animated: true
 	},
 	{
@@ -1693,22 +1643,6 @@ var COMPONENT_REGISTRY = [
 		category: "overlay",
 		description: "Hover hint bubble.",
 		tags: ["hint"],
-		animated: true
-	},
-	{
-		id: "hover-card",
-		name: "Hover Card",
-		category: "overlay",
-		description: "Rich preview on hover.",
-		tags: ["preview"],
-		animated: true
-	},
-	{
-		id: "context-menu",
-		name: "Context Menu",
-		category: "overlay",
-		description: "Right-click actions for tables and boards.",
-		tags: ["menu", "crm"],
 		animated: true
 	},
 	{
@@ -1770,141 +1704,6 @@ var COMPONENT_REGISTRY = [
 		description: "Slide carousel for marketing and galleries.",
 		tags: ["media"],
 		animated: true
-	},
-	{
-		id: "bar-chart",
-		name: "Bar Chart",
-		category: "charts",
-		span: "full",
-		description: "Interactive bars with hover tooltips.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "line-chart",
-		name: "Line / Area Chart",
-		category: "charts",
-		span: "full",
-		description: "SVG line with optional area fill and draw animation.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "donut-chart",
-		name: "Donut Chart",
-		category: "charts",
-		span: "full",
-		description: "Segmented donut with legend hover.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "sparkline",
-		name: "Sparkline",
-		category: "charts",
-		span: "wide",
-		description: "Inline trend glyph for KPI cards.",
-		tags: ["kpi"],
-		animated: true
-	},
-	{
-		id: "dot-matrix",
-		name: "Dot Matrix Chart",
-		category: "charts",
-		span: "full",
-		description: "Autumn-style square pixel columns with glass tooltip.",
-		tags: ["analytics", "ops"],
-		animated: true
-	},
-	{
-		id: "segmented-bar",
-		name: "Segmented Bar",
-		category: "charts",
-		span: "wide",
-		description: "Multi-segment horizontal breakdown.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "timeline-bar",
-		name: "Timeline Bar",
-		category: "charts",
-		span: "wide",
-		description: "Health / milestone timeline with striped tail.",
-		tags: ["ops"],
-		animated: true
-	},
-	{
-		id: "heatmap",
-		name: "Heatmap",
-		category: "charts",
-		span: "full",
-		description: "Intensity grid for activity and ops.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "radial-progress",
-		name: "Radial Progress",
-		category: "charts",
-		span: "wide",
-		description: "Circular KPI progress ring.",
-		tags: ["kpi"],
-		animated: true
-	},
-	{
-		id: "radial-bars",
-		name: "Radial Bars",
-		category: "charts",
-		span: "full",
-		description: "Multi-ring activity metrics.",
-		tags: ["kpi"],
-		animated: true
-	},
-	{
-		id: "radar-chart",
-		name: "Radar Chart",
-		category: "charts",
-		span: "full",
-		description: "Spider chart for multi-axis scores.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "funnel-chart",
-		name: "Funnel Chart",
-		category: "charts",
-		span: "full",
-		description: "Conversion stage funnel.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "scatter-chart",
-		name: "Scatter Chart",
-		category: "charts",
-		span: "full",
-		description: "Point cloud for correlation views.",
-		tags: ["analytics"],
-		animated: true
-	},
-	{
-		id: "glass-ring",
-		name: "Glass Ring",
-		category: "effects",
-		span: "full",
-		description: "Shiny glass icon badge with tweakable shine/glow.",
-		tags: ["brand", "taste"],
-		animated: true
-	},
-	{
-		id: "border-beam",
-		name: "Border Beam",
-		category: "effects",
-		span: "full",
-		description: "Animated traveling / pulse border glow (border-beam).",
-		tags: ["motion", "npm"],
-		animated: true
 	}
 ];
 function searchComponents(query, category = "all") {
@@ -1923,7 +1722,8 @@ function searchComponents(query, category = "all") {
 //#endregion
 //#region src/components/playground/tweakControls.js
 /**
-* Taste dials — core UI first; ring badges + npm effect packs scroll below.
+* Taste dials — Core UI (kit chrome) then Effects (glass rings + border-beam).
+* Keep in sync with /ui, /charts, and /effects demos.
 */
 var TWEAK_GROUPS = [
 	{
@@ -2030,7 +1830,7 @@ var TWEAK_GROUPS = [
 				min: 0,
 				max: 1.5,
 				step: .05,
-				tip: "Chart and UI animation strength"
+				tip: "Chart draw-in and UI animation strength"
 			}
 		]
 	},
@@ -2038,7 +1838,7 @@ var TWEAK_GROUPS = [
 		id: "rings",
 		tier: "effects",
 		title: "Glass ring badges",
-		hint: "Shiny icon rings (GlassRing) — brand marks & KPI icons",
+		hint: "Shown on the Effects page — brand marks & KPI icons",
 		controls: [
 			{
 				key: "ringShine",

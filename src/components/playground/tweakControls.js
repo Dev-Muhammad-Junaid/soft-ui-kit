@@ -1,5 +1,6 @@
 /**
- * Taste dials — core UI first; ring badges + npm effect packs scroll below.
+ * Taste dials — Core UI (kit chrome) then Effects (glass rings + border-beam).
+ * Keep in sync with /ui, /charts, and /effects demos.
  */
 export const TWEAK_GROUPS = [
   {
@@ -89,7 +90,7 @@ export const TWEAK_GROUPS = [
         min: 0,
         max: 1.5,
         step: 0.05,
-        tip: "Chart and UI animation strength",
+        tip: "Chart draw-in and UI animation strength",
       },
     ],
   },
@@ -97,7 +98,7 @@ export const TWEAK_GROUPS = [
     id: "rings",
     tier: "effects",
     title: "Glass ring badges",
-    hint: "Shiny icon rings (GlassRing) — brand marks & KPI icons",
+    hint: "Shown on the Effects page — brand marks & KPI icons",
     controls: [
       { key: "ringShine", label: "Shine", min: 0, max: 1.5, step: 0.01, tip: "Spinning highlight on the ring" },
       { key: "ringThickness", label: "Thickness", min: 1, max: 6, step: 0.1, tip: "Ring stroke width" },

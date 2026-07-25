@@ -10,17 +10,68 @@ import { DotMatrixChart, SegmentedBar, TimelineBar } from "../components/charts/
 import { BarChart, DonutChart, LineChart, Sparkline } from "../components/charts/Charts";
 import { Badge, Card } from "../components/ui";
 
+function randInt(min, max) {
+  return Math.floor(min + Math.random() * (max - min + 1));
+}
+
+function makeSeries(count, min, max) {
+  return Array.from({ length: count }, () => randInt(min, max));
+}
+
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const WEEKS = Array.from({ length: 16 }, (_, i) => `W${i + 1}`);
+
+const DEMO = {
+  bars: makeSeries(12, 42, 98),
+  area: makeSeries(16, 22, 94),
+  dots: makeSeries(12, 90, 280),
+  heatmap: Array.from({ length: 8 * 16 }, () => randInt(8, 96)),
+  radar: makeSeries(6, 48, 96),
+  scatter: Array.from({ length: 28 }, () => ({ x: randInt(4, 96), y: randInt(8, 92) })),
+  donut: [
+    { label: "Product", value: randInt(28, 40), color: "#38bdf8" },
+    { label: "Services", value: randInt(18, 28), color: "#a78bfa" },
+    { label: "Support", value: randInt(12, 20), color: "#34d399" },
+    { label: "Other", value: randInt(8, 16), color: "#fb923c" },
+    { label: "Partner", value: randInt(6, 12), color: "#f472b6" },
+  ],
+  funnel: [
+    { label: "Visitors", value: 1200, color: "#38bdf8" },
+    { label: "Signups", value: randInt(620, 780), color: "#818cf8" },
+    { label: "Trials", value: randInt(300, 420), color: "#a78bfa" },
+    { label: "Paid", value: randInt(120, 180), color: "#34d399" },
+    { label: "Retained", value: randInt(60, 110), color: "#fb923c" },
+  ],
+  segments: [
+    { label: "Direct", value: randInt(18, 28), color: "#f97316" },
+    { label: "Search", value: randInt(16, 26), color: "#fbbf24" },
+    { label: "Social", value: randInt(12, 22), color: "#2dd4bf" },
+    { label: "Referral", value: randInt(10, 18), color: "#38bdf8" },
+    { label: "Email", value: randInt(8, 16), color: "#a78bfa" },
+  ],
+  radial: randInt(68, 92),
+  radialBars: [
+    { label: "Move", value: randInt(72, 94), color: "#fb7185" },
+    { label: "Exercise", value: randInt(55, 80), color: "#34d399" },
+    { label: "Stand", value: randInt(70, 96), color: "#38bdf8" },
+    { label: "Focus", value: randInt(48, 78), color: "#a78bfa" },
+  ],
+  sparks: [
+    makeSeries(24, 10, 28),
+    makeSeries(24, 14, 32),
+    makeSeries(24, 8, 26),
+  ],
+};
 
 export function ChartsGalleryPage() {
   return (
     <div>
       <header className="page-header">
         <div>
-          <h1>Charts gallery</h1>
+          <h1>Charts</h1>
           <p>
             Theme-aware chart primitives for dashboards, CRMs, and analytics —
-            bars, radials, heatmaps, and more.
+            denser demos so every type reads as production-ready.
           </p>
         </div>
         <Badge tone="accent">12 chart types</Badge>
@@ -28,110 +79,64 @@ export function ChartsGalleryPage() {
 
       <div className="grid-2 charts-gallery">
         <Card className="is-hoverable chart-card--lg" title="Heatmap" description="Intensity grid">
-          <HeatmapChart rows={8} cols={14} />
+          <HeatmapChart rows={8} cols={16} values={DEMO.heatmap} />
         </Card>
-        <Card className="is-hoverable chart-card--lg" title="Radial progress" description="KPI ring">
+        <Card className="is-hoverable chart-card--lg" title="Radial progress" description="KPI rings">
           <div className="row" style={{ justifyContent: "center", gap: 28, flexWrap: "wrap" }}>
-            <RadialProgress value={78} size={180} label="Health" />
-            <RadialBars
-              size={220}
-              series={[
-                { label: "Move", value: 86, color: "#fb7185" },
-                { label: "Exercise", value: 64, color: "#34d399" },
-                { label: "Stand", value: 92, color: "#38bdf8" },
-              ]}
-            />
+            <RadialProgress value={DEMO.radial} size={180} label="Health" />
+            <RadialBars size={220} series={DEMO.radialBars} />
           </div>
         </Card>
         <Card className="is-hoverable chart-card--lg" title="Radar" description="Multi-axis scores">
           <RadarChart
             size={280}
             axes={["UX", "Perf", "A11y", "API", "Docs", "Brand"]}
-            values={[82, 70, 88, 64, 76, 90]}
+            values={DEMO.radar}
           />
         </Card>
         <Card className="is-hoverable chart-card--lg" title="Funnel" description="Conversion stages">
-          <FunnelChart
-            stages={[
-              { label: "Visits", value: 1200, color: "#38bdf8" },
-              { label: "Signups", value: 640, color: "#a78bfa" },
-              { label: "Trials", value: 310, color: "#34d399" },
-              { label: "Paid", value: 128, color: "#fb923c" },
-            ]}
-          />
+          <FunnelChart stages={DEMO.funnel} />
         </Card>
-        <Card className="is-hoverable chart-card--lg" title="Scatter" description="Hover along the line">
-          <ScatterChart
-            points={[
-              { x: 12, y: 22 },
-              { x: 18, y: 30 },
-              { x: 24, y: 28 },
-              { x: 30, y: 44 },
-              { x: 36, y: 40 },
-              { x: 42, y: 58 },
-              { x: 48, y: 52 },
-              { x: 55, y: 70 },
-              { x: 62, y: 66 },
-              { x: 70, y: 82 },
-            ]}
-          />
+        <Card className="is-hoverable chart-card--lg" title="Scatter" description="Correlation cloud">
+          <ScatterChart points={DEMO.scatter} />
         </Card>
-        <Card className="is-hoverable" title="Dot matrix" description="Square pixel columns">
+        <Card className="is-hoverable chart-card--lg" title="Dot matrix" description="Square pixel columns">
           <DotMatrixChart
-            series={[120, 180, 150, 260, 210, 290, 240, 310, 280, 340, 300, 320]}
+            series={DEMO.dots}
             labels={MONTHS}
+            rows={18}
+            max={300}
             formatTooltip={(l, v) => `${l} · ${v}`}
           />
         </Card>
-        <Card className="is-hoverable" title="Area trend" description="Draw-in polyline">
+        <Card className="is-hoverable chart-card--lg" title="Area trend" description="16-week draw-in">
           <LineChart
             fill
-            values={[18, 24, 20, 32, 28, 40, 36, 48, 42, 55, 50, 62]}
-            labels={MONTHS}
+            values={DEMO.area}
+            labels={WEEKS}
             formatValue={(v) => `${v}k`}
           />
         </Card>
-        <Card className="is-hoverable" title="Bars" description="Hover tooltips">
-          <BarChart
-            values={[42, 58, 36, 70, 48, 82, 64]}
-            labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
-          />
+        <Card className="is-hoverable chart-card--lg" title="Bars" description="12-month hover tooltips">
+          <BarChart values={DEMO.bars} labels={MONTHS} />
         </Card>
-        <Card className="is-hoverable" title="Donut mix" description="Legend hover sync">
-          <DonutChart
-            centerLabel="Share"
-            centerValue="100%"
-            segments={[
-              { label: "Product", value: 42, color: "#38bdf8" },
-              { label: "Sales", value: 28, color: "#a78bfa" },
-              { label: "Support", value: 18, color: "#34d399" },
-              { label: "Other", value: 12, color: "#fb923c" },
-            ]}
-          />
+        <Card className="is-hoverable chart-card--lg" title="Donut mix" description="Legend hover sync">
+          <DonutChart centerLabel="Share" segments={DEMO.donut} />
         </Card>
-        <Card className="is-hoverable" title="Segmented breakdown" description="Workflow health">
-          <SegmentedBar
-            segments={[
-              { label: "Issues", value: 18, color: "#f97316" },
-              { label: "Moderate", value: 24, color: "#fbbf24" },
-              { label: "Stable", value: 58, color: "#2dd4bf" },
-            ]}
-          />
+        <Card className="is-hoverable chart-card--lg" title="Segmented breakdown" description="Channel mix">
+          <SegmentedBar segments={DEMO.segments} />
         </Card>
-        <Card className="is-hoverable" title="Timeline + sparklines" description="Ops + KPI glyphs">
+        <Card className="is-hoverable chart-card--lg" title="Timeline + sparklines" description="Ops + KPI glyphs">
           <TimelineBar
             markers={[
-              { label: "15", at: "20%", weight: 1, color: "#93c5fd" },
-              { label: "48", at: "48%", weight: 1.4, color: "#60a5fa" },
-              { label: "87%", at: "78%", weight: 2, color: "#3b82f6" },
+              { label: "Kickoff", at: "12%", weight: 1, color: "#93c5fd" },
+              { label: "Alpha", at: "34%", weight: 1.2, color: "#60a5fa" },
+              { label: "Beta", at: "58%", weight: 1.6, color: "#3b82f6" },
+              { label: "GA", at: "82%", weight: 2, color: "#2563eb" },
             ]}
           />
-          <div className="row" style={{ marginTop: 18, justifyContent: "space-between" }}>
-            {[
-              [12, 14, 13, 16, 18, 17, 21],
-              [30, 28, 26, 24, 22, 20, 18],
-              [8, 12, 10, 16, 14, 20, 24],
-            ].map((vals, i) => (
+          <div className="row" style={{ marginTop: 18, justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+            {DEMO.sparks.map((vals, i) => (
               <div key={i} className="row">
                 <strong style={{ fontSize: 18 }}>KPI {i + 1}</strong>
                 <Sparkline values={vals} />

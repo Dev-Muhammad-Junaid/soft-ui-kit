@@ -1,27 +1,5 @@
 import { useState } from "react";
-import { Bell, Check, Info, Search } from "../../components/icons";
-import { BorderBeam } from "border-beam";
-import { useTheme } from "../../theme/ThemeProvider";
-import {
-  BORDER_BEAM_COLORS,
-  BORDER_BEAM_OPTIONS,
-} from "../../components/playground/tweakControls";
-import { BarChart, DonutChart, LineChart, Sparkline } from "../../components/charts";
-import {
-  FunnelChart,
-  HeatmapChart,
-  RadarChart,
-  RadialBars,
-  RadialProgress,
-  ScatterChart,
-} from "../../components/charts/AdvancedCharts";
-import {
-  DotMatrixChart,
-  SegmentedBar,
-  TimelineBar,
-} from "../../components/charts/DotMatrixChart";
-import { GlassRing } from "../../components/effects/GlassRing";
-import { DashboardShellPreview } from "../../components/layout/DashboardShell";
+import { Search } from "../../components/icons";
 import {
   Accordion,
   Alert,
@@ -33,15 +11,14 @@ import {
   Card,
   Carousel,
   Checkbox,
-  Collapsible,
   Combobox,
   Command,
+  DataTable,
   FormField,
   IconButton,
   Input,
   InputGroup,
   Kbd,
-  Label,
   OtpInput,
   Pagination,
   PasswordInput,
@@ -52,72 +29,14 @@ import {
   Skeleton,
   Slider,
   Switch,
-  Table,
   Tabs,
   Textarea,
-  Toggle,
   ToggleGroup,
   Tooltip,
 } from "../../components/ui";
 
-function randInt(min, max) {
-  return Math.floor(min + Math.random() * (max - min + 1));
-}
-
-function makeSeries(count, min, max) {
-  return Array.from({ length: count }, () => randInt(min, max));
-}
-
-const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const WEEK_LABELS = Array.from({ length: 16 }, (_, i) => `W${i + 1}`);
-
-/** Stable-enough demo series for catalog cards (generated once per page load). */
-const CHART_DEMO = {
-  barValues: makeSeries(12, 42, 98),
-  barLabels: MONTHS_SHORT,
-  lineValues: makeSeries(16, 22, 94),
-  lineLabels: WEEK_LABELS,
-  sparkValues: makeSeries(24, 8, 28),
-  donut: [
-    { label: "Product", value: randInt(28, 40), color: "#38bdf8" },
-    { label: "Services", value: randInt(18, 28), color: "#a78bfa" },
-    { label: "Support", value: randInt(12, 20), color: "#34d399" },
-    { label: "Other", value: randInt(8, 16), color: "#fb923c" },
-    { label: "Partner", value: randInt(6, 12), color: "#f472b6" },
-  ],
-  dots: makeSeries(12, 90, 280),
-  heatmap: Array.from({ length: 7 * 16 }, () => randInt(8, 96)),
-  radar: makeSeries(6, 48, 96),
-  funnel: [
-    { label: "Visitors", value: 100, color: "#38bdf8" },
-    { label: "Signups", value: randInt(68, 82), color: "#818cf8" },
-    { label: "Trials", value: randInt(42, 58), color: "#a78bfa" },
-    { label: "Paid", value: randInt(24, 36), color: "#34d399" },
-    { label: "Retained", value: randInt(12, 22), color: "#fbbf24" },
-  ],
-  scatter: Array.from({ length: 28 }, () => ({
-    x: randInt(4, 96),
-    y: randInt(8, 92),
-  })),
-  radialValue: randInt(68, 92),
-  radialBars: [
-    { label: "Active", value: randInt(72, 94), color: "#fb7185" },
-    { label: "Engaged", value: randInt(55, 80), color: "#34d399" },
-    { label: "Converted", value: randInt(40, 70), color: "#38bdf8" },
-    { label: "NPS", value: randInt(60, 90), color: "#a78bfa" },
-  ],
-  segments: [
-    { label: "Direct", value: randInt(18, 28), color: "#f97316" },
-    { label: "Search", value: randInt(16, 26), color: "#fbbf24" },
-    { label: "Social", value: randInt(12, 22), color: "#2dd4bf" },
-    { label: "Referral", value: randInt(10, 18), color: "#38bdf8" },
-    { label: "Email", value: randInt(8, 16), color: "#a78bfa" },
-  ],
-};
-
-/** Live preview for each catalog registry id. */
+/** Live preview for each UI Kit catalog registry id. */
 export function CatalogPreview({ id }) {
-  const { effectTheme } = useTheme();
   const [on, setOn] = useState(true);
   const [val, setVal] = useState(42);
   const [tab, setTab] = useState("a");
@@ -126,9 +45,6 @@ export function CatalogPreview({ id }) {
   const [otp, setOtp] = useState("");
   const [date, setDate] = useState("2026-07-22");
   const [page, setPage] = useState(1);
-  const [pressed, setPressed] = useState(false);
-  const [beamSize, setBeamSize] = useState("md");
-  const [beamColor, setBeamColor] = useState("ocean");
 
   switch (id) {
     case "button":
@@ -203,12 +119,6 @@ export function CatalogPreview({ id }) {
       return <Switch checked={on} onCheckedChange={setOn} label={on ? "On" : "Off"} />;
     case "slider":
       return <Slider label="Level" value={val} onChange={setVal} />;
-    case "toggle":
-      return (
-        <Toggle pressed={pressed} onPressedChange={setPressed}>
-          Bold
-        </Toggle>
-      );
     case "toggle-group":
       return (
         <ToggleGroup
@@ -245,8 +155,6 @@ export function CatalogPreview({ id }) {
       );
     case "calendar":
       return <Calendar value={date} onChange={setDate} />;
-    case "label":
-      return <Label>Field label</Label>;
     case "form-field":
       return (
         <FormField label="Name" hint="Visible on invoices" htmlFor="pv-name">
@@ -280,8 +188,6 @@ export function CatalogPreview({ id }) {
           </Card>
         </div>
       );
-    case "dashboard-shell":
-      return <DashboardShellPreview />;
     case "separator":
       return <Separator label="Or" />;
     case "scroll-area":
@@ -316,19 +222,13 @@ export function CatalogPreview({ id }) {
           </div>
         </div>
       );
-    case "collapsible":
-      return (
-        <Collapsible title="Release notes" defaultOpen>
-          Shipping notes, changelog bullets, and optional detail that stays out of the way until opened.
-        </Collapsible>
-      );
     case "accordion":
       return (
         <Accordion
           items={[
             { id: "1", title: "What is Soft UI?", content: "Glass + soft kit for dashboards and CRMs." },
             { id: "2", title: "How do themes work?", content: "ThemeProvider + Taste tokens on the document." },
-            { id: "3", title: "Can I collapse the shell?", content: "Yes — DashboardShell icon rail is built in." },
+            { id: "3", title: "Where are charts?", content: "Charts and effects have their own gallery pages." },
           ]}
         />
       );
@@ -354,26 +254,18 @@ export function CatalogPreview({ id }) {
           <Avatar name="Jordan Lee" size="sm" />
         </div>
       );
-    case "table":
-      return (
-        <Table
-          columns={[
-            { key: "n", label: "Name" },
-            { key: "r", label: "Role" },
-          ]}
-          rows={[{ id: 1, n: "Maya", r: "Design" }]}
-        />
-      );
     case "data-table":
       return (
-        <Table
+        <DataTable
+          selectable
           columns={[
-            { key: "n", label: "Account" },
-            { key: "a", label: "ARR" },
+            { key: "n", label: "Account", sortable: true },
+            { key: "a", label: "ARR", sortable: true },
           ]}
           rows={[
             { id: 1, n: "Northwind", a: "$48k" },
             { id: 2, n: "Helix", a: "$96k" },
+            { id: 3, n: "Orbit", a: "$72k" },
           ]}
         />
       );
@@ -386,7 +278,7 @@ export function CatalogPreview({ id }) {
         </Alert>
       );
     case "toast":
-      return <Badge tone="accent">Use Taste / actions to fire toasts</Badge>;
+      return <Badge tone="accent">Toasts fire from app actions</Badge>;
     case "empty-state":
       return (
         <div className="ui-empty" style={{ padding: 12 }}>
@@ -396,29 +288,28 @@ export function CatalogPreview({ id }) {
       );
     case "dialog":
       return (
-        <div className="preview-chrome glass sheen">
-          <strong>Dialog</strong>
-          <p className="preview-note">Confirm this action?</p>
-          <div className="preview-row">
-            <Button size="sm" variant="ghost">
-              Cancel
-            </Button>
-            <Button size="sm">Confirm</Button>
+        <div className="preview-stack">
+          <div className="preview-chrome glass sheen">
+            <strong>Dialog</strong>
+            <p className="preview-note">Standard modal with actions.</p>
+            <div className="preview-row">
+              <Button size="sm" variant="ghost">
+                Cancel
+              </Button>
+              <Button size="sm">Save</Button>
+            </div>
           </div>
-        </div>
-      );
-    case "alert-dialog":
-      return (
-        <div className="preview-chrome glass sheen">
-          <strong>Delete project?</strong>
-          <p className="preview-note">This cannot be undone.</p>
-          <div className="preview-row">
-            <Button size="sm" variant="ghost">
-              Cancel
-            </Button>
-            <Button size="sm" variant="danger">
-              Delete
-            </Button>
+          <div className="preview-chrome glass sheen">
+            <strong>Confirm delete?</strong>
+            <p className="preview-note">Destructive / alert pattern in the same Dialog.</p>
+            <div className="preview-row">
+              <Button size="sm" variant="ghost">
+                Cancel
+              </Button>
+              <Button size="sm" variant="danger">
+                Delete
+              </Button>
+            </div>
           </div>
         </div>
       );
@@ -433,9 +324,6 @@ export function CatalogPreview({ id }) {
         </div>
       );
     case "dropdown":
-    case "popover":
-    case "hover-card":
-    case "context-menu":
       return (
         <div className="preview-menu glass sheen">
           <button type="button" className="preview-menu__item">
@@ -447,6 +335,19 @@ export function CatalogPreview({ id }) {
           <button type="button" className="preview-menu__item is-danger">
             Delete
           </button>
+          <p className="preview-note" style={{ padding: "6px 10px" }}>
+            Same menu chrome for click or context triggers
+          </p>
+        </div>
+      );
+    case "popover":
+      return (
+        <div className="preview-chrome glass sheen">
+          <strong>Popover</strong>
+          <p className="preview-note">Floating rich content — also covers hover-card previews.</p>
+          <Button size="sm" variant="outline">
+            Details
+          </Button>
         </div>
       );
     case "tooltip":
@@ -461,8 +362,9 @@ export function CatalogPreview({ id }) {
       return (
         <Command
           items={[
-            { label: "Go to Catalog", shortcut: "G C" },
+            { label: "Go to UI Kit", shortcut: "G U" },
             { label: "Open Charts", shortcut: "G H" },
+            { label: "Open Effects", shortcut: "G E" },
           ]}
         />
       );
@@ -480,7 +382,7 @@ export function CatalogPreview({ id }) {
     case "breadcrumb":
       return (
         <Breadcrumb
-          items={[{ label: "Kit" }, { label: "Catalog" }, { label: "Button" }]}
+          items={[{ label: "Kit" }, { label: "UI Kit" }, { label: "Button" }]}
         />
       );
     case "pagination":
@@ -506,169 +408,6 @@ export function CatalogPreview({ id }) {
             <div key="2">Slide two</div>,
           ]}
         />
-      );
-    case "bar-chart":
-      return (
-        <div className="catalog-chart">
-          <BarChart values={CHART_DEMO.barValues} labels={CHART_DEMO.barLabels} />
-        </div>
-      );
-    case "line-chart":
-      return (
-        <div className="catalog-chart">
-          <LineChart fill values={CHART_DEMO.lineValues} labels={CHART_DEMO.lineLabels} />
-        </div>
-      );
-    case "donut-chart":
-      return (
-        <div className="catalog-chart catalog-chart--donut">
-          <DonutChart segments={CHART_DEMO.donut} centerLabel="Share" />
-        </div>
-      );
-    case "sparkline":
-      return (
-        <div className="catalog-chart catalog-chart--spark">
-          <div className="preview-row">
-            <div>
-              <strong>Revenue</strong>
-              <p className="preview-note">24-point trend</p>
-            </div>
-            <Sparkline values={CHART_DEMO.sparkValues} />
-          </div>
-        </div>
-      );
-    case "dot-matrix":
-      return (
-        <div className="catalog-chart">
-          <DotMatrixChart
-            series={CHART_DEMO.dots}
-            labels={MONTHS_SHORT}
-            rows={18}
-            max={300}
-          />
-        </div>
-      );
-    case "segmented-bar":
-      return (
-        <div className="catalog-chart catalog-chart--bar-flat">
-          <SegmentedBar segments={CHART_DEMO.segments} />
-        </div>
-      );
-    case "timeline-bar":
-      return (
-        <div className="catalog-chart catalog-chart--bar-flat">
-          <TimelineBar
-            markers={[
-              { label: "Kickoff", at: "12%", weight: 1, color: "#93c5fd" },
-              { label: "Alpha", at: "34%", weight: 1, color: "#60a5fa" },
-              { label: "Beta", at: "58%", weight: 2, color: "#3b82f6" },
-              { label: "GA", at: "82%", weight: 2, color: "#2563eb" },
-            ]}
-          />
-        </div>
-      );
-    case "heatmap":
-      return (
-        <div className="catalog-chart">
-          <HeatmapChart rows={7} cols={16} values={CHART_DEMO.heatmap} />
-        </div>
-      );
-    case "radial-progress":
-      return (
-        <div className="catalog-chart catalog-chart--center">
-          <RadialProgress value={CHART_DEMO.radialValue} size={168} label="Score" />
-        </div>
-      );
-    case "radial-bars":
-      return (
-        <div className="catalog-chart catalog-chart--center">
-          <RadialBars series={CHART_DEMO.radialBars} size={220} />
-        </div>
-      );
-    case "radar-chart":
-      return (
-        <div className="catalog-chart catalog-chart--center">
-          <RadarChart
-            axes={["Speed", "UX", "A11y", "Scale", "Cost", "Trust"]}
-            values={CHART_DEMO.radar}
-            size={280}
-          />
-        </div>
-      );
-    case "funnel-chart":
-      return (
-        <div className="catalog-chart">
-          <FunnelChart stages={CHART_DEMO.funnel} />
-        </div>
-      );
-    case "scatter-chart":
-      return (
-        <div className="catalog-chart">
-          <ScatterChart points={CHART_DEMO.scatter} />
-        </div>
-      );
-    case "glass-ring":
-      return (
-        <div className="preview-stack">
-          <div className="preview-row preview-row--rings">
-            {[
-              { tone: "sky", label: "Sky", soft: true },
-              { tone: "mint", label: "Mint", active: true },
-              { tone: "peach", label: "Peach" },
-              { tone: "lavender", label: "Lavender", active: true },
-              { tone: "rose", label: "Rose" },
-              { tone: "warn", label: "Warn", soft: true },
-            ].map((ring) => (
-              <div key={ring.tone} className="preview-ring-cell">
-                <GlassRing size={52} tone={ring.tone} soft={ring.soft} active={ring.active}>
-                  {ring.tone === "mint" ? <Check size={18} /> : ring.tone === "peach" ? <Info size={18} /> : <Bell size={18} />}
-                </GlassRing>
-                <span>{ring.label}</span>
-              </div>
-            ))}
-          </div>
-          <p className="preview-note">Shine / glow follow Taste ring dials — soft mode for dense KPIs.</p>
-        </div>
-      );
-    case "border-beam":
-      return (
-        <div className="preview-stack catalog-effect-demo">
-          <div className="preview-row">
-            {BORDER_BEAM_OPTIONS.filter((o) => o.id !== "off").map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                className={`taste-option-chip${beamSize === opt.id ? " is-active" : ""}`}
-                onClick={() => setBeamSize(opt.id)}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <div className="preview-row">
-            {BORDER_BEAM_COLORS.map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                className={`taste-option-chip${beamColor === opt.id ? " is-active" : ""}`}
-                onClick={() => setBeamColor(opt.id)}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <div className="catalog-effect-demo__stage">
-            <BorderBeam size={beamSize} colorVariant={beamColor} theme={effectTheme} strength={1}>
-              <div className="catalog-effect-demo__card glass sheen">
-                <strong>{beamSize}</strong>
-                <p>Travel, compact, line, pulse, and halo — pick a color variant.</p>
-                <Button size="sm" variant="outline">
-                  Outline CTA
-                </Button>
-              </div>
-            </BorderBeam>
-          </div>
-        </div>
       );
     default:
       return <span className="preview-note">Preview coming soon</span>;

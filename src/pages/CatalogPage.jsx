@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Search } from "../components/icons";
 import {
   COMPONENT_CATEGORIES,
@@ -6,6 +7,10 @@ import {
 } from "../components/ui/registry";
 import { Card } from "../components/ui";
 import { CatalogPreview } from "./catalog/CatalogPreviews";
+
+const CATEGORY_LABELS = Object.fromEntries(
+  COMPONENT_CATEGORIES.map((c) => [c.id, c.label]),
+);
 
 export function CatalogPage() {
   const [query, setQuery] = useState("");
@@ -29,8 +34,11 @@ export function CatalogPage() {
     <div className="catalog-page">
       <header className="page-header">
         <div>
-          <h1>Component catalog</h1>
-          <p>Live previews of every Soft UI Kit primitive.</p>
+          <h1>UI Kit</h1>
+          <p>
+            Forms, layout, overlays, and navigation primitives. Charts and motion
+            effects live on their own pages.
+          </p>
         </div>
       </header>
 
@@ -39,10 +47,10 @@ export function CatalogPage() {
           <Search size={18} aria-hidden="true" />
           <input
             className="ui-input"
-            placeholder="Search buttons, tables, charts…"
+            placeholder="Search buttons, tables, dialogs…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            aria-label="Search components"
+            aria-label="Search UI Kit components"
           />
         </div>
         <div className="catalog-filters" role="tablist">
@@ -61,12 +69,16 @@ export function CatalogPage() {
         </div>
         <p className="catalog-count">
           {items.length} component{items.length === 1 ? "" : "s"}
+          {" · "}
+          <Link to="/charts">Charts</Link>
+          {" · "}
+          <Link to="/effects">Effects</Link>
         </p>
       </Card>
 
       {[...grouped.entries()].map(([cat, list]) => (
         <section key={cat} className="catalog-section">
-          <h2 className="section-title">{cat}</h2>
+          <h2 className="section-title">{CATEGORY_LABELS[cat] || cat}</h2>
           <div className="catalog-grid">
             {list.map((item) => {
               const span = item.span || "default";
@@ -77,6 +89,7 @@ export function CatalogPage() {
                   className={`catalog-card catalog-card--${span} glass sheen`}
                 >
                   <h3>{item.name}</h3>
+                  <p className="catalog-card__meta">{item.description}</p>
                   <div className="catalog-card__preview">
                     <CatalogPreview id={item.id} />
                   </div>
@@ -90,7 +103,8 @@ export function CatalogPage() {
       {items.length === 0 ? (
         <Card>
           <p style={{ margin: 0, color: "var(--ink-muted)" }}>
-            No components match “{query}”.
+            No components match “{query}”. Try{" "}
+            <Link to="/charts">Charts</Link> or <Link to="/effects">Effects</Link>.
           </p>
         </Card>
       ) : null}

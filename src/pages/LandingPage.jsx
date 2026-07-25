@@ -54,8 +54,9 @@ export function LandingPage() {
         <nav className="row">
           <a href="#install">Install</a>
           <Link to="/saas">Samples</Link>
-          <Link to="/catalog">Catalog</Link>
-          <Link className="ui-btn ui-btn--primary ui-btn--sm" to="/catalog">
+          <Link to="/ui">UI Kit</Link>
+          <Link to="/charts">Charts</Link>
+          <Link className="ui-btn ui-btn--primary ui-btn--sm" to="/ui">
             Open kit
           </Link>
         </nav>
@@ -73,8 +74,8 @@ export function LandingPage() {
           <a className="ui-btn ui-btn--primary ui-btn--lg" href="#install">
             Install package <ArrowRight size={16} />
           </a>
-          <Link className="ui-btn ui-btn--outline ui-btn--lg" to="/catalog">
-            Browse catalog
+          <Link className="ui-btn ui-btn--outline ui-btn--lg" to="/ui">
+            Browse UI Kit
           </Link>
           <Link className="ui-btn ui-btn--secondary ui-btn--lg" to="/saas/dashboard">
             Ops dashboard
@@ -128,8 +129,8 @@ export function LandingPage() {
             <ul className="marketing-checks">
               {[
                 "ThemeProvider + Taste-ready tokens",
-                "Buttons, forms, overlays, tables",
-                "Charts + dashboard shell",
+                "UI Kit · Charts · Effects pages",
+                "Forms, overlays, data tables, charts",
                 "cn() helper for class merging",
               ].map((item) => (
                 <li key={item}>

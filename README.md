@@ -80,7 +80,7 @@ npm run build:lib # package entry only → dist/lib
 
 - **5 themes** — Soft Glass, Crystal, Aurora, Dusk, Midnight
 - **Taste playground** (demo) — live radius, glass, color, effects
-- **Component catalog** — searchable primitives with previews
+- **UI Kit · Charts · Effects** — separate galleries; Taste dials stay in sync
 - **SaaS samples** — Ops, Autumn, Travel, Finance, Kanban
 
 ## License

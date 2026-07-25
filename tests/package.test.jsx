@@ -32,8 +32,11 @@ describe("package exports", () => {
     expect(DEFAULT_TWEAKS.glassBlur).toBeTypeOf("number");
   });
 
-  it("exposes the component registry", () => {
-    expect(COMPONENT_REGISTRY.length).toBeGreaterThan(40);
+  it("exposes the UI Kit component registry", () => {
+    expect(COMPONENT_REGISTRY.length).toBeGreaterThan(30);
+    expect(COMPONENT_REGISTRY.every((c) => c.category !== "charts")).toBe(true);
+    expect(COMPONENT_REGISTRY.every((c) => c.category !== "effects")).toBe(true);
+    expect(COMPONENT_REGISTRY.some((c) => c.id === "dashboard-shell")).toBe(false);
     const hits = searchComponents("button", "forms");
     expect(hits.some((c) => c.id === "button")).toBe(true);
   });

@@ -54,7 +54,7 @@ export function SignupPage() {
                     <Input label="Password" type="password" placeholder="••••••••" />
                     <Checkbox label="Send me product tips" defaultChecked />
                     <Button>Create account</Button>
-                    <Link className="ui-btn ui-btn--secondary ui-btn--md" to="/catalog">
+                    <Link className="ui-btn ui-btn--secondary ui-btn--md" to="/ui">
                       Continue to dashboard
                     </Link>
                   </div>
@@ -70,7 +70,7 @@ export function SignupPage() {
                     </p>
                     <OtpInput value={otp} onChange={setOtp} />
                     <Button disabled={otp.length < 6}>Verify & continue</Button>
-                    <Link className="ui-btn ui-btn--ghost ui-btn--md" to="/catalog">
+                    <Link className="ui-btn ui-btn--ghost ui-btn--md" to="/ui">
                       Skip to dashboard
                     </Link>
                   </div>
@@ -115,7 +115,7 @@ export function LoginPage() {
             <Input label="Email" type="email" placeholder="you@studio.dev" />
             <Input label="Password" type="password" placeholder="••••••••" />
             <Button>Log in</Button>
-            <Link className="ui-btn ui-btn--secondary ui-btn--md" to="/catalog">
+            <Link className="ui-btn ui-btn--secondary ui-btn--md" to="/ui">
               Continue to dashboard
             </Link>
             <p style={{ margin: 0, fontSize: 13, color: "var(--ink-muted)" }}>

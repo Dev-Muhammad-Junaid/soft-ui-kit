@@ -1,4 +1,6 @@
 import { BorderBeam } from "border-beam";
+import { Bell, Check, Sparkles } from "../icons";
+import { GlassRing } from "../effects/GlassRing";
 import { Button, Card, Slider } from "../ui";
 import { useTheme } from "../../theme/ThemeProvider";
 import {
@@ -65,8 +67,13 @@ function EffectsTasteBlock({
   const previewCard = (
     <div className="taste-effect-preview__card glass sheen">
       <strong>Preview surface</strong>
-      <p>Try border beam before you commit it in product UI.</p>
-      <Button size="sm">Primary CTA</Button>
+      <p>Border beam wraps kit surfaces at full strength.</p>
+      <div className="preview-row" style={{ gap: 10 }}>
+        <GlassRing size={40} tone="mint" active>
+          <Check size={16} />
+        </GlassRing>
+        <Button size="sm">Primary CTA</Button>
+      </div>
     </div>
   );
 
@@ -74,7 +81,10 @@ function EffectsTasteBlock({
     <div className="taste-effects">
       <header className="taste-tier-head">
         <h2>Effects</h2>
-        <p>Optional motion packs — pick a look, preview live, turn off anytime.</p>
+        <p>
+          Glass rings + border beam — mirrored on the Effects page. UI Kit chrome
+          stays in Core above.
+        </p>
       </header>
 
       {EFFECT_GROUPS.map((group) => (
@@ -88,8 +98,29 @@ function EffectsTasteBlock({
 
       <section className="taste-group">
         <header className="taste-group__head">
+          <h3>Ring preview</h3>
+          <p>Live badges using the dials above</p>
+        </header>
+        <div className="preview-row preview-row--rings">
+          {[
+            { tone: "sky", icon: <Sparkles size={16} />, active: true },
+            { tone: "mint", icon: <Check size={16} />, soft: true },
+            { tone: "lavender", icon: <Bell size={16} />, active: true },
+          ].map((ring) => (
+            <div key={ring.tone} className="preview-ring-cell">
+              <GlassRing size={48} tone={ring.tone} soft={ring.soft} active={ring.active}>
+                {ring.icon}
+              </GlassRing>
+              <span>{ring.tone}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="taste-group">
+        <header className="taste-group__head">
           <h3>Border beam</h3>
-          <p>Traveling / pulse glow around cards and panels (`border-beam`)</p>
+          <p>Traveling / pulse glow (`border-beam`) — full strength in demos</p>
         </header>
         <OptionChips
           ariaLabel="Border beam style"
@@ -115,8 +146,8 @@ function EffectsTasteBlock({
           <h3>Live preview</h3>
           <p>
             {beamOn
-              ? "Your current beam on a sample surface"
-              : "Effects are off — turn beam on above to preview"}
+              ? "Beam + rings on a sample surface"
+              : "Beam is off — rings still follow the dials"}
           </p>
         </header>
         {beamOn ? (
@@ -134,7 +165,7 @@ function EffectsTasteBlock({
         {beamOn && (
           <div className="row" style={{ marginTop: 10 }}>
             <Button variant="secondary" size="sm" onClick={resetEffects}>
-              Clear effects
+              Clear beam
             </Button>
           </div>
         )}
@@ -174,7 +205,7 @@ export function TasteControls({ compact = false }) {
 
       <header className="taste-tier-head">
         <h2>Core UI</h2>
-        <p>Radius, glass, color, and depth — the kit chrome first.</p>
+        <p>Radius, glass, color, and depth — shared by UI Kit, Charts, and Effects.</p>
       </header>
 
       <div className="taste-groups">

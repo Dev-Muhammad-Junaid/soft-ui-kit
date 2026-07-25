@@ -22,7 +22,7 @@ import { ThemeFab } from "./ThemeFab";
 import { DashboardShell, useSidebarCollapsed } from "./DashboardShell";
 
 const LINKS = [
-  { to: "/catalog", label: "Catalog", icon: BookOpen },
+  { to: "/ui", label: "UI Kit", icon: BookOpen },
   { to: "/charts", label: "Charts", icon: BarChart3 },
   { to: "/effects", label: "Effects", icon: Wand2 },
   { to: "/saas", label: "SaaS samples", icon: Store },

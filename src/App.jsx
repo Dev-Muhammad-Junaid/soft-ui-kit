@@ -37,8 +37,9 @@ export default function App() {
     <ToastProvider>
       <AppShell sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
         <Routes>
-          <Route path="/app" element={<Navigate to="/catalog" replace />} />
-          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/app" element={<Navigate to="/ui" replace />} />
+          <Route path="/ui" element={<CatalogPage />} />
+          <Route path="/catalog" element={<Navigate to="/ui" replace />} />
           <Route path="/charts" element={<ChartsGalleryPage />} />
           <Route path="/effects" element={<EffectsPage />} />
           <Route path="/saas" element={<SaasHubPage />} />
@@ -47,12 +48,12 @@ export default function App() {
           <Route path="/saas/travel" element={<TravelDashboard />} />
           <Route path="/saas/finance" element={<FinanceDashboard />} />
           <Route path="/saas/kanban" element={<KanbanDashboard />} />
-          <Route path="/components" element={<Navigate to="/catalog" replace />} />
-          <Route path="/playground" element={<Navigate to="/catalog" replace />} />
-          <Route path="/gallery" element={<Navigate to="/catalog" replace />} />
-          <Route path="/themes" element={<Navigate to="/catalog" replace />} />
+          <Route path="/components" element={<Navigate to="/ui" replace />} />
+          <Route path="/playground" element={<Navigate to="/ui" replace />} />
+          <Route path="/gallery" element={<Navigate to="/ui" replace />} />
+          <Route path="/themes" element={<Navigate to="/ui" replace />} />
           <Route path="/flows" element={<Navigate to="/saas" replace />} />
-          <Route path="*" element={<Navigate to="/catalog" replace />} />
+          <Route path="*" element={<Navigate to="/ui" replace />} />
         </Routes>
       </AppShell>
     </ToastProvider>
