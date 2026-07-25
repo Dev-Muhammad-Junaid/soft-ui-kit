@@ -68,18 +68,21 @@ export function CatalogPage() {
         <section key={cat} className="catalog-section">
           <h2 className="section-title">{cat}</h2>
           <div className="catalog-grid">
-            {list.map((item) => (
-              <article
-                key={item.id}
-                id={item.id}
-                className="catalog-card glass sheen"
-              >
-                <h3>{item.name}</h3>
-                <div className="catalog-card__preview">
-                  <CatalogPreview id={item.id} />
-                </div>
-              </article>
-            ))}
+            {list.map((item) => {
+              const span = item.span || "default";
+              return (
+                <article
+                  key={item.id}
+                  id={item.id}
+                  className={`catalog-card catalog-card--${span} glass sheen`}
+                >
+                  <h3>{item.name}</h3>
+                  <div className="catalog-card__preview">
+                    <CatalogPreview id={item.id} />
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
       ))}

@@ -125,6 +125,7 @@ export function DashboardShellPreview() {
   const demoItems = [
     { id: "overview", label: "Overview", icon: Home },
     { id: "team", label: "Team", icon: Users },
+    { id: "search", label: "Search", icon: Home },
   ];
 
   return (
@@ -133,7 +134,7 @@ export function DashboardShellPreview() {
         <div className="dash-preview__brand">
           <strong>{collapsed ? "S" : "Studio"}</strong>
           <IconButton
-            variant="ghost"
+            variant="outline"
             label={collapsed ? "Expand" : "Collapse"}
             onClick={() => setCollapsed((v) => !v)}
           >
@@ -151,11 +152,25 @@ export function DashboardShellPreview() {
             );
           })}
         </div>
+        <p className="dash-preview__hint">{collapsed ? "Rail" : "Click collapse for icon rail"}</p>
       </aside>
       <div className="dash-preview__main">
-        <div className="dash-preview__kpi" />
-        <div className="dash-preview__kpi" />
-        <div className="dash-preview__chart" />
+        <div className="dash-preview__kpi">
+          <span>Users</span>
+          <strong>12.4k</strong>
+        </div>
+        <div className="dash-preview__kpi">
+          <span>Latency</span>
+          <strong>142ms</strong>
+        </div>
+        <div className="dash-preview__chart">
+          <span>Traffic</span>
+          <div className="dash-preview__bars" aria-hidden>
+            {[40, 55, 48, 70, 62, 80, 74].map((h, i) => (
+              <i key={i} style={{ height: `${h}%` }} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

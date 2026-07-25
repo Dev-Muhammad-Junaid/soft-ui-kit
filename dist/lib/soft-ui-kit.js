@@ -420,7 +420,7 @@ function Slider({ value, onChange, min = 0, max = 100, step, label, hint, classN
 }
 function Card({ children, className, title, description, action, padded = true, variant = "glass" }) {
 	return /* @__PURE__ */ jsxs("section", {
-		className: clsx("ui-card", variant === "glass" && "glass sheen", variant === "flat" && "ui-card--flat", variant === "soft" && "ui-card--soft", padded && "ui-card--padded", className),
+		className: clsx("ui-card", variant === "glass" && "glass sheen", variant === "flat" && "ui-card--flat", variant === "soft" && "ui-card--soft", variant === "outline" && "ui-card--outline", padded && "ui-card--padded", className),
 		children: [(title || action) && /* @__PURE__ */ jsxs("header", {
 			className: "ui-card__head",
 			children: [/* @__PURE__ */ jsxs("div", { children: [title ? /* @__PURE__ */ jsx("h3", {
@@ -1297,6 +1297,7 @@ var COMPONENT_REGISTRY = [
 		id: "button",
 		name: "Button",
 		category: "forms",
+		span: "wide",
 		description: "Primary actions with outline, soft, ghost, link, and danger variants.",
 		tags: ["cta", "action"],
 		variants: [
@@ -1319,9 +1320,14 @@ var COMPONENT_REGISTRY = [
 		id: "icon-button",
 		name: "Icon Button",
 		category: "forms",
+		span: "wide",
 		description: "Compact icon-only control for toolbars.",
 		tags: ["toolbar"],
-		variants: ["ghost", "glass"],
+		variants: [
+			"ghost",
+			"glass",
+			"outline"
+		],
 		animated: true
 	},
 	{
@@ -1448,6 +1454,7 @@ var COMPONENT_REGISTRY = [
 		id: "calendar",
 		name: "Calendar",
 		category: "forms",
+		span: "wide",
 		description: "Month grid date picker.",
 		tags: ["date"],
 		animated: true
@@ -1464,12 +1471,14 @@ var COMPONENT_REGISTRY = [
 		id: "card",
 		name: "Card",
 		category: "layout",
-		description: "Glass, flat, and soft surface containers.",
+		span: "wide",
+		description: "Glass, flat, soft, and outline surface containers.",
 		tags: ["surface"],
 		variants: [
 			"glass",
 			"flat",
-			"soft"
+			"soft",
+			"outline"
 		],
 		animated: true
 	},
@@ -1477,6 +1486,7 @@ var COMPONENT_REGISTRY = [
 		id: "dashboard-shell",
 		name: "Dashboard shell",
 		category: "layout",
+		span: "full",
 		description: "App dashboard layout with collapsible sidebar (icon rail).",
 		tags: [
 			"layout",
@@ -1498,6 +1508,7 @@ var COMPONENT_REGISTRY = [
 		id: "scroll-area",
 		name: "Scroll Area",
 		category: "layout",
+		span: "wide",
 		description: "Contained scroll region.",
 		tags: ["layout"],
 		animated: false
@@ -1514,6 +1525,7 @@ var COMPONENT_REGISTRY = [
 		id: "resizable",
 		name: "Resizable",
 		category: "layout",
+		span: "wide",
 		description: "Split panes with draggable handle.",
 		tags: ["layout", "dashboard"],
 		animated: true
@@ -1530,6 +1542,7 @@ var COMPONENT_REGISTRY = [
 		id: "accordion",
 		name: "Accordion",
 		category: "layout",
+		span: "wide",
 		description: "Stacked disclosure sections.",
 		tags: ["layout", "faq"],
 		animated: true
@@ -1574,6 +1587,7 @@ var COMPONENT_REGISTRY = [
 		id: "table",
 		name: "Table",
 		category: "data",
+		span: "wide",
 		description: "Basic data table.",
 		tags: ["crm", "dashboard"],
 		animated: true
@@ -1582,6 +1596,7 @@ var COMPONENT_REGISTRY = [
 		id: "data-table",
 		name: "Data Table",
 		category: "data",
+		span: "full",
 		description: "Sortable table with selection for CRM/dashboard grids.",
 		tags: [
 			"crm",
@@ -1602,6 +1617,7 @@ var COMPONENT_REGISTRY = [
 		id: "alert",
 		name: "Alert",
 		category: "feedback",
+		span: "wide",
 		description: "Inline status banners.",
 		tags: ["status"],
 		variants: [
@@ -1624,6 +1640,7 @@ var COMPONENT_REGISTRY = [
 		id: "empty-state",
 		name: "Empty State",
 		category: "feedback",
+		span: "wide",
 		description: "Zero-data placeholder with CTA.",
 		tags: ["empty"],
 		animated: false
@@ -1632,6 +1649,7 @@ var COMPONENT_REGISTRY = [
 		id: "dialog",
 		name: "Dialog",
 		category: "overlay",
+		span: "wide",
 		description: "Modal dialog with description and footer actions.",
 		tags: ["modal"],
 		animated: true
@@ -1648,6 +1666,7 @@ var COMPONENT_REGISTRY = [
 		id: "sheet",
 		name: "Sheet",
 		category: "overlay",
+		span: "wide",
 		description: "Side drawer panel.",
 		tags: ["drawer"],
 		animated: true
@@ -1696,6 +1715,7 @@ var COMPONENT_REGISTRY = [
 		id: "command",
 		name: "Command",
 		category: "navigation",
+		span: "wide",
 		description: "Command palette / quick jump.",
 		tags: ["search", "keyboard"],
 		animated: true
@@ -1704,6 +1724,7 @@ var COMPONENT_REGISTRY = [
 		id: "tabs",
 		name: "Tabs",
 		category: "navigation",
+		span: "wide",
 		description: "Section switcher.",
 		tags: ["nav"],
 		animated: true
@@ -1728,6 +1749,7 @@ var COMPONENT_REGISTRY = [
 		id: "menubar",
 		name: "Menubar",
 		category: "navigation",
+		span: "wide",
 		description: "Horizontal app menu.",
 		tags: ["nav", "desktop"],
 		animated: true
@@ -1744,6 +1766,7 @@ var COMPONENT_REGISTRY = [
 		id: "carousel",
 		name: "Carousel",
 		category: "data",
+		span: "wide",
 		description: "Slide carousel for marketing and galleries.",
 		tags: ["media"],
 		animated: true
@@ -1752,6 +1775,7 @@ var COMPONENT_REGISTRY = [
 		id: "bar-chart",
 		name: "Bar Chart",
 		category: "charts",
+		span: "wide",
 		description: "Interactive bars with hover tooltips.",
 		tags: ["analytics"],
 		animated: true
@@ -1760,6 +1784,7 @@ var COMPONENT_REGISTRY = [
 		id: "line-chart",
 		name: "Line / Area Chart",
 		category: "charts",
+		span: "wide",
 		description: "SVG line with optional area fill and draw animation.",
 		tags: ["analytics"],
 		animated: true
@@ -1768,6 +1793,7 @@ var COMPONENT_REGISTRY = [
 		id: "donut-chart",
 		name: "Donut Chart",
 		category: "charts",
+		span: "wide",
 		description: "Segmented donut with legend hover.",
 		tags: ["analytics"],
 		animated: true
@@ -1784,6 +1810,7 @@ var COMPONENT_REGISTRY = [
 		id: "dot-matrix",
 		name: "Dot Matrix Chart",
 		category: "charts",
+		span: "wide",
 		description: "Autumn-style square pixel columns with glass tooltip.",
 		tags: ["analytics", "ops"],
 		animated: true
@@ -1792,6 +1819,7 @@ var COMPONENT_REGISTRY = [
 		id: "segmented-bar",
 		name: "Segmented Bar",
 		category: "charts",
+		span: "wide",
 		description: "Multi-segment horizontal breakdown.",
 		tags: ["analytics"],
 		animated: true
@@ -1800,6 +1828,7 @@ var COMPONENT_REGISTRY = [
 		id: "timeline-bar",
 		name: "Timeline Bar",
 		category: "charts",
+		span: "wide",
 		description: "Health / milestone timeline with striped tail.",
 		tags: ["ops"],
 		animated: true
@@ -1808,6 +1837,7 @@ var COMPONENT_REGISTRY = [
 		id: "heatmap",
 		name: "Heatmap",
 		category: "charts",
+		span: "wide",
 		description: "Intensity grid for activity and ops.",
 		tags: ["analytics"],
 		animated: true
@@ -1816,6 +1846,7 @@ var COMPONENT_REGISTRY = [
 		id: "radial-progress",
 		name: "Radial Progress",
 		category: "charts",
+		span: "wide",
 		description: "Circular KPI progress ring.",
 		tags: ["kpi"],
 		animated: true
@@ -1824,6 +1855,7 @@ var COMPONENT_REGISTRY = [
 		id: "radial-bars",
 		name: "Radial Bars",
 		category: "charts",
+		span: "wide",
 		description: "Multi-ring activity metrics.",
 		tags: ["kpi"],
 		animated: true
@@ -1832,6 +1864,7 @@ var COMPONENT_REGISTRY = [
 		id: "radar-chart",
 		name: "Radar Chart",
 		category: "charts",
+		span: "wide",
 		description: "Spider chart for multi-axis scores.",
 		tags: ["analytics"],
 		animated: true
@@ -1840,6 +1873,7 @@ var COMPONENT_REGISTRY = [
 		id: "funnel-chart",
 		name: "Funnel Chart",
 		category: "charts",
+		span: "wide",
 		description: "Conversion stage funnel.",
 		tags: ["analytics"],
 		animated: true
@@ -1848,6 +1882,7 @@ var COMPONENT_REGISTRY = [
 		id: "scatter-chart",
 		name: "Scatter Chart",
 		category: "charts",
+		span: "wide",
 		description: "Point cloud for correlation views.",
 		tags: ["analytics"],
 		animated: true
@@ -1856,6 +1891,7 @@ var COMPONENT_REGISTRY = [
 		id: "glass-ring",
 		name: "Glass Ring",
 		category: "effects",
+		span: "full",
 		description: "Shiny glass icon badge with tweakable shine/glow.",
 		tags: ["brand", "taste"],
 		animated: true
@@ -1864,6 +1900,7 @@ var COMPONENT_REGISTRY = [
 		id: "border-beam",
 		name: "Border Beam",
 		category: "effects",
+		span: "full",
 		description: "Animated traveling / pulse border glow (border-beam).",
 		tags: ["motion", "npm"],
 		animated: true
@@ -1872,6 +1909,7 @@ var COMPONENT_REGISTRY = [
 		id: "metal-fx",
 		name: "Metal FX",
 		category: "effects",
+		span: "full",
 		description: "WebGL liquid-metal ring for buttons (metal-fx).",
 		tags: ["motion", "npm"],
 		animated: true
@@ -3033,38 +3071,74 @@ function DashboardShellPreview() {
 		className: `dash-preview${collapsed ? " is-collapsed" : ""}`,
 		children: [/* @__PURE__ */ jsxs("aside", {
 			className: "dash-preview__side glass",
-			children: [/* @__PURE__ */ jsxs("div", {
-				className: "dash-preview__brand",
-				children: [/* @__PURE__ */ jsx("strong", { children: collapsed ? "S" : "Studio" }), /* @__PURE__ */ jsx(IconButton, {
-					variant: "ghost",
-					label: collapsed ? "Expand" : "Collapse",
-					onClick: () => setCollapsed((v) => !v),
-					children: collapsed ? /* @__PURE__ */ jsx(PanelLeft, { size: 14 }) : /* @__PURE__ */ jsx(PanelLeftClose, { size: 14 })
-				})]
-			}), /* @__PURE__ */ jsx("div", {
-				className: "dash-preview__nav",
-				children: [{
-					id: "overview",
-					label: "Overview",
-					icon: Home
-				}, {
-					id: "team",
-					label: "Team",
-					icon: Users$1
-				}].map((item) => {
-					const Icon = item.icon;
-					return /* @__PURE__ */ jsxs("span", {
-						className: "dash-preview__link",
-						children: [/* @__PURE__ */ jsx(Icon, { size: 14 }), !collapsed ? /* @__PURE__ */ jsx("span", { children: item.label }) : null]
-					}, item.id);
+			children: [
+				/* @__PURE__ */ jsxs("div", {
+					className: "dash-preview__brand",
+					children: [/* @__PURE__ */ jsx("strong", { children: collapsed ? "S" : "Studio" }), /* @__PURE__ */ jsx(IconButton, {
+						variant: "outline",
+						label: collapsed ? "Expand" : "Collapse",
+						onClick: () => setCollapsed((v) => !v),
+						children: collapsed ? /* @__PURE__ */ jsx(PanelLeft, { size: 14 }) : /* @__PURE__ */ jsx(PanelLeftClose, { size: 14 })
+					})]
+				}),
+				/* @__PURE__ */ jsx("div", {
+					className: "dash-preview__nav",
+					children: [
+						{
+							id: "overview",
+							label: "Overview",
+							icon: Home
+						},
+						{
+							id: "team",
+							label: "Team",
+							icon: Users$1
+						},
+						{
+							id: "search",
+							label: "Search",
+							icon: Home
+						}
+					].map((item) => {
+						const Icon = item.icon;
+						return /* @__PURE__ */ jsxs("span", {
+							className: "dash-preview__link",
+							children: [/* @__PURE__ */ jsx(Icon, { size: 14 }), !collapsed ? /* @__PURE__ */ jsx("span", { children: item.label }) : null]
+						}, item.id);
+					})
+				}),
+				/* @__PURE__ */ jsx("p", {
+					className: "dash-preview__hint",
+					children: collapsed ? "Rail" : "Click collapse for icon rail"
 				})
-			})]
+			]
 		}), /* @__PURE__ */ jsxs("div", {
 			className: "dash-preview__main",
 			children: [
-				/* @__PURE__ */ jsx("div", { className: "dash-preview__kpi" }),
-				/* @__PURE__ */ jsx("div", { className: "dash-preview__kpi" }),
-				/* @__PURE__ */ jsx("div", { className: "dash-preview__chart" })
+				/* @__PURE__ */ jsxs("div", {
+					className: "dash-preview__kpi",
+					children: [/* @__PURE__ */ jsx("span", { children: "Users" }), /* @__PURE__ */ jsx("strong", { children: "12.4k" })]
+				}),
+				/* @__PURE__ */ jsxs("div", {
+					className: "dash-preview__kpi",
+					children: [/* @__PURE__ */ jsx("span", { children: "Latency" }), /* @__PURE__ */ jsx("strong", { children: "142ms" })]
+				}),
+				/* @__PURE__ */ jsxs("div", {
+					className: "dash-preview__chart",
+					children: [/* @__PURE__ */ jsx("span", { children: "Traffic" }), /* @__PURE__ */ jsx("div", {
+						className: "dash-preview__bars",
+						"aria-hidden": true,
+						children: [
+							40,
+							55,
+							48,
+							70,
+							62,
+							80,
+							74
+						].map((h, i) => /* @__PURE__ */ jsx("i", { style: { height: `${h}%` } }, i))
+					})]
+				})
 			]
 		})]
 	});

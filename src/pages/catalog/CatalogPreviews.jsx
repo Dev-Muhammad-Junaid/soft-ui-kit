@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { Bell, Check, Info, Search } from "../../components/icons";
+import { Bell, Check, Info, Search, Sparkles } from "../../components/icons";
 import { BorderBeam } from "border-beam";
 import { MetalFx } from "metal-fx";
+import { useTheme } from "../../theme/ThemeProvider";
+import {
+  BORDER_BEAM_COLORS,
+  BORDER_BEAM_OPTIONS,
+  METAL_FX_OPTIONS,
+} from "../../components/playground/tweakControls";
 import { BarChart, DonutChart, LineChart, Sparkline } from "../../components/charts";
 import {
   FunnelChart,
@@ -56,8 +62,9 @@ import {
   Tooltip,
 } from "../../components/ui";
 
-/** Compact live preview for each catalog registry id. */
+/** Live preview for each catalog registry id. */
 export function CatalogPreview({ id }) {
+  const { effectTheme } = useTheme();
   const [on, setOn] = useState(true);
   const [val, setVal] = useState(42);
   const [tab, setTab] = useState("a");
@@ -67,25 +74,55 @@ export function CatalogPreview({ id }) {
   const [date, setDate] = useState("2026-07-22");
   const [page, setPage] = useState(1);
   const [pressed, setPressed] = useState(false);
+  const [beamSize, setBeamSize] = useState("md");
+  const [beamColor, setBeamColor] = useState("ocean");
+  const [metalPreset, setMetalPreset] = useState("chromatic");
 
   switch (id) {
     case "button":
       return (
-        <div className="preview-row">
-          <Button size="sm">Primary</Button>
-          <Button size="sm" variant="outline">
-            Outline
-          </Button>
-          <Button size="sm" variant="soft">
-            Soft
-          </Button>
+        <div className="preview-stack">
+          <div className="preview-row">
+            <Button size="sm">Primary</Button>
+            <Button size="sm" variant="secondary">
+              Secondary
+            </Button>
+            <Button size="sm" variant="outline">
+              Outline
+            </Button>
+            <Button size="sm" variant="soft">
+              Soft
+            </Button>
+          </div>
+          <div className="preview-row">
+            <Button size="sm" variant="ghost">
+              Ghost
+            </Button>
+            <Button size="sm" variant="link">
+              Link
+            </Button>
+            <Button size="sm" variant="danger">
+              Danger
+            </Button>
+            <Button size="md" variant="outline">
+              Outline md
+            </Button>
+          </div>
         </div>
       );
     case "icon-button":
       return (
-        <IconButton label="Search" variant="glass">
-          <Search size={16} />
-        </IconButton>
+        <div className="preview-row">
+          <IconButton label="Ghost" variant="ghost">
+            <Search size={16} />
+          </IconButton>
+          <IconButton label="Glass" variant="glass">
+            <Search size={16} />
+          </IconButton>
+          <IconButton label="Outline" variant="outline">
+            <Search size={16} />
+          </IconButton>
+        </div>
       );
     case "input":
       return <Input label="Email" placeholder="you@studio.dev" />;
@@ -176,9 +213,20 @@ export function CatalogPreview({ id }) {
       return <PasswordInput label="Password" placeholder="••••••••" />;
     case "card":
       return (
-        <Card title="Card" description="Glass surface" padded>
-          Content
-        </Card>
+        <div className="preview-card-grid">
+          <Card title="Glass" description="Default frost" padded variant="glass">
+            Soft content
+          </Card>
+          <Card title="Outline" description="Border only" padded variant="outline">
+            Crisp edge
+          </Card>
+          <Card title="Soft" description="Lifted panel" padded variant="soft">
+            Elevated
+          </Card>
+          <Card title="Flat" description="No glass" padded variant="flat">
+            Minimal
+          </Card>
+        </div>
       );
     case "dashboard-shell":
       return <DashboardShellPreview />;
@@ -186,38 +234,50 @@ export function CatalogPreview({ id }) {
       return <Separator label="Or" />;
     case "scroll-area":
       return (
-        <div className="ui-scroll" style={{ maxHeight: 72 }}>
-          <p>Scrollable block</p>
-          <p>More lines…</p>
-          <p>And more…</p>
+        <div className="ui-scroll catalog-scroll-demo">
+          {["Inbox", "Mentions", "Approvals", "Billing", "Audit log", "Integrations"].map((row) => (
+            <div key={row} className="catalog-scroll-demo__row">
+              {row}
+            </div>
+          ))}
         </div>
       );
     case "aspect-ratio":
       return (
         <div className="ui-aspect" style={{ paddingBottom: "56%" }}>
           <div className="ui-aspect__inner" style={{ display: "grid", placeItems: "center" }}>
-            16:9
+            16:9 media frame
           </div>
         </div>
       );
     case "resizable":
       return (
-        <div className="ui-resizable" style={{ minHeight: 88 }}>
-          <div className="ui-resizable__pane" style={{ width: "45%" }}>
-            Left
+        <div className="ui-resizable catalog-resizable-demo">
+          <div className="ui-resizable__pane" style={{ width: "42%" }}>
+            <strong>Nav</strong>
+            <p className="preview-note">Sidebar pane</p>
           </div>
           <div className="ui-resizable__handle" />
-          <div className="ui-resizable__pane" style={{ width: "55%" }}>
-            Right
+          <div className="ui-resizable__pane" style={{ width: "58%" }}>
+            <strong>Canvas</strong>
+            <p className="preview-note">Drag the handle to resize</p>
           </div>
         </div>
       );
     case "collapsible":
-      return <Collapsible title="Details">Hidden copy for FAQs.</Collapsible>;
+      return (
+        <Collapsible title="Release notes" defaultOpen>
+          Shipping notes, changelog bullets, and optional detail that stays out of the way until opened.
+        </Collapsible>
+      );
     case "accordion":
       return (
         <Accordion
-          items={[{ id: "1", title: "What is Soft UI?", content: "Glass kit for apps." }]}
+          items={[
+            { id: "1", title: "What is Soft UI?", content: "Glass + soft kit for dashboards and CRMs." },
+            { id: "2", title: "How do themes work?", content: "ThemeProvider + Taste tokens on the document." },
+            { id: "3", title: "Can I collapse the shell?", content: "Yes — DashboardShell icon rail is built in." },
+          ]}
         />
       );
     case "skeleton":
@@ -486,31 +546,100 @@ export function CatalogPreview({ id }) {
       );
     case "glass-ring":
       return (
-        <div className="preview-row">
-          <GlassRing size={48} tone="sky" soft>
-            <Bell size={18} />
-          </GlassRing>
-          <GlassRing size={48} tone="mint" active>
-            <Check size={18} />
-          </GlassRing>
-          <GlassRing size={48} tone="peach">
-            <Info size={18} />
-          </GlassRing>
+        <div className="preview-stack">
+          <div className="preview-row preview-row--rings">
+            {[
+              { tone: "sky", label: "Sky", soft: true },
+              { tone: "mint", label: "Mint", active: true },
+              { tone: "peach", label: "Peach" },
+              { tone: "lavender", label: "Lavender", active: true },
+              { tone: "rose", label: "Rose" },
+              { tone: "warn", label: "Warn", soft: true },
+            ].map((ring) => (
+              <div key={ring.tone} className="preview-ring-cell">
+                <GlassRing size={52} tone={ring.tone} soft={ring.soft} active={ring.active}>
+                  {ring.tone === "mint" ? <Check size={18} /> : ring.tone === "peach" ? <Info size={18} /> : <Bell size={18} />}
+                </GlassRing>
+                <span>{ring.label}</span>
+              </div>
+            ))}
+          </div>
+          <p className="preview-note">Shine / glow follow Taste ring dials — soft mode for dense KPIs.</p>
         </div>
       );
     case "border-beam":
       return (
-        <BorderBeam size="sm" colorVariant="ocean" theme="auto" strength={0.8}>
-          <Button size="sm">Beam</Button>
-        </BorderBeam>
+        <div className="preview-stack catalog-effect-demo">
+          <div className="preview-row">
+            {BORDER_BEAM_OPTIONS.filter((o) => o.id !== "off").map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                className={`taste-option-chip${beamSize === opt.id ? " is-active" : ""}`}
+                onClick={() => setBeamSize(opt.id)}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <div className="preview-row">
+            {BORDER_BEAM_COLORS.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                className={`taste-option-chip${beamColor === opt.id ? " is-active" : ""}`}
+                onClick={() => setBeamColor(opt.id)}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <div className="catalog-effect-demo__stage">
+            <BorderBeam size={beamSize} colorVariant={beamColor} theme={effectTheme} strength={0.85}>
+              <div className="catalog-effect-demo__card glass sheen">
+                <strong>{beamSize}</strong>
+                <p>Travel, compact, line, pulse, and halo — pick a color variant.</p>
+                <Button size="sm" variant="outline">
+                  Outline CTA
+                </Button>
+              </div>
+            </BorderBeam>
+          </div>
+        </div>
       );
     case "metal-fx":
       return (
-        <MetalFx variant="button" preset="chromatic" theme="auto">
-          <button type="button" className="ui-btn ui-btn--primary ui-btn--sm metal-host">
-            Metal
-          </button>
-        </MetalFx>
+        <div className="preview-stack catalog-effect-demo">
+          <div className="preview-row">
+            {METAL_FX_OPTIONS.filter((o) => o.id !== "off").map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                className={`taste-option-chip${metalPreset === opt.id ? " is-active" : ""}`}
+                onClick={() => setMetalPreset(opt.id)}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <div className="catalog-effect-demo__stage catalog-effect-demo__stage--metal">
+            <MetalFx variant="button" preset={metalPreset} theme={effectTheme} strength={0.9}>
+              <button type="button" className="ui-btn ui-btn--primary ui-btn--md metal-host">
+                {metalPreset} metal
+              </button>
+            </MetalFx>
+            <MetalFx variant="button" preset={metalPreset} theme={effectTheme}>
+              <button type="button" className="ui-btn ui-btn--outline ui-btn--md metal-host">
+                Outline host
+              </button>
+            </MetalFx>
+            <MetalFx variant="circle" preset={metalPreset} theme={effectTheme}>
+              <button type="button" className="metal-circle" aria-label="Spark">
+                <Sparkles size={18} />
+              </button>
+            </MetalFx>
+          </div>
+        </div>
       );
     default:
       return <span className="preview-note">Preview coming soon</span>;

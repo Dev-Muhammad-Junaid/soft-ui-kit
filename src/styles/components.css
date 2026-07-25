@@ -129,6 +129,16 @@ a.ui-btn {
   box-shadow: var(--shadow-inset);
 }
 
+.ui-icon-btn--outline {
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  color: var(--ink);
+  box-shadow: none;
+}
+.ui-icon-btn--outline:hover {
+  background: color-mix(in srgb, var(--accent-soft) 40%, transparent);
+  border-color: var(--accent);
+}
 .ui-icon-btn--glass {
   background: var(--glass-base);
   border: 1.5px solid var(--line);
@@ -1243,6 +1253,13 @@ a.ui-btn {
 }
 
 /* Card variants */
+.ui-card--outline {
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 .ui-card--flat {
   background: var(--bg-elevated);
   border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);

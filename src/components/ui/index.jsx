@@ -258,6 +258,7 @@ export function Card({ children, className, title, description, action, padded =
         variant === "glass" && "glass sheen",
         variant === "flat" && "ui-card--flat",
         variant === "soft" && "ui-card--soft",
+        variant === "outline" && "ui-card--outline",
         padded && "ui-card--padded",
         className,
       )}
