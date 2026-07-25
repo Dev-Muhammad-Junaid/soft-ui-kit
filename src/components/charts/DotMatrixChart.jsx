@@ -10,7 +10,8 @@ export function DotMatrixChart({
   labels,
   max = 400,
   rows = 20,
-  accent = "#f97316",
+  /** Optional override. Defaults to theme/Taste `--accent`. */
+  accent,
   formatTooltip,
   className,
 }) {
@@ -32,7 +33,11 @@ export function DotMatrixChart({
   return (
     <div
       className={clsx("dot-chart", className)}
-      style={{ "--dot-cols": cols, "--dot-rows": rows, "--dot-accent": accent }}
+      style={{
+        "--dot-cols": cols,
+        "--dot-rows": rows,
+        ...(accent ? { "--dot-accent": accent } : null),
+      }}
     >
       <div className="dot-chart__body">
         <div className="dot-chart__y" aria-hidden="true">

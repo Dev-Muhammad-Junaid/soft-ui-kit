@@ -2604,7 +2604,7 @@ function ScatterChart({ points = [], className = "", formatPoint = (p) => `${p.x
 * Autumn-style pixel / dot-matrix column chart.
 * Filled cells = value; empty cells = light grid texture.
 */
-function DotMatrixChart({ series, labels, max = 400, rows = 20, accent = "#f97316", formatTooltip, className }) {
+function DotMatrixChart({ series, labels, max = 400, rows = 20, accent, formatTooltip, className }) {
 	const [active, setActive] = useState(null);
 	const cols = series.length;
 	const step = max / rows;
@@ -2629,7 +2629,7 @@ function DotMatrixChart({ series, labels, max = 400, rows = 20, accent = "#f9731
 		style: {
 			"--dot-cols": cols,
 			"--dot-rows": rows,
-			"--dot-accent": accent
+			...accent ? { "--dot-accent": accent } : null
 		},
 		children: [/* @__PURE__ */ jsxs("div", {
 			className: "dot-chart__body",
