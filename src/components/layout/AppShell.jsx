@@ -12,6 +12,7 @@ import {
   Store,
   TrendingUp,
   Wand2,
+  Palette,
   Wallet,
 } from "../icons";
 import { GlassOrbField, GlassRing } from "../effects/GlassRing";
@@ -25,6 +26,7 @@ const LINKS = [
   { to: "/ui", label: "UI Kit", icon: BookOpen },
   { to: "/charts", label: "Charts", icon: BarChart3 },
   { to: "/effects", label: "Effects", icon: Wand2 },
+  { to: "/icon-styles/line", label: "Icons · Line", icon: Palette },
   { to: "/saas", label: "SaaS samples", icon: Store },
   { to: "/saas/dashboard", label: "Ops dashboard", icon: LayoutDashboard },
   { to: "/saas/autumn", label: "Autumn Insight", icon: TrendingUp },

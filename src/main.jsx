@@ -6,6 +6,7 @@ import { ThemeProvider } from "./theme/ThemeProvider.jsx";
 import "./styles/tokens.css";
 import "./styles/components.css";
 import "./styles/layout.css";
+import "./styles/icon-line.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
