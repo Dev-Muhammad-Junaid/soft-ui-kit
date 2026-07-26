@@ -1,0 +1,281 @@
+# Instincts generated from https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+# Generated: 2026-07-26T13:05:28.008Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: soft-ui-kit-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Commit Length
+
+## Action
+
+Keep commit messages concise (~48 characters)
+
+## Evidence
+
+- Average commit message length: 48 chars
+- Based on 2 commits
+
+---
+id: soft-ui-kit-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: soft-ui-kit-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: soft-ui-kit-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: soft-ui-kit-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: components, pages, styles
+
+---
+id: soft-ui-kit-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: soft-ui-kit-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct File Naming
+
+## Action
+
+Name the file using PascalCase (e.g., MyComponent.jsx)
+
+## Evidence
+
+- Pattern in namingConventions.files: PascalCase
+
+---
+id: soft-ui-kit-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Function Naming
+
+## Action
+
+Name the function using camelCase (e.g., handleClick)
+
+## Evidence
+
+- Pattern in namingConventions.functions: camelCase
+
+---
+id: soft-ui-kit-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Class Naming
+
+## Action
+
+Name the class using PascalCase (e.g., IconButton)
+
+## Evidence
+
+- Pattern in namingConventions.classes: PascalCase
+
+---
+id: soft-ui-kit-instinct-constant-naming
+trigger: "When defining a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Constant Naming
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE (e.g., MAX_WIDTH)
+
+## Evidence
+
+- Pattern in namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: soft-ui-kit-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Import Style
+
+## Action
+
+Use relative import paths (e.g., import Button from '../components/Button')
+
+## Evidence
+
+- Pattern in importStyle: relative
+
+---
+id: soft-ui-kit-instinct-export-style
+trigger: "When exporting modules or functions"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Export Style
+
+## Action
+
+Use named exports (e.g., export { Button })
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: soft-ui-kit-instinct-commit-format
+trigger: "When writing a git commit message"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Commit Format
+
+## Action
+
+Write a freeform message without a required prefix, averaging around 48 characters
+
+## Evidence
+
+- Pattern in commits.type: freeform
+- commits.prefixes: []
+- commits.averageLength: 48
+- Examples: 'Add Line & fill icon style lab on its own review page.'
+
+---
+id: soft-ui-kit-instinct-test-location
+trigger: "When creating test files"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: Dev-Muhammad-Junaid/soft-ui-kit
+---
+
+# Soft Ui Kit Instinct Test Location
+
+## Action
+
+Place test files in a separate directory from source code
+
+## Evidence
+
+- Pattern in architecture.testLocation: separate
+
