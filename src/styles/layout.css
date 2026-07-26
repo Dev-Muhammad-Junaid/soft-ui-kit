@@ -1969,11 +1969,41 @@
 .icon-styles-picker {
   padding: 16px 18px;
 }
+.icon-styles-refs {
+  padding: 16px 18px;
+}
+.icon-styles-refs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.icon-styles-refs__fig {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.icon-styles-refs__fig img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 70%, #fff);
+}
+.icon-styles-refs__fig figcaption {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-align: center;
+}
 .icon-styles-compare-row {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   margin-top: 14px;
+}
+.icon-styles-compare-row--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 .icon-styles-compare-chip {
   display: grid;
@@ -2059,6 +2089,11 @@
 .icon-style-glyph span {
   color: var(--ink-muted);
 }
+.icon-style-grid--glass .icon-style-glyph {
+  min-height: 84px;
+  padding-top: 14px;
+  background: color-mix(in srgb, var(--accent-soft) 22%, var(--bg));
+}
 .icon-style-demos {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2133,7 +2168,9 @@
 }
 
 @media (max-width: 960px) {
-  .icon-styles-compare-row {
+  .icon-styles-compare-row,
+  .icon-styles-compare-row--5,
+  .icon-styles-refs__grid {
     grid-template-columns: 1fr 1fr;
   }
   .icon-style-demos {
@@ -2141,7 +2178,9 @@
   }
 }
 @media (max-width: 640px) {
-  .icon-styles-compare-row {
+  .icon-styles-compare-row,
+  .icon-styles-compare-row--5,
+  .icon-styles-refs__grid {
     grid-template-columns: 1fr;
   }
 }
