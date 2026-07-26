@@ -6,6 +6,12 @@ import { ThemeProvider } from "./theme/ThemeProvider.jsx";
 import "./styles/tokens.css";
 import "./styles/components.css";
 import "./styles/layout.css";
+import "./styles/icon-hub.css";
+import "./styles/icon-line.css";
+import "./styles/icon-glass.css";
+import "./styles/icon-chrome.css";
+import "./styles/icon-frosted.css";
+import "./styles/icon-glassy-mix.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
