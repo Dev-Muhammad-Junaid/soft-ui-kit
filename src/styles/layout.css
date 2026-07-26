@@ -1960,3 +1960,188 @@
 .marketing-hero > .landing-install {
   margin-top: 28px;
 }
+
+/* Icon style lab (explore/icon-styles branch) */
+.icon-styles-page {
+  display: grid;
+  gap: 18px;
+}
+.icon-styles-picker {
+  padding: 16px 18px;
+}
+.icon-styles-compare-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.icon-styles-compare-chip {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 12px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--glass-base) 70%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+.icon-styles-compare-chip span {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink-muted);
+}
+.icon-styles-compare-chip:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+.icon-styles-compare-chip.is-active {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--glass-base));
+}
+.icon-styles-compare-chip.is-active span {
+  color: var(--accent-ink);
+}
+.icon-styles-stack {
+  display: grid;
+  gap: 22px;
+}
+.icon-style-card {
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  scroll-margin-top: 20px;
+}
+.icon-style-card__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+.icon-style-card__head h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+.icon-style-card__head p {
+  margin: 6px 0 0;
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+.icon-style-card__fit {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+.icon-style-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+}
+.icon-style-glyph {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+}
+.icon-style-glyph span {
+  color: var(--ink-muted);
+}
+.icon-style-demos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.icon-style-nav {
+  display: grid;
+  gap: 4px;
+}
+.icon-style-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  text-align: left;
+}
+.icon-style-nav__item:hover,
+.icon-style-nav__item.is-active {
+  background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+  color: var(--ink);
+}
+.icon-style-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  color: var(--ink-muted);
+}
+.icon-style-field .ui-input {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  flex: 1;
+  min-width: 0;
+}
+.icon-style-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+}
+.icon-style-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.icon-style-toolbar__btn.is-active,
+.icon-style-toolbar__btn:hover {
+  background: color-mix(in srgb, var(--accent-soft) 60%, transparent);
+  color: var(--ink);
+}
+
+@media (max-width: 960px) {
+  .icon-styles-compare-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .icon-style-demos {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .icon-styles-compare-row {
+    grid-template-columns: 1fr;
+  }
+}
