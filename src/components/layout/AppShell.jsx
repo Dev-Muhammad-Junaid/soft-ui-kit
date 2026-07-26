@@ -25,6 +25,7 @@ const LINKS = [
   { to: "/ui", label: "UI Kit", icon: BookOpen },
   { to: "/charts", label: "Charts", icon: BarChart3 },
   { to: "/effects", label: "Effects", icon: Wand2 },
+  { to: "/icon-styles/frosted", label: "Icons · Frosted", icon: Boxes },
   { to: "/saas", label: "SaaS samples", icon: Store },
   { to: "/saas/dashboard", label: "Ops dashboard", icon: LayoutDashboard },
   { to: "/saas/autumn", label: "Autumn Insight", icon: TrendingUp },
