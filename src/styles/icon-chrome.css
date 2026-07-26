@@ -159,10 +159,51 @@
 
 
 .icon-styles-page--hover-fx .icon-style-pad--chrome-neon:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--chrome-neon:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  box-shadow:
+    0 0 26px rgba(103, 232, 249, 0.55),
+    0 0 18px rgba(244, 114, 182, 0.35);
+  border-color: rgba(103, 232, 249, 0.7);
+}
 .icon-styles-page--hover-fx .icon-style-pad--neon-rim:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--neon-rim:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 0 10px rgba(103, 232, 249, 0.45);
+  filter: saturate(1.15) brightness(1.06);
+}
 .icon-styles-page--hover-fx .icon-style-pad--liquid-metal:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--liquid-metal:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background:
+    radial-gradient(circle at 40% 18%, #fff 0%, #cbd5e1 32%, color-mix(in srgb, var(--accent) 75%, #334155) 68%, #0f172a 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 8px 18px rgba(15, 23, 42, 0.35);
+}
 .icon-styles-page--hover-fx .icon-style-pad--iridescent:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--iridescent:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift))) scale(calc(1 + 0.02 * var(--t-hover-lift)));
+  filter: saturate(1.2) brightness(1.08);
+  box-shadow:
+    0 0 26px color-mix(in srgb, #f472b6 55%, transparent),
+    0 0 12px color-mix(in srgb, var(--accent) 40%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--halo-chrome:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--halo-chrome:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background:
+    radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 75%, transparent), transparent 62%),
+    #0b1020;
+  box-shadow:
+    0 0 32px color-mix(in srgb, var(--accent) 60%, transparent),
+    0 0 14px rgba(103, 232, 249, 0.4),
+    inset 0 0 16px rgba(103, 232, 249, 0.25);
+  border-color: color-mix(in srgb, var(--accent) 65%, #67e8f9);
+}
+
 
 .icon-styles-refs {
   padding: 16px 18px;
