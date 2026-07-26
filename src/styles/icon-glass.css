@@ -155,10 +155,51 @@
 
 
 .icon-styles-page--hover-fx .icon-style-pad--frost-shell:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--frost-shell:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 38%, #fff),
+    color-mix(in srgb, var(--accent) 14%, rgba(255, 255, 255, 0.7))
+  );
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 8px 18px color-mix(in srgb, var(--accent) 16%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--iso-glass:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--iso-glass:hover {
+  transform: skewX(-4deg) translateY(calc(-2px * var(--t-hover-lift)));
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 48%, #fff),
+    color-mix(in srgb, var(--accent) 18%, transparent)
+  );
+  box-shadow: 4px 8px 16px color-mix(in srgb, var(--accent) 20%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--glow-core:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--glow-core:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift))) scale(calc(1 + 0.02 * var(--t-hover-lift)));
+  box-shadow:
+    0 0 28px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 0 8px color-mix(in srgb, var(--accent) 40%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--acrylic-slab:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--acrylic-slab:hover {
+  transform: translateY(calc(-2px * var(--t-hover-lift)));
+  box-shadow:
+    0 12px 22px color-mix(in srgb, var(--accent) 28%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 .icon-styles-page--hover-fx .icon-style-pad--prism-soft:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--prism-soft:hover {
+  transform: translate(calc(-1px * var(--t-hover-lift)), calc(-1px * var(--t-hover-lift)));
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--accent) 32%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 
 .icon-styles-refs {
   padding: 16px 18px;
