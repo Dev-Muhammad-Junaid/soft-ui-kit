@@ -1,6 +1,32 @@
 /**
  * Frosted isometric tile set — common icons for apps, dashboards, admin & SaaS.
+ *
+ * Presentation modes:
+ * - tiled: Soft Complex identity (GlassTile plates + original shaped SoftMarks)
+ * - bare: SoftMark language (Arrow / User / Bell / Chart) — NOT plate-off TileMark glyphs
+ * Geometry: viewBox 0 0 48 48; default tile 9/9/30/30 rx≈10
+ * Layers: shadow → extrude → face → glyph → specular → glow
  */
+
+export const FROSTED_VERSIONS = ["tiled", "bare"];
+
+export const FROSTED_STANDARDS = {
+  viewBox: "0 0 48 48",
+  tile: { x: 9, y: 9, w: 30, h: 30, rx: 10 },
+  glyphInset: { min: 14, max: 34 },
+  strokeWidth: { min: 2.4, max: 3.4 },
+  bareGlyphScale: 1,
+  layers: ["shadow", "extrude", "face", "glyph", "specular", "glow"],
+  checklist: [
+    "Bare must match original bare mark language (SoftMark / stroke / soft-shaped glass)",
+    "Tiled must match Soft Complex tiled language (GlassTile plates + origin shaped marks)",
+    "Do not implement Bare as plate-off of TileMark glyphs",
+    "Layers: shadow → extrude → face → glyph → specular → glow",
+    "Color tokens from core/face/rim/spec/frost/mark/cut only (theme via currentColor + --soft-cx-*)",
+    "No raw hex fills in frosted glass icons — use gradients or CSS variables",
+    "Safe area ~6–42; name matches silhouette",
+  ],
+};
 
 export const FROSTED_CATEGORIES = [
   {

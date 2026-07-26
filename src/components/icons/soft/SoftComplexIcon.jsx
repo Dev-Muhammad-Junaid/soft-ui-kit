@@ -4,6 +4,8 @@ import {
   FROSTED_CATEGORIES,
   FROSTED_ICON_KEYS,
   FROSTED_LABELS,
+  FROSTED_STANDARDS,
+  FROSTED_VERSIONS,
 } from "./frostedRegistry";
 
 /**
@@ -12,26 +14,38 @@ import {
  * Controllable via CSS variables on the host:
  *   --soft-cx-intensity (0–1)
  * Layers: [data-soft-layer="shadow|extrude|face|glyph|specular|glow"]
+ *
+ * Frosted glass `version`:
+ *   - "tiled" — Soft Complex catalog (TileMark plates + shaped SoftMarks as designed)
+ *   - "bare"  — SoftMark language (Arrow / User / Bell / Chart), not plate-off tiles
  */
 export function SoftComplexIcon({
   name = "check",
   material = "glass",
+  version = "tiled",
   size = 48,
   intensity = 1,
   animate = false,
   className,
   title,
   style,
+  /** Override icon accent; defaults to theme `--accent` via SoftSvg currentColor. */
+  color,
   ...props
 }) {
   const uid = useId().replace(/:/g, "");
+  const plate = version !== "bare";
   const node = renderComplexIcon(name, material, {
     uid,
     size,
+    plate,
+    version,
+    color,
     title: title ?? FROSTED_LABELS[name] ?? name,
     className: [
       "soft-cx",
       `soft-cx--${material}`,
+      plate ? "soft-cx--tiled" : "soft-cx--bare",
       animate ? "soft-cx--animate" : "",
       className,
     ]
@@ -39,6 +53,7 @@ export function SoftComplexIcon({
       .join(" "),
     style: {
       "--soft-cx-intensity": intensity,
+      ...(color != null ? { color } : null),
       ...style,
     },
     ...props,
@@ -59,6 +74,7 @@ export function SoftComplexIcon({
 
 export function SoftComplexIconSet({
   material = "glass",
+  version = "tiled",
   size = 44,
   animate = false,
   intensity = 1,
@@ -67,12 +83,17 @@ export function SoftComplexIconSet({
   className,
 }) {
   return (
-    <div className={["soft-cx-set", className].filter(Boolean).join(" ")} data-soft-material={material}>
+    <div
+      className={["soft-cx-set", `soft-cx-set--${version}`, className].filter(Boolean).join(" ")}
+      data-soft-material={material}
+      data-soft-version={version}
+    >
       {names.map((name) => (
-        <figure key={`${material}-${name}`} className="soft-cx-set__cell">
+        <figure key={`${material}-${version}-${name}`} className="soft-cx-set__cell">
           <SoftComplexIcon
             name={name}
             material={material}
+            version={version}
             size={size}
             animate={animate}
             intensity={intensity}
@@ -89,10 +110,14 @@ export function SoftFrostedCatalog({
   size = 48,
   animate = false,
   intensity = 1,
+  version = "tiled",
   className,
 }) {
   return (
-    <div className={["soft-frosted-catalog", className].filter(Boolean).join(" ")}>
+    <div
+      className={["soft-frosted-catalog", className].filter(Boolean).join(" ")}
+      data-soft-version={version}
+    >
       {FROSTED_CATEGORIES.map((cat) => (
         <section key={cat.id} className="soft-frosted-catalog__section" id={`frosted-${cat.id}`}>
           <header className="soft-frosted-catalog__head">
@@ -102,6 +127,7 @@ export function SoftFrostedCatalog({
           </header>
           <SoftComplexIconSet
             material="glass"
+            version={version}
             size={size}
             animate={animate}
             intensity={intensity}
@@ -119,4 +145,6 @@ export {
   FROSTED_CATEGORIES,
   FROSTED_ICON_KEYS,
   FROSTED_LABELS,
+  FROSTED_STANDARDS,
+  FROSTED_VERSIONS,
 };

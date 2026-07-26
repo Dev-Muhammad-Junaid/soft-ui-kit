@@ -1,10 +1,60 @@
 /* Frosted isometric Soft Complex catalog */
 .icon-styles-page { display: grid; gap: 18px; }
 .icon-styles-page__controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.icon-styles-page__version {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-styles-page__version-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
 .icon-styles-complex { display: grid; gap: 22px; }
 .icon-styles-complex__label {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   color: var(--ink-muted); font-size: 13px;
+}
+.frosted-standards {
+  display: grid;
+  gap: 14px;
+}
+.frosted-standards__rules,
+.frosted-standards__checklist {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 6px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.frosted-standards__rules strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.frosted-standards__hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+.frosted-standards__hint code {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+  color: var(--accent-ink);
+}
+.soft-cx--bare {
+  /* SoftMark bare language — slightly richer without TileMark plate fill */
+  filter: saturate(1.06) contrast(1.02);
+}
+.soft-cx-set--bare .soft-cx-set__cell {
+  /* No plate stand-in — Bare SoftMarks sit on the catalog surface */
+  background: transparent;
 }
 /* Soft Complex SVG library */
 .icon-styles-complex {
@@ -93,15 +143,30 @@
 
 .soft-cx {
   --soft-cx-intensity: 1;
-  --soft-cx-frost: color-mix(in srgb, #fff 82%, var(--bg-elevated));
-  --soft-cx-mark: color-mix(in srgb, #fff 55%, var(--accent-soft));
+  /* Specular / rim frost — tracks elevated surface + theme */
+  --soft-cx-frost: color-mix(in srgb, #fff 78%, var(--bg-elevated));
+  /* Secondary glyph fills (calendar days, receipt lines) — tracks accent-soft */
+  --soft-cx-mark: color-mix(in srgb, var(--accent-soft) 70%, #fff);
+  /* Punched details on accent cores (plus, shield ✓, terminal, keyholes) */
+  --soft-cx-cut: var(--soft-cx-frost);
   display: block;
   color: var(--accent);
   transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), filter 180ms ease;
 }
+/* Dark themes: softer frost, readable cuts, accent-ink marks */
+[data-theme="dusk"] .soft-cx,
+[data-theme="midnight"] .soft-cx {
+  --soft-cx-frost: color-mix(in srgb, #fff 40%, var(--bg-elevated));
+  --soft-cx-mark: color-mix(in srgb, var(--accent-ink) 50%, var(--bg-elevated));
+  --soft-cx-cut: color-mix(in srgb, #fff 68%, var(--accent-soft));
+}
+[data-theme="aurora"] .soft-cx {
+  --soft-cx-mark: color-mix(in srgb, var(--accent-soft) 60%, #fff);
+}
 .soft-cx--chrome {
   --soft-cx-frost: #f8fafc;
   --soft-cx-mark: #e2e8f0;
+  --soft-cx-cut: #f1f5f9;
 }
 .soft-cx-set__cell:hover .soft-cx {
   transform: translateY(calc(-2px * var(--t-hover-lift))) scale(1.04);

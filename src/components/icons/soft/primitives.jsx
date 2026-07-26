@@ -10,6 +10,7 @@ export function SoftSvg({
   children,
   viewBox = "0 0 48 48",
   style,
+  color,
   ...props
 }) {
   return (
@@ -23,7 +24,11 @@ export function SoftSvg({
       role={title ? "img" : "presentation"}
       aria-hidden={title ? undefined : true}
       aria-label={title}
-      style={{ overflow: "visible", color: "var(--accent)", ...style }}
+      style={{
+        overflow: "visible",
+        color: color ?? "var(--accent)",
+        ...style,
+      }}
       {...props}
     >
       {children}
@@ -54,7 +59,7 @@ export function SoftGroundShadow({ uid, cx = 24, cy = 42, rx = 14, ry = 3.2 }) {
 }
 
 export function GlassDefs({ uid }) {
-  // Frost tokens (--soft-cx-frost / --soft-cx-mark) keep dusk/midnight readable
+  // Paints resolve from currentColor (--accent / color prop) + theme frost/mark tokens.
   return (
     <defs>
       <linearGradient id={`${uid}-body`} x1="0.15" y1="0" x2="0.85" y2="1">
@@ -65,7 +70,7 @@ export function GlassDefs({ uid }) {
       <linearGradient id={`${uid}-face`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="var(--soft-cx-frost, #ffffff)" stopOpacity="0.78" />
         <stop offset="40%" stopColor="currentColor" stopOpacity="0.38" />
-        <stop offset="100%" stopColor="var(--soft-cx-frost, #ffffff)" stopOpacity="0.62" />
+        <stop offset="100%" stopColor="var(--soft-cx-mark, var(--soft-cx-frost, #ffffff))" stopOpacity="0.62" />
       </linearGradient>
       <linearGradient id={`${uid}-core`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="currentColor" stopOpacity="0.98" />

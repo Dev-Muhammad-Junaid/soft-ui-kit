@@ -1,50 +1,38 @@
 /**
- * Frosted isometric tile icons — Soft Complex glass material.
- * Built for SaaS / dashboard / admin chrome. Theme via currentColor (--accent).
+ * Frosted isometric tile icons — Soft Complex glass material (TILED catalog).
+ * Bare SoftMark language lives in frostedBareIcons.jsx — do not plate-off these glyphs.
+ *
+ * Theme paints (via SoftSvg currentColor = --accent, plus host CSS vars):
+ *   url(#*-core|face|body|rim|spec) · --soft-cx-frost · --soft-cx-mark · --soft-cx-cut
  */
 
-import {
-  GlassDefs,
-  GlassTile,
-  SoftGroundShadow,
-  SoftSvg,
-} from "./primitives";
+import { GlassTile } from "./primitives";
 import { FROSTED_ICON_KEYS } from "./frostedRegistry";
+import { Frame, Spec } from "./softMark";
+import { FROSTED_BARE_ICON_MAP } from "./frostedBareIcons";
 
-function Frame({ uid, size, className, title, style, children, ...props }) {
-  return (
-    <SoftSvg
-      size={size}
-      className={className}
-      title={title}
-      style={style}
-      data-soft-material="glass"
-      {...props}
-    >
-      <GlassDefs uid={uid} />
-      <SoftGroundShadow uid={uid} />
-      {children}
-    </SoftSvg>
-  );
-}
+/** Theme tokens for punched / secondary paints (no raw hex). */
+const CX_FROST = "var(--soft-cx-frost)";
+const CX_MARK = "var(--soft-cx-mark)";
+const CX_CUT = "var(--soft-cx-cut)";
 
-function Spec({ uid, d = "M13 14.5h16", opacity = 0.55 }) {
+/**
+ * Soft Complex tiled plate — always draws GlassTile.
+ * Bare mode uses SoftMark helpers / frostedBareIcons — never plate-off TileMark glyphs.
+ */
+function TileMark({
+  uid,
+  plate = true,
+  children,
+  x = 9,
+  y = 9,
+  w = 30,
+  h = 30,
+  rx = 10,
+  ...frame
+}) {
   return (
-    <path
-      data-soft-layer="specular"
-      d={d}
-      stroke={`url(#${uid}-spec)`}
-      strokeWidth={1.7}
-      strokeLinecap="round"
-      opacity={opacity}
-    />
-  );
-}
-
-/** Standard frosted tile with stroke/fill glyph children */
-function TileMark({ uid, children, x = 9, y = 9, w = 30, h = 30, rx = 10, ...frame }) {
-  return (
-    <Frame uid={uid} {...frame}>
+    <Frame uid={uid} plate={plate !== false} {...frame}>
       <GlassTile uid={uid} x={x} y={y} w={w} h={h} rx={rx}>
         {children}
       </GlassTile>
@@ -320,7 +308,7 @@ function Check(p) {
       <path
         data-soft-layer="glyph-shine"
         d="M16.5 24.2l4.6 4.6L32.2 17.5"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_FROST}
         strokeWidth={1.2}
         strokeLinecap="round"
         fill="none"
@@ -338,7 +326,7 @@ function Plus(p) {
       <path
         data-soft-layer="glyph"
         d="M24 18.5v11M18.5 24h11"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_CUT}
         strokeWidth={3}
         strokeLinecap="round"
         fill="none"
@@ -355,7 +343,7 @@ function Minus(p) {
       <path
         data-soft-layer="glyph"
         d="M18.5 24h11"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_CUT}
         strokeWidth={3}
         strokeLinecap="round"
         fill="none"
@@ -539,7 +527,7 @@ function User(p) {
           strokeWidth={1.15}
         />
         <circle cx={24} cy={16.5} r={3.6} fill={`url(#${uid}-core)`} opacity={0.8} data-soft-layer="glyph" />
-        <ellipse cx={21.2} cy={13.8} rx={3.4} ry={1.6} fill="var(--soft-cx-frost, #fff)" opacity={0.4} data-soft-layer="specular" />
+        <ellipse cx={21.2} cy={13.8} rx={3.4} ry={1.6} fill={CX_FROST} opacity={0.4} data-soft-layer="specular" />
       </g>
     </Frame>
   );
@@ -581,7 +569,7 @@ function Lock(p) {
         strokeLinecap="round"
         data-soft-layer="glyph"
       />
-      <circle cx={24} cy={27.5} r={1.6} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <circle cx={24} cy={27.5} r={1.6} fill={CX_CUT} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -600,7 +588,7 @@ function Unlock(p) {
         strokeLinecap="round"
         data-soft-layer="glyph"
       />
-      <circle cx={24} cy={27.5} r={1.6} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <circle cx={24} cy={27.5} r={1.6} fill={CX_CUT} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -618,7 +606,7 @@ function Shield(p) {
       <path
         data-soft-layer="glyph"
         d="M20.5 24.5l2.6 2.6L28 21.5"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_CUT}
         strokeWidth={2.4}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -747,7 +735,7 @@ function Send(p) {
       <path
         data-soft-layer="glyph"
         d="M22.6 25.6L32.2 16"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_CUT}
         strokeWidth={1.8}
         strokeLinecap="round"
         fill="none"
@@ -1018,7 +1006,7 @@ function Wallet(p) {
         <rect data-soft-layer="extrude" x={9.5} y={17.5} width={31} height={18} rx={6} fill={`url(#${uid}-body)`} opacity={0.5} />
         <rect data-soft-layer="face" x={8} y={15.5} width={31} height={18} rx={6} fill={`url(#${uid}-face)`} stroke={`url(#${uid}-rim)`} strokeWidth={1.15} />
         <rect data-soft-layer="glyph" x={27} y={20} width={9.5} height={9} rx={3} fill={`url(#${uid}-core)`} opacity={0.85} />
-        <circle cx={31.8} cy={24.5} r={1.7} fill="var(--soft-cx-frost, #fff)" opacity={0.7} data-soft-layer="glyph" />
+        <circle cx={31.8} cy={24.5} r={1.7} fill={CX_CUT} opacity={0.7} data-soft-layer="glyph" />
       </g>
     </Frame>
   );
@@ -1081,8 +1069,8 @@ function Receipt(p) {
         fill={`url(#${uid}-core)`}
         opacity={0.8}
       />
-      <rect x={20} y={18} width={8} height={2} rx={1} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
-      <rect x={20} y={22.5} width={6} height={2} rx={1} fill={`url(#${uid}-face)`} opacity={0.85} data-soft-layer="glyph" />
+      <rect x={20} y={18} width={8} height={2} rx={1} fill={CX_MARK} data-soft-layer="glyph" />
+      <rect x={20} y={22.5} width={6} height={2} rx={1} fill={CX_MARK} opacity={0.85} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -1100,7 +1088,7 @@ function Package(p) {
       <path
         data-soft-layer="glyph"
         d="M15.5 19.5l8.5 4.5 8.5-4.5M24 24v10"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_CUT}
         strokeWidth={1.8}
         fill="none"
         opacity={0.85}
@@ -1123,7 +1111,7 @@ function Calendar(p) {
         {[16.2, 23.5, 30.8].map((x) => (
           <g key={x} data-soft-layer="glyph">
             <rect x={x - 1.45} y={7.8} width={2.9} height={7.4} rx={1.45} fill={`url(#${uid}-core)`} />
-            <circle cx={x} cy={8.6} r={2.25} fill="var(--soft-cx-frost, #fff)" opacity={0.9} />
+            <circle cx={x} cy={8.6} r={2.25} fill={CX_FROST} opacity={0.9} />
           </g>
         ))}
         {[0, 1, 2].map((r) =>
@@ -1136,7 +1124,7 @@ function Calendar(p) {
               width={4.6}
               height={3.4}
               rx={1.1}
-              fill="var(--soft-cx-mark, #fff)"
+              fill={CX_MARK}
               opacity={0.5 + (r + c) * 0.06}
             />
           ))
@@ -1191,7 +1179,7 @@ function File(p) {
         fill={`url(#${uid}-core)`}
         opacity={0.85}
       />
-      <path data-soft-layer="glyph" d="M26 14v6.5h6.5" fill={`url(#${uid}-face)`} />
+      <path data-soft-layer="glyph" d="M26 14v6.5h6.5" fill={CX_MARK} />
     </TileMark>
   );
 }
@@ -1250,7 +1238,7 @@ function Server(p) {
       {[0, 1, 2].map((i) => (
         <g key={i} data-soft-layer="glyph">
           <rect x={13} y={12 + i * 9} width={22} height={7} rx={2.2} fill={`url(#${uid}-core)`} opacity={0.75 - i * 0.1} />
-          <circle cx={17} cy={15.5 + i * 9} r={1.3} fill={`url(#${uid}-face)`} />
+          <circle cx={17} cy={15.5 + i * 9} r={1.3} fill={CX_CUT} />
         </g>
       ))}
     </TileMark>
@@ -1268,7 +1256,7 @@ function Tag(p) {
         fill={`url(#${uid}-core)`}
         opacity={0.88}
       />
-      <circle cx={30} cy={24} r={1.8} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <circle cx={30} cy={24} r={1.8} fill={CX_CUT} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -1310,7 +1298,7 @@ function MapPin(p) {
   return (
     <TileMark uid={uid} {...frame}>
       <path d="M24 12c5.5 0 10 4.2 10 9.5 0 7-10 16.5-10 16.5S14 28.5 14 21.5C14 16.2 18.5 12 24 12Z" fill={`url(#${uid}-core)`} opacity={0.85} data-soft-layer="glyph" />
-      <circle cx={24} cy={21} r={3.2} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <circle cx={24} cy={21} r={3.2} fill={CX_CUT} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -1353,7 +1341,7 @@ function Settings(p) {
           />
         ))}
         <circle r={6.3} fill={`url(#${uid}-core)`} />
-        <circle r={2.7} fill={`url(#${uid}-face)`} />
+        <circle r={2.7} fill={CX_CUT} />
       </g>
     </TileMark>
   );
@@ -1388,8 +1376,8 @@ function Alert(p) {
   return (
     <TileMark uid={uid} {...frame}>
       <circle cx={24} cy={24} r={9.5} fill={`url(#${uid}-core)`} opacity={0.9} data-soft-layer="glyph" />
-      <rect x={22.4} y={18} width={3.2} height={9} rx={1.6} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
-      <circle cx={24} cy={30.5} r={1.5} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <rect x={22.4} y={18} width={3.2} height={9} rx={1.6} fill={CX_CUT} data-soft-layer="glyph" />
+      <circle cx={24} cy={30.5} r={1.5} fill={CX_CUT} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -1404,8 +1392,8 @@ function Warning(p) {
         fill={`url(#${uid}-core)`}
         opacity={0.9}
       />
-      <rect x={22.5} y={21.5} width={3} height={6.5} rx={1.4} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
-      <circle cx={24} cy={30.5} r={1.4} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <rect x={22.5} y={21.5} width={3} height={6.5} rx={1.4} fill={CX_CUT} data-soft-layer="glyph" />
+      <circle cx={24} cy={30.5} r={1.4} fill={CX_CUT} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -1442,7 +1430,7 @@ function Rocket(p) {
         d="M24 14c3.5 3 5.5 7.5 5.5 12l-2.8 1.4-2.7-7-2.7 7-2.8-1.4c0-4.5 2-9 5.5-12Z"
         fill={`url(#${uid}-core)`}
       />
-      <circle cx={24} cy={21} r={1.8} fill={`url(#${uid}-face)`} data-soft-layer="glyph" />
+      <circle cx={24} cy={21} r={1.8} fill={CX_CUT} data-soft-layer="glyph" />
       <path
         data-soft-layer="glyph"
         d="M20.5 29.5c-1.2 1.2-2 2.8-2 2.8s1.8-.5 3-1.6M27.5 29.5c1.2 1.2 2 2.8 2 2.8s-1.8-.5-3-1.6"
@@ -1512,7 +1500,7 @@ function Terminal(p) {
       <path
         data-soft-layer="glyph"
         d="M16 20l5 4-5 4M23 28h8"
-        stroke="var(--soft-cx-frost, #fff)"
+        stroke={CX_CUT}
         strokeWidth={2.2}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -1547,7 +1535,7 @@ function Book(p) {
     <TileMark uid={uid} {...frame}>
       <path d="M12 14h11v22H14a2 2 0 0 1-2-2V14Z" fill={`url(#${uid}-core)`} opacity={0.75} data-soft-layer="glyph" />
       <path d="M25 14h11v20a2 2 0 0 1-2 2H25V14Z" fill={`url(#${uid}-core)`} opacity={0.55} data-soft-layer="glyph" />
-      <path d="M24 14v22" stroke={`url(#${uid}-face)`} strokeWidth={2} data-soft-layer="glyph" />
+      <path d="M24 14v22" stroke={CX_MARK} strokeWidth={2} data-soft-layer="glyph" />
     </TileMark>
   );
 }
@@ -1666,7 +1654,17 @@ if (missing.length && import.meta.env?.DEV) {
   console.warn("[frostedIcons] missing implementations:", missing);
 }
 
+/**
+ * Render Soft Complex (tiled) or SoftMark (bare) by version.
+ * Bare never plate-offs TileMark glyphs — uses FROSTED_BARE_ICON_MAP SoftMarks.
+ * Shaped originals (Arrow / User / Bell / Chart / …) reuse tiled SoftMark bodies with plate off.
+ */
 export function renderFrostedIcon(name, props) {
+  const version = props.version ?? (props.plate === false ? "bare" : "tiled");
+  if (version === "bare") {
+    const Bare = FROSTED_BARE_ICON_MAP[name];
+    if (Bare) return <Bare {...props} plate={false} />;
+  }
   const Comp = FROSTED_ICON_MAP[name];
   if (!Comp) return null;
   return <Comp {...props} />;
