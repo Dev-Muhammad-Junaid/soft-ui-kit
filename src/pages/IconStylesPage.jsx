@@ -36,38 +36,50 @@ const LABELS = {
   mail: "Mail",
 };
 
-const REF_IMAGES = [
-  { src: `${import.meta.env.BASE_URL}icon-refs/glass-a.png`, label: "Frosted tiles" },
-  { src: `${import.meta.env.BASE_URL}icon-refs/glass-b.png`, label: "Iso glass system" },
-  { src: `${import.meta.env.BASE_URL}icon-refs/glass-c.png`, label: "Glow cores" },
-];
+const REF_BY_GROUP = {
+  glass: [
+    { src: `${import.meta.env.BASE_URL}icon-refs/glass-a.png`, label: "Frosted tiles" },
+    { src: `${import.meta.env.BASE_URL}icon-refs/glass-b.png`, label: "Iso glass system" },
+    { src: `${import.meta.env.BASE_URL}icon-refs/glass-c.png`, label: "Glow cores" },
+  ],
+  chrome: [
+    { src: `${import.meta.env.BASE_URL}icon-refs/chrome-a.png`, label: "Neon reflections" },
+    { src: `${import.meta.env.BASE_URL}icon-refs/chrome-b.png`, label: "Chrome color pack" },
+    { src: `${import.meta.env.BASE_URL}icon-refs/chrome-c.png`, label: "Liquid metal" },
+  ],
+};
 
 function StyleShowcase({ style }) {
   const I = useMemo(() => makeSoftIcons(style.id), [style.id]);
   const [on, setOn] = useState(true);
   const isGlass = style.group === "glass";
+  const isChrome = style.group === "chrome";
+  const fat = isGlass || isChrome;
 
   return (
-    <article className="icon-style-card glass sheen" id={`style-${style.id}`}>
+    <article
+      className={`icon-style-card glass sheen${isChrome ? " icon-style-card--chrome" : ""}`}
+      id={`style-${style.id}`}
+    >
       <header className="icon-style-card__head">
         <div>
           <h2>{style.name}</h2>
           <p>{style.tagline}</p>
         </div>
         <div className="row" style={{ gap: 8 }}>
-          <Badge tone={isGlass ? "accent" : "neutral"}>{style.group}</Badge>
+          <Badge tone={isGlass || isChrome ? "accent" : "neutral"}>{style.group}</Badge>
           <Badge>{style.id}</Badge>
         </div>
       </header>
       <p className="icon-style-card__fit">{style.fit}</p>
 
       <div
-        className={`icon-style-grid${isGlass ? " icon-style-grid--glass" : ""}`}
+        className={`icon-style-grid${isGlass ? " icon-style-grid--glass" : ""}${isChrome ? " icon-style-grid--chrome" : ""}`}
         aria-label={`${style.name} glyph set`}
       >
         {GLYPH_KEYS.map((key) => (
           <div key={key} className="icon-style-glyph">
-            <SoftIcon name={key} styleId={style.id} size={isGlass ? 28 : 22} />
+            <SoftIcon name={key} styleId={style.id} size={fat ? 28 : 22} />
             <span>{LABELS[key] || key}</span>
           </div>
         ))}
@@ -78,16 +90,16 @@ function StyleShowcase({ style }) {
       <div className="icon-style-demos">
         <Card title="Buttons" description="Primary / outline / soft with icons" padded>
           <div className="preview-row" style={{ flexWrap: "wrap" }}>
-            <Button size="sm" leftIcon={<I.Plus size={isGlass ? 16 : 15} />}>
+            <Button size="sm" leftIcon={<I.Plus size={fat ? 16 : 15} />}>
               New item
             </Button>
-            <Button size="sm" variant="outline" rightIcon={<I.ArrowRight size={isGlass ? 16 : 15} />}>
+            <Button size="sm" variant="outline" rightIcon={<I.ArrowRight size={fat ? 16 : 15} />}>
               Continue
             </Button>
-            <Button size="sm" variant="soft" leftIcon={<I.Sparkles size={isGlass ? 16 : 15} />}>
+            <Button size="sm" variant="soft" leftIcon={<I.Sparkles size={fat ? 16 : 15} />}>
               Taste
             </Button>
-            <Button size="sm" variant="ghost" leftIcon={<I.Settings size={isGlass ? 16 : 15} />}>
+            <Button size="sm" variant="ghost" leftIcon={<I.Settings size={fat ? 16 : 15} />}>
               Settings
             </Button>
           </div>
@@ -96,16 +108,16 @@ function StyleShowcase({ style }) {
         <Card title="Icon buttons" description="Ghost · glass · outline" padded>
           <div className="preview-row">
             <IconButton label="Search" variant="ghost">
-              <I.Search size={isGlass ? 20 : 17} />
+              <I.Search size={fat ? 20 : 17} />
             </IconButton>
             <IconButton label="Alerts" variant="glass">
-              <I.Bell size={isGlass ? 20 : 17} />
+              <I.Bell size={fat ? 20 : 17} />
             </IconButton>
             <IconButton label="Close" variant="outline">
-              <I.X size={isGlass ? 20 : 17} />
+              <I.X size={fat ? 20 : 17} />
             </IconButton>
             <IconButton label="Mail" variant="glass">
-              <I.Mail size={isGlass ? 20 : 17} />
+              <I.Mail size={fat ? 20 : 17} />
             </IconButton>
           </div>
         </Card>
@@ -114,25 +126,25 @@ function StyleShowcase({ style }) {
           <div className="preview-row preview-row--rings">
             <div className="preview-ring-cell">
               <GlassRing size={52} tone="sky" active>
-                <I.Sparkles size={isGlass ? 22 : 20} />
+                <I.Sparkles size={fat ? 22 : 20} />
               </GlassRing>
               <span>Brand</span>
             </div>
             <div className="preview-ring-cell">
               <GlassRing size={52} tone="mint" soft>
-                <I.Check size={isGlass ? 22 : 20} />
+                <I.Check size={fat ? 22 : 20} />
               </GlassRing>
               <span>OK</span>
             </div>
             <div className="preview-ring-cell">
               <GlassRing size={52} tone="lavender" active>
-                <I.Bell size={isGlass ? 22 : 20} />
+                <I.Bell size={fat ? 22 : 20} />
               </GlassRing>
               <span>Alert</span>
             </div>
             <div className="preview-ring-cell">
               <GlassRing size={52} tone="peach" soft>
-                <I.Wallet size={isGlass ? 22 : 20} />
+                <I.Wallet size={fat ? 22 : 20} />
               </GlassRing>
               <span>Finance</span>
             </div>
@@ -153,7 +165,7 @@ function StyleShowcase({ style }) {
                 type="button"
                 className={`icon-style-nav__item${i === 0 ? " is-active" : ""}`}
               >
-                <Icon size={isGlass ? 20 : 18} />
+                <Icon size={fat ? 20 : 18} />
                 <span>{label}</span>
               </button>
             ))}
@@ -162,7 +174,7 @@ function StyleShowcase({ style }) {
 
         <Card title="Form field" description="Search input chrome" padded>
           <div className="icon-style-field glass sheen">
-            <I.Search size={isGlass ? 18 : 17} />
+            <I.Search size={fat ? 18 : 17} />
             <input className="ui-input ui-input--bare" placeholder="Search workspace…" />
             <IconButton label="Clear" variant="ghost">
               <I.X size={14} />
@@ -176,7 +188,7 @@ function StyleShowcase({ style }) {
         <Card title="Feedback" description="Alert + toolbar strip" padded>
           <Alert tone="info" title="Synced">
             <span className="row" style={{ gap: 8 }}>
-              <I.Info size={isGlass ? 18 : 16} /> Nightly job finished with no blockers.
+              <I.Info size={fat ? 18 : 16} /> Nightly job finished with no blockers.
             </span>
           </Alert>
           <div className="icon-style-toolbar glass sheen" style={{ marginTop: 12 }}>
@@ -201,10 +213,11 @@ function StyleShowcase({ style }) {
 }
 
 export function IconStylesPage() {
-  const [focus, setFocus] = useState("frost-shell");
-  const [group, setGroup] = useState("glass");
+  const [focus, setFocus] = useState("chrome-neon");
+  const [group, setGroup] = useState("chrome");
 
   const visible = stylesInGroup(group);
+  const refs = REF_BY_GROUP[group] || REF_BY_GROUP.glass;
 
   return (
     <div className="icon-styles-page">
@@ -212,24 +225,33 @@ export function IconStylesPage() {
         <div>
           <h1>Icon style lab</h1>
           <p>
-            Line weights plus a new <strong>Glass & depth</strong> set inspired by your
-            frosted 3D references — still SVG + <code>currentColor</code>, so Taste /
-            theme accent keeps tinting them.
+            Line, frosted glass, and <strong>Chrome neon</strong> (Neon Reflections) —
+            SVG approximations that still pick up Taste / theme accent where possible.
           </p>
         </div>
         <Badge tone="accent">{ICON_STYLES.length} styles</Badge>
       </header>
 
-      <Card className="icon-styles-refs glass sheen" title="Reference mood" description="Your glass / isometric boards">
-        <div className="icon-styles-refs__grid">
-          {REF_IMAGES.map((img) => (
-            <figure key={img.src} className="icon-styles-refs__fig">
-              <img src={img.src} alt={img.label} loading="lazy" />
-              <figcaption>{img.label}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </Card>
+      {refs ? (
+        <Card
+          className="icon-styles-refs glass sheen"
+          title="Reference mood"
+          description={
+            group === "chrome"
+              ? "Chrome Color Icons — Neon Reflections"
+              : "Your glass / isometric boards"
+          }
+        >
+          <div className="icon-styles-refs__grid">
+            {refs.map((img) => (
+              <figure key={img.src} className="icon-styles-refs__fig">
+                <img src={img.src} alt={img.label} loading="lazy" />
+                <figcaption>{img.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </Card>
+      ) : null}
 
       <Card className="icon-styles-picker glass sheen">
         <div className="catalog-filters" role="tablist" aria-label="Style groups">

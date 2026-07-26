@@ -2094,6 +2094,27 @@
   padding-top: 14px;
   background: color-mix(in srgb, var(--accent-soft) 22%, var(--bg));
 }
+.icon-style-card--chrome .icon-style-card__fit {
+  color: var(--ink-muted);
+}
+.icon-style-grid--chrome {
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(120% 80% at 20% 0%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%),
+    radial-gradient(100% 70% at 90% 100%, color-mix(in srgb, #f472b6 22%, transparent), transparent 50%),
+    #0b1020;
+}
+.icon-style-grid--chrome .icon-style-glyph {
+  min-height: 88px;
+  padding-top: 14px;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e2e8f0;
+}
+.icon-style-grid--chrome .icon-style-glyph span {
+  color: rgba(226, 232, 240, 0.72);
+}
 .icon-style-demos {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

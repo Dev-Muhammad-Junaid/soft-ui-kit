@@ -315,6 +315,137 @@ export function SoftIcon({
     );
   }
 
+  // —— Chrome / neon reflection modes ——
+  if (
+    style.mode === "chrome-neon" ||
+    style.mode === "liquid-metal" ||
+    style.mode === "iridescent" ||
+    style.mode === "halo-chrome"
+  ) {
+    const fillId =
+      style.mode === "liquid-metal"
+        ? `${uid}-metal`
+        : style.mode === "iridescent"
+          ? `${uid}-iri`
+          : `${uid}-chrome`;
+    return (
+      <svg {...common}>
+        <defs>
+          <linearGradient id={`${uid}-chrome`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#f8fafc" />
+            <stop offset="28%" stopColor="currentColor" stopOpacity="0.95" />
+            <stop offset="55%" stopColor="#e2e8f0" />
+            <stop offset="78%" stopColor="#f472b6" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#67e8f9" stopOpacity="0.85" />
+          </linearGradient>
+          <radialGradient id={`${uid}-metal`} cx="35%" cy="28%" r="75%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="35%" stopColor="#cbd5e1" />
+            <stop offset="62%" stopColor="currentColor" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#334155" />
+          </radialGradient>
+          <linearGradient id={`${uid}-iri`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="currentColor" />
+            <stop offset="45%" stopColor="#a78bfa" />
+            <stop offset="100%" stopColor="#f472b6" />
+          </linearGradient>
+          <filter id={`${uid}-neon`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={1.2 + (style.glow ?? 0.4)} result="blur" />
+            <feColorMatrix
+              in="blur"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 0.7 0 0 0
+                      0 0 1.2 0 0
+                      0 0 0 0.85 0"
+              result="glow"
+            />
+            <feMerge>
+              <feMergeNode in="glow" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id={`${uid}-halo`} x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="2.2" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        {style.mode === "halo-chrome" ? (
+          <circle
+            cx="12"
+            cy="12"
+            r="10.5"
+            fill="currentColor"
+            fillOpacity={0.18}
+            filter={`url(#${uid}-halo)`}
+          />
+        ) : null}
+        <g filter={`url(#${uid}-neon)`}>
+          <GlyphPaint
+            glyph={glyph}
+            color={`url(#${fillId})`}
+            mode="fill"
+            fillOpacity={1}
+          />
+          {(glyph.stroke || []).map((d, i) => (
+            <path
+              key={`rim-${i}`}
+              d={d}
+              fill="none"
+              stroke="#67e8f9"
+              strokeOpacity={0.55}
+              strokeWidth={0.9}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ))}
+        </g>
+      </svg>
+    );
+  }
+
+  if (style.mode === "neon-rim") {
+    return (
+      <svg {...common}>
+        <defs>
+          <linearGradient id={`${uid}-cool`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#67e8f9" />
+            <stop offset="55%" stopColor="currentColor" />
+            <stop offset="100%" stopColor="#f472b6" />
+          </linearGradient>
+          <filter id={`${uid}-rimglow`} x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="1.1" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <g filter={`url(#${uid}-rimglow)`}>
+          <GlyphPaint
+            glyph={glyph}
+            color="#0f172a"
+            mode="fill"
+            fillOpacity={0.82}
+          />
+          <GlyphPaint
+            glyph={glyph}
+            color={`url(#${uid}-cool)`}
+            mode="stroke"
+            strokeWidth={style.strokeWidth ?? 2.1}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeOpacity={1}
+          />
+        </g>
+      </svg>
+    );
+  }
+
   // stroke / clay / crystal
   return (
     <svg {...common}>
