@@ -120,7 +120,80 @@
 
 
 .icon-styles-page--hover-fx .icon-style-pad--soft-stroke:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--soft-stroke:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: color-mix(in srgb, var(--glass-base) 92%, var(--accent-soft));
+  border-color: color-mix(in srgb, var(--accent) 22%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 6px 14px color-mix(in srgb, var(--ink) 8%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--soft-fill:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--soft-fill:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: color-mix(in srgb, var(--accent-soft) 92%, var(--accent));
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--accent) 18%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--glass-duotone:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--glass-duotone:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: color-mix(in srgb, var(--accent-soft) 65%, var(--glass-base));
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 .icon-styles-page--hover-fx .icon-style-pad--clay-bold:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--clay-bold:hover {
+  transform: translateY(calc(-2px * var(--t-hover-lift)));
+  box-shadow:
+    0 10px 20px color-mix(in srgb, var(--ink) 14%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
 .icon-styles-page--hover-fx .icon-style-pad--crystal-line:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--crystal-line:hover {
+  transform: scale(calc(1 + 0.03 * var(--t-hover-lift)));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--ink));
+  background: color-mix(in srgb, var(--accent-soft) 35%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.icon-styles-page--hover-fx .icon-style-ibtn--soft-stroke:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: color-mix(in srgb, var(--glass-base) 92%, var(--accent-soft));
+  border-color: color-mix(in srgb, var(--accent) 22%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 6px 14px color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.icon-styles-page--hover-fx .icon-style-pad--soft-fill:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--soft-fill:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: color-mix(in srgb, var(--accent-soft) 92%, var(--accent));
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.icon-styles-page--hover-fx .icon-style-pad--glass-duotone:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--glass-duotone:hover {
+  transform: translateY(calc(-1px * var(--t-hover-lift)));
+  background: color-mix(in srgb, var(--accent-soft) 65%, var(--glass-base));
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.icon-styles-page--hover-fx .icon-style-pad--clay-bold:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--clay-bold:hover {
+  transform: translateY(calc(-2px * var(--t-hover-lift)));
+  box-shadow:
+    0 10px 20px color-mix(in srgb, var(--ink) 14%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.icon-styles-page--hover-fx .icon-style-pad--crystal-line:hover,
+.icon-styles-page--hover-fx .icon-style-ibtn--crystal-line:hover {
+  transform: scale(calc(1 + 0.03 * var(--t-hover-lift)));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--ink));
+  background: color-mix(in srgb, var(--accent-soft) 35%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
