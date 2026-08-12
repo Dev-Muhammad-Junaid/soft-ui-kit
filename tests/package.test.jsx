@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import {
   cn,
   Button,
@@ -36,7 +36,8 @@ describe("package exports", () => {
     expect(COMPONENT_REGISTRY.length).toBeGreaterThan(30);
     expect(COMPONENT_REGISTRY.every((c) => c.category !== "charts")).toBe(true);
     expect(COMPONENT_REGISTRY.every((c) => c.category !== "effects")).toBe(true);
-    expect(COMPONENT_REGISTRY.some((c) => c.id === "dashboard-shell")).toBe(false);
+    expect(COMPONENT_REGISTRY.some((c) => c.id === "dashboard-shell")).toBe(true);
+    expect(new Set(COMPONENT_REGISTRY.map((c) => c.id)).size).toBe(COMPONENT_REGISTRY.length);
     const hits = searchComponents("button", "forms");
     expect(hits.some((c) => c.id === "button")).toBe(true);
   });
@@ -114,22 +115,30 @@ describe("charts", () => {
 });
 
 describe("DashboardShell", () => {
-  it("collapses with a single icon control", () => {
+  it("collapses with a single icon control without React Router", () => {
     render(
-      <MemoryRouter>
-        <DashboardShell
-          brand={{ name: "Studio", tag: "Demo" }}
-          items={[{ to: "/a", label: "Overview", icon: icons.Home }]}
-        >
-          <div>Canvas</div>
-        </DashboardShell>
-      </MemoryRouter>,
+      <DashboardShell
+        brand={{ name: "Studio", tag: "Demo" }}
+        items={[{ to: "/a", label: "Overview", icon: icons.Home }]}
+      >
+        <div>Canvas</div>
+      </DashboardShell>,
     );
 
     expect(screen.getByText("Canvas")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Overview" })).toHaveAttribute("href", "/a");
     const collapse = screen.getByLabelText("Collapse sidebar");
     fireEvent.click(collapse);
     expect(screen.getByLabelText("Expand sidebar")).toBeInTheDocument();
     expect(document.querySelector(".app-shell.is-collapsed")).toBeTruthy();
+  });
+});
+
+describe("refs", () => {
+  it("forwards a ref to the native input", () => {
+    const ref = createRef();
+    render(<Input ref={ref} label="Email" />);
+    expect(ref.current).toBeInstanceOf(HTMLInputElement);
+    expect(ref.current.id).toBeTruthy();
   });
 });

@@ -25,7 +25,6 @@ export {
   LineChart,
   DonutChart,
   Sparkline,
-  HoverChart,
 } from "./components/charts/Charts.jsx";
 export {
   HeatmapChart,

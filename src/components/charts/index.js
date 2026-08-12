@@ -3,7 +3,6 @@ export {
   LineChart,
   DonutChart,
   Sparkline,
-  HoverChart,
 } from "./Charts";
 
 export {

@@ -13,6 +13,7 @@ import { FinanceDashboard } from "./pages/saas/FinanceDashboard";
 import { KanbanDashboard } from "./pages/saas/KanbanDashboard";
 import { OpsDashboard } from "./pages/saas/OpsDashboard";
 import { TravelDashboard } from "./pages/saas/TravelDashboard";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 const MARKETING = new Set(["/", "/signup", "/login"]);
 
@@ -53,7 +54,7 @@ export default function App() {
           <Route path="/gallery" element={<Navigate to="/ui" replace />} />
           <Route path="/themes" element={<Navigate to="/ui" replace />} />
           <Route path="/flows" element={<Navigate to="/saas" replace />} />
-          <Route path="*" element={<Navigate to="/ui" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AppShell>
     </ToastProvider>

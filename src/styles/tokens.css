@@ -174,6 +174,7 @@
 }
 
 [data-theme="dusk"] .ui-btn--ghost:hover,
+[data-theme="dusk"] .ui-icon-btn--ghost:hover,
 [data-theme="dusk"] .ui-tabs__tab.is-active,
 [data-theme="dusk"] .side-nav a:hover,
 [data-theme="dusk"] .side-nav a.active {
@@ -257,6 +258,7 @@
 }
 
 [data-theme="midnight"] .ui-btn--ghost:hover,
+[data-theme="midnight"] .ui-icon-btn--ghost:hover,
 [data-theme="midnight"] .ui-tabs__tab.is-active,
 [data-theme="midnight"] .side-nav a:hover,
 [data-theme="midnight"] .side-nav a.active {

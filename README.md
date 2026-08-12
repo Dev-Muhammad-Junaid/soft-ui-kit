@@ -58,10 +58,10 @@ export function App() {
 - **UI** — Button, Card, Input, Dialog, Table, Tabs, ToastProvider, …
 - **Theme** — `ThemeProvider`, `useTheme`, `THEMES`, `DEFAULT_TWEAKS`
 - **Charts** — Bar, Line, Donut, Sparkline, Heatmap, Radar, Funnel, …
-- **Layout** — `DashboardShell` (collapsible sidebar)
+- **Layout** — `DashboardShell` (collapsible sidebar). Pass `linkComponent={NavLink}` if you use React Router; otherwise links render as `<a href>`.
 - **Effects** — `GlassRing`, `GlassOrbField`
 - **Utils** — `cn()`
-- **Icons** — `import { icons } from "soft-ui-kit"` (Phosphor, light weight). Custom icon style labs (Line, Glass, Chrome, Frosted, Glassy mix) live on `explore/icons-*` branches and are **not** part of this package.
+- **Icons** — `import { icons } from "soft-ui-kit"` (Phosphor, light weight). Custom icon style labs live on `explore/icons-*` and are **not** part of this package.
 
 ## Demo site (this repo)
 

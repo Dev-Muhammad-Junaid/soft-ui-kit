@@ -53,11 +53,11 @@ export function LandingPage() {
         </div>
         <nav className="row">
           <a href="#install">Install</a>
-          <Link to="/saas">Samples</Link>
           <Link to="/ui">UI Kit</Link>
           <Link to="/charts">Charts</Link>
-          <Link className="ui-btn ui-btn--primary ui-btn--sm" to="/ui">
-            Open kit
+          <Link to="/login">Log in</Link>
+          <Link className="ui-btn ui-btn--primary ui-btn--sm" to="/signup">
+            Sign up
           </Link>
         </nav>
       </header>
@@ -112,7 +112,7 @@ export function LandingPage() {
           </div>
 
           <p className="landing-install__alt">
-            From GitHub before npm publish:{" "}
+            From GitHub:{" "}
             <code className="landing-code">npm install github:Dev-Muhammad-Junaid/soft-ui-kit</code>
           </p>
 
