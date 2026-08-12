@@ -1,18 +1,14 @@
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import {
   Activity,
   BarChart3,
   BookOpen,
   Boxes,
-  Briefcase,
-  LayoutDashboard,
-  Plane,
   SlidersHorizontal,
   Sparkles,
   Store,
-  TrendingUp,
   Wand2,
-  Wallet,
 } from "../icons";
 import { GlassOrbField, GlassRing } from "../effects/GlassRing";
 import { PlaygroundDrawer } from "../playground/PlaygroundDrawer";
@@ -26,11 +22,6 @@ const LINKS = [
   { to: "/charts", label: "Charts", icon: BarChart3 },
   { to: "/effects", label: "Effects", icon: Wand2 },
   { to: "/saas", label: "SaaS samples", icon: Store },
-  { to: "/saas/dashboard", label: "Ops dashboard", icon: LayoutDashboard },
-  { to: "/saas/autumn", label: "Autumn Insight", icon: TrendingUp },
-  { to: "/saas/travel", label: "Travel CRM", icon: Plane },
-  { to: "/saas/finance", label: "Finance", icon: Wallet },
-  { to: "/saas/kanban", label: "Kanban KPIs", icon: Briefcase },
   { to: "/", label: "Landing", icon: Activity },
 ];
 
@@ -64,6 +55,7 @@ export function AppShell({ children, sidebarOpen, setSidebarOpen }) {
           ),
         }}
         items={LINKS}
+        linkComponent={NavLink}
         footer="Use the sidebar icon to collapse to a rail — Theme and Taste FABs stay on every page."
       >
         <div className="page-actions page-actions--shell">

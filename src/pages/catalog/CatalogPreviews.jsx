@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Search } from "../../components/icons";
+import { DashboardShellPreview } from "../../components/layout/DashboardShell";
 import {
   Accordion,
   Alert,
+  AlertDialog,
   Avatar,
   Badge,
   Breadcrumb,
@@ -11,28 +13,41 @@ import {
   Card,
   Carousel,
   Checkbox,
+  Collapsible,
   Combobox,
   Command,
+  ContextMenu,
   DataTable,
+  Dialog,
+  DropdownMenu,
+  EmptyState,
   FormField,
+  HoverCard,
   IconButton,
   Input,
   InputGroup,
   Kbd,
+  Label,
+  Menubar,
   OtpInput,
   Pagination,
   PasswordInput,
+  Popover,
   Progress,
   Radio,
   Select,
   Separator,
+  Sheet,
   Skeleton,
   Slider,
   Switch,
+  Table,
   Tabs,
   Textarea,
+  Toggle,
   ToggleGroup,
   Tooltip,
+  useToast,
 } from "../../components/ui";
 
 /** Live preview for each UI Kit catalog registry id. */
@@ -45,6 +60,10 @@ export function CatalogPreview({ id }) {
   const [otp, setOtp] = useState("");
   const [date, setDate] = useState("2026-07-22");
   const [page, setPage] = useState(1);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [pressed, setPressed] = useState(true);
 
   switch (id) {
     case "button":
@@ -119,6 +138,19 @@ export function CatalogPreview({ id }) {
       return <Switch checked={on} onCheckedChange={setOn} label={on ? "On" : "Off"} />;
     case "slider":
       return <Slider label="Level" value={val} onChange={setVal} />;
+    case "label":
+      return (
+        <div className="preview-stack">
+          <Label htmlFor="preview-label-input">Email</Label>
+          <Input id="preview-label-input" placeholder="you@studio.dev" />
+        </div>
+      );
+    case "toggle":
+      return (
+        <Toggle pressed={pressed} onPressedChange={setPressed}>
+          Bold
+        </Toggle>
+      );
     case "toggle-group":
       return (
         <ToggleGroup
@@ -222,6 +254,12 @@ export function CatalogPreview({ id }) {
           </div>
         </div>
       );
+    case "collapsible":
+      return (
+        <Collapsible title="More details">
+          Hidden until opened.
+        </Collapsible>
+      );
     case "accordion":
       return (
         <Accordion
@@ -244,7 +282,9 @@ export function CatalogPreview({ id }) {
         <div className="preview-row">
           <Badge>Neutral</Badge>
           <Badge tone="accent">Accent</Badge>
-          <Badge tone="success">OK</Badge>
+          <Badge tone="success">Healthy</Badge>
+          <Badge tone="warning">Watch</Badge>
+          <Badge tone="danger">Sev-1</Badge>
         </div>
       );
     case "avatar":
@@ -254,6 +294,24 @@ export function CatalogPreview({ id }) {
           <Avatar name="Jordan Lee" size="sm" />
         </div>
       );
+    case "table":
+      return (
+        <Table
+          columns={[
+            { key: "n", label: "Name" },
+            { key: "a", label: "ARR" },
+            {
+              key: "s",
+              label: "Status",
+              render: (r) => <Badge tone={r.sTone}>{r.s}</Badge>,
+            },
+          ]}
+          rows={[
+            { id: 1, n: "Northwind", a: "$48k", s: "Healthy", sTone: "success" },
+            { id: 2, n: "Helix", a: "$96k", s: "Watch", sTone: "warning" },
+          ]}
+        />
+      );
     case "data-table":
       return (
         <DataTable
@@ -261,11 +319,16 @@ export function CatalogPreview({ id }) {
           columns={[
             { key: "n", label: "Account", sortable: true },
             { key: "a", label: "ARR", sortable: true },
+            {
+              key: "s",
+              label: "Status",
+              render: (r) => <Badge tone={r.sTone}>{r.s}</Badge>,
+            },
           ]}
           rows={[
-            { id: 1, n: "Northwind", a: "$48k" },
-            { id: 2, n: "Helix", a: "$96k" },
-            { id: 3, n: "Orbit", a: "$72k" },
+            { id: 1, n: "Northwind", a: "$48k", s: "Healthy", sTone: "success" },
+            { id: 2, n: "Helix", a: "$96k", s: "Watch", sTone: "warning" },
+            { id: 3, n: "Orbit", a: "$72k", s: "Sev-1", sTone: "danger" },
           ]}
         />
       );
@@ -278,77 +341,116 @@ export function CatalogPreview({ id }) {
         </Alert>
       );
     case "toast":
-      return <Badge tone="accent">Toasts fire from app actions</Badge>;
+      return <ToastPreview />;
     case "empty-state":
       return (
-        <div className="ui-empty" style={{ padding: 12 }}>
-          <h3 style={{ fontSize: 14 }}>No items</h3>
-          <p style={{ fontSize: 12 }}>Create one to begin.</p>
-        </div>
+        <EmptyState
+          title="No items"
+          description="Create one to begin."
+          action={
+            <Button size="sm" variant="outline">
+              New item
+            </Button>
+          }
+        />
       );
     case "dialog":
       return (
-        <div className="preview-stack">
-          <div className="preview-chrome glass sheen">
-            <strong>Dialog</strong>
-            <p className="preview-note">Standard modal with actions.</p>
-            <div className="preview-row">
-              <Button size="sm" variant="ghost">
-                Cancel
-              </Button>
-              <Button size="sm">Save</Button>
-            </div>
-          </div>
-          <div className="preview-chrome glass sheen">
-            <strong>Confirm delete?</strong>
-            <p className="preview-note">Destructive / alert pattern in the same Dialog.</p>
-            <div className="preview-row">
-              <Button size="sm" variant="ghost">
-                Cancel
-              </Button>
-              <Button size="sm" variant="danger">
-                Delete
-              </Button>
-            </div>
-          </div>
-        </div>
+        <>
+          <Button size="sm" onClick={() => setDialogOpen(true)}>
+            Open dialog
+          </Button>
+          <Dialog
+            open={dialogOpen}
+            onClose={() => setDialogOpen(false)}
+            title="Save changes"
+            description="This writes to the current theme."
+            footer={
+              <>
+                <Button size="sm" variant="ghost" onClick={() => setDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button size="sm" onClick={() => setDialogOpen(false)}>
+                  Save
+                </Button>
+              </>
+            }
+          >
+            <p className="preview-note">Live Dialog — Escape and backdrop close it.</p>
+          </Dialog>
+        </>
+      );
+    case "alert-dialog":
+      return (
+        <>
+          <Button size="sm" variant="danger" onClick={() => setAlertOpen(true)}>
+            Delete
+          </Button>
+          <AlertDialog
+            open={alertOpen}
+            onClose={() => setAlertOpen(false)}
+            title="Delete record?"
+            description="This cannot be undone."
+            confirmLabel="Delete"
+            onConfirm={() => setAlertOpen(false)}
+          />
+        </>
       );
     case "sheet":
       return (
-        <div className="preview-chrome preview-chrome--sheet glass sheen">
-          <strong>Sheet</strong>
-          <p className="preview-note">Side panel content</p>
-          <Button size="sm" variant="secondary">
-            Done
+        <>
+          <Button size="sm" variant="secondary" onClick={() => setSheetOpen(true)}>
+            Open sheet
           </Button>
-        </div>
+          <Sheet open={sheetOpen} onClose={() => setSheetOpen(false)} title="Filters">
+            <p className="preview-note">Side panel content.</p>
+            <Button size="sm" onClick={() => setSheetOpen(false)}>
+              Done
+            </Button>
+          </Sheet>
+        </>
       );
     case "dropdown":
       return (
-        <div className="preview-menu glass sheen">
-          <button type="button" className="preview-menu__item">
-            Edit
-          </button>
-          <button type="button" className="preview-menu__item">
-            Duplicate
-          </button>
-          <button type="button" className="preview-menu__item is-danger">
-            Delete
-          </button>
-          <p className="preview-note" style={{ padding: "6px 10px" }}>
-            Same menu chrome for click or context triggers
-          </p>
-        </div>
+        <DropdownMenu
+          trigger={
+            <Button size="sm" variant="outline">
+              Actions
+            </Button>
+          }
+          items={[
+            { label: "Edit" },
+            { label: "Duplicate" },
+            { id: "del", label: "Delete" },
+          ]}
+        />
       );
     case "popover":
       return (
-        <div className="preview-chrome glass sheen">
+        <Popover
+          trigger={
+            <Button size="sm" variant="outline">
+              Details
+            </Button>
+          }
+        >
           <strong>Popover</strong>
-          <p className="preview-note">Floating rich content — also covers hover-card previews.</p>
-          <Button size="sm" variant="outline">
-            Details
+          <p className="preview-note">Floating rich content.</p>
+        </Popover>
+      );
+    case "hover-card":
+      return (
+        <HoverCard trigger={<Button size="sm" variant="ghost">Hover</Button>}>
+          Maya Chen · Product
+        </HoverCard>
+      );
+    case "context-menu":
+      return (
+        <ContextMenu items={[{ label: "Copy" }, { label: "Paste" }]}>
+          <Button size="sm" variant="soft">
+            Right-click me
           </Button>
-        </div>
+        </ContextMenu>
       );
     case "tooltip":
       return (
@@ -389,14 +491,12 @@ export function CatalogPreview({ id }) {
       return <Pagination page={page} pages={3} onChange={setPage} />;
     case "menubar":
       return (
-        <div className="ui-menubar glass sheen">
-          <button type="button" className="ui-menubar__trigger">
-            File
-          </button>
-          <button type="button" className="ui-menubar__trigger">
-            Edit
-          </button>
-        </div>
+        <Menubar
+          menus={[
+            { label: "File", items: [{ label: "New" }, { label: "Save" }] },
+            { label: "Edit", items: [{ label: "Undo" }] },
+          ]}
+        />
       );
     case "kbd":
       return <Kbd>⌘K</Kbd>;
@@ -409,7 +509,20 @@ export function CatalogPreview({ id }) {
           ]}
         />
       );
-    default:
-      return <span className="preview-note">Preview coming soon</span>;
+    case "dashboard-shell":
+      return <DashboardShellPreview />;
+    default: {
+      const _exhaustive = id;
+      return <span className="preview-note">No preview for {_exhaustive}</span>;
+    }
   }
+}
+
+function ToastPreview() {
+  const { push } = useToast();
+  return (
+    <Button size="sm" variant="secondary" onClick={() => push("Saved to kit")}>
+      Show toast
+    </Button>
+  );
 }

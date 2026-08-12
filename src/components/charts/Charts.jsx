@@ -1,6 +1,10 @@
 import { useId, useMemo, useState } from "react";
 import clsx from "clsx";
 
+function chartToken(index) {
+  return `var(--chart-${(index % 4) + 1})`;
+}
+
 export function BarChart({
   values,
   labels,
@@ -182,7 +186,7 @@ export function DonutChart({
                 cx="60"
                 cy="60"
                 r={r}
-                stroke={seg.color || `hsl(${(i * 57 + 190) % 360} 75% 55%)`}
+                stroke={seg.color || chartToken(i)}
                 strokeDasharray={dash}
                 strokeDashoffset={-offset}
                 onMouseEnter={() => setActive(i)}
@@ -211,7 +215,7 @@ export function DonutChart({
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(null)}
           >
-            <i style={{ background: seg.color || `hsl(${(i * 57 + 190) % 360} 75% 55%)` }} />
+            <i style={{ background: seg.color || chartToken(i) }} />
             <span>{seg.label}</span>
             <em>{Math.round((seg.value / total) * 100)}%</em>
           </li>
@@ -242,5 +246,3 @@ export function Sparkline({ values, className = "" }) {
   );
 }
 
-/** @deprecated prefer BarChart */
-export { BarChart as HoverChart };

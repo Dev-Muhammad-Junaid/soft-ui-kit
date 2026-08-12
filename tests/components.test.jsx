@@ -6,6 +6,7 @@ import {
   Avatar,
   Checkbox,
   Collapsible,
+  Dialog,
   EmptyState,
   IconButton,
   Progress,
@@ -13,6 +14,7 @@ import {
   Separator,
   Skeleton,
   Switch,
+  Table,
   Tabs,
   Toggle,
   ToastProvider,
@@ -75,6 +77,22 @@ describe("form & feedback primitives", () => {
     expect(screen.getByText("Upload")).toBeInTheDocument();
     expect(screen.getByText("No items")).toBeInTheDocument();
     expect(screen.getByLabelText("Notify")).toBeInTheDocument();
+  });
+
+  it("renders a table and a dialog", () => {
+    render(
+      <>
+        <Table
+          columns={[{ key: "n", label: "Name" }]}
+          rows={[{ id: 1, n: "Ada" }]}
+        />
+        <Dialog open title="Hello" onClose={() => {}}>
+          Body
+        </Dialog>
+      </>,
+    );
+    expect(screen.getByText("Ada")).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: "Hello" })).toBeInTheDocument();
   });
 });
 

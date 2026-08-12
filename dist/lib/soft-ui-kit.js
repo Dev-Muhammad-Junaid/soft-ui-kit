@@ -1,9 +1,8 @@
 import clsx from "clsx";
-import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
+import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { createPortal } from "react-dom";
 import { Airplane, ArrowDownLeft, ArrowRight, ArrowUpRight, ArrowsClockwise, Bell, BookOpen, Briefcase, CalendarBlank, CaretDown, ChartBar, Check, CheckCircle, Clock, CopySimple, CreditCard, Cube, DotsSixVertical, Eye, EyeSlash, Flag, Folder, Gear, HardDrives, House, Info, Layout, MagicWand, MagnifyingGlass, MapPin, Palette, PiggyBank, Plus, Pulse, Question, Sidebar, SidebarSimple, SlidersHorizontal, Sparkle, SquaresFour, Storefront, Timer, TrendUp, User, Users, Wallet, X } from "@phosphor-icons/react";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-import { NavLink } from "react-router-dom";
 //#region \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
 var __exportAll = (all, no_symbols) => {
@@ -21,6 +20,37 @@ var __exportAll = (all, no_symbols) => {
 function cn(...inputs) {
 	return clsx(inputs);
 }
+//#endregion
+//#region src/components/ui/Button.jsx
+var Button = forwardRef(function Button({ children, className, variant = "primary", size = "md", leftIcon, rightIcon, type = "button", ...props }, ref) {
+	return /* @__PURE__ */ jsxs("button", {
+		ref,
+		type,
+		className: clsx("ui-btn", `ui-btn--${variant}`, `ui-btn--${size}`, className),
+		...props,
+		children: [
+			leftIcon ? /* @__PURE__ */ jsx("span", {
+				className: "ui-btn__icon",
+				children: leftIcon
+			}) : null,
+			/* @__PURE__ */ jsx("span", { children }),
+			rightIcon ? /* @__PURE__ */ jsx("span", {
+				className: "ui-btn__icon",
+				children: rightIcon
+			}) : null
+		]
+	});
+});
+var IconButton = forwardRef(function IconButton({ children, className, label, variant = "ghost", type = "button", ...props }, ref) {
+	return /* @__PURE__ */ jsx("button", {
+		ref,
+		type,
+		"aria-label": label,
+		className: clsx("ui-icon-btn", `ui-icon-btn--${variant}`, className),
+		...props,
+		children
+	});
+});
 //#endregion
 //#region src/components/icons.jsx
 /**
@@ -137,7 +167,7 @@ var Wallet$1 = withKitDefaults(Wallet);
 var Wand2 = withKitDefaults(MagicWand);
 var X$1 = withKitDefaults(X);
 //#endregion
-//#region src/components/ui/index.jsx
+//#region src/components/ui/hooks.js
 function useEscapeClose(open, onClose) {
 	useEffect(() => {
 		if (!open) return void 0;
@@ -185,59 +215,8 @@ function useAnchorCoords(open, anchorRef) {
 	}, [open, anchorRef]);
 	return coords;
 }
-function Button({ children, className, variant = "primary", size = "md", leftIcon, rightIcon, ...props }) {
-	return /* @__PURE__ */ jsxs("button", {
-		type: "button",
-		className: clsx("ui-btn", `ui-btn--${variant}`, `ui-btn--${size}`, className),
-		...props,
-		children: [
-			leftIcon ? /* @__PURE__ */ jsx("span", {
-				className: "ui-btn__icon",
-				children: leftIcon
-			}) : null,
-			/* @__PURE__ */ jsx("span", { children }),
-			rightIcon ? /* @__PURE__ */ jsx("span", {
-				className: "ui-btn__icon",
-				children: rightIcon
-			}) : null
-		]
-	});
-}
-function IconButton({ children, className, label, variant = "ghost", ...props }) {
-	return /* @__PURE__ */ jsx("button", {
-		type: "button",
-		"aria-label": label,
-		className: clsx("ui-icon-btn", `ui-icon-btn--${variant}`, className),
-		...props,
-		children
-	});
-}
-function Input({ className, label, hint, error, id, ...props }) {
-	const inputId = id || props.name;
-	return /* @__PURE__ */ jsxs("label", {
-		className: clsx("ui-field", error && "has-error", className),
-		htmlFor: inputId,
-		children: [
-			label ? /* @__PURE__ */ jsx("span", {
-				className: "ui-label",
-				children: label
-			}) : null,
-			/* @__PURE__ */ jsx("input", {
-				id: inputId,
-				className: "ui-input",
-				...props
-			}),
-			error ? /* @__PURE__ */ jsx("span", {
-				className: "ui-hint ui-hint--error",
-				children: error
-			}) : null,
-			!error && hint ? /* @__PURE__ */ jsx("span", {
-				className: "ui-hint",
-				children: hint
-			}) : null
-		]
-	});
-}
+//#endregion
+//#region src/components/ui/forms.jsx
 function FormField({ label, hint, error, htmlFor, children, className, id }) {
 	return /* @__PURE__ */ jsxs("div", {
 		id,
@@ -260,6 +239,13 @@ function FormField({ label, hint, error, htmlFor, children, className, id }) {
 		]
 	});
 }
+function Label({ children, className, htmlFor }) {
+	return /* @__PURE__ */ jsx("label", {
+		className: clsx("ui-label", className),
+		htmlFor,
+		children
+	});
+}
 function InputGroup({ children, className, prepend, append }) {
 	return /* @__PURE__ */ jsxs("div", {
 		className: clsx("ui-input-group", className),
@@ -276,9 +262,38 @@ function InputGroup({ children, className, prepend, append }) {
 		]
 	});
 }
-function PasswordInput({ label, hint, error, id, className, ...props }) {
+var Input = forwardRef(function Input({ className, label, hint, error, id, ...props }, ref) {
+	const autoId = useId();
+	const inputId = id || props.name || autoId;
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-field", error && "has-error", className),
+		children: [
+			label ? /* @__PURE__ */ jsx("label", {
+				className: "ui-label",
+				htmlFor: inputId,
+				children: label
+			}) : null,
+			/* @__PURE__ */ jsx("input", {
+				ref,
+				id: inputId,
+				className: "ui-input",
+				...props
+			}),
+			error ? /* @__PURE__ */ jsx("span", {
+				className: "ui-hint ui-hint--error",
+				children: error
+			}) : null,
+			!error && hint ? /* @__PURE__ */ jsx("span", {
+				className: "ui-hint",
+				children: hint
+			}) : null
+		]
+	});
+});
+var PasswordInput = forwardRef(function PasswordInput({ label, hint, error, id, className, ...props }, ref) {
 	const [visible, setVisible] = useState(false);
-	const inputId = id || props.name || "password";
+	const autoId = useId();
+	const inputId = id || props.name || autoId;
 	return /* @__PURE__ */ jsx(FormField, {
 		label,
 		hint,
@@ -294,6 +309,7 @@ function PasswordInput({ label, hint, error, id, className, ...props }) {
 				children: visible ? /* @__PURE__ */ jsx(EyeOff, { size: 16 }) : /* @__PURE__ */ jsx(Eye$1, { size: 16 })
 			}),
 			children: /* @__PURE__ */ jsx("input", {
+				ref,
 				id: inputId,
 				className: "ui-input ui-input--bare",
 				type: visible ? "text" : "password",
@@ -301,53 +317,73 @@ function PasswordInput({ label, hint, error, id, className, ...props }) {
 			})
 		})
 	});
-}
-function Textarea({ className, label, hint, id, ...props }) {
-	const inputId = id || props.name;
-	return /* @__PURE__ */ jsxs("label", {
-		className: clsx("ui-field", className),
-		htmlFor: inputId,
+});
+var Textarea = forwardRef(function Textarea({ className, label, hint, error, id, ...props }, ref) {
+	const autoId = useId();
+	const inputId = id || props.name || autoId;
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-field", error && "has-error", className),
 		children: [
-			label ? /* @__PURE__ */ jsx("span", {
+			label ? /* @__PURE__ */ jsx("label", {
 				className: "ui-label",
+				htmlFor: inputId,
 				children: label
 			}) : null,
 			/* @__PURE__ */ jsx("textarea", {
+				ref,
 				id: inputId,
 				className: "ui-input ui-textarea",
 				...props
 			}),
-			hint ? /* @__PURE__ */ jsx("span", {
+			error ? /* @__PURE__ */ jsx("span", {
+				className: "ui-hint ui-hint--error",
+				children: error
+			}) : null,
+			!error && hint ? /* @__PURE__ */ jsx("span", {
 				className: "ui-hint",
 				children: hint
 			}) : null
 		]
 	});
-}
-function Select({ className, label, options = [], id, ...props }) {
-	const inputId = id || props.name;
-	return /* @__PURE__ */ jsxs("label", {
-		className: clsx("ui-field", className),
-		htmlFor: inputId,
-		children: [label ? /* @__PURE__ */ jsx("span", {
-			className: "ui-label",
-			children: label
-		}) : null, /* @__PURE__ */ jsx("select", {
-			id: inputId,
-			className: "ui-input ui-select",
-			...props,
-			children: options.map((opt) => /* @__PURE__ */ jsx("option", {
-				value: opt.value,
-				children: opt.label
-			}, opt.value))
-		})]
+});
+var Select = forwardRef(function Select({ className, label, hint, error, options = [], id, ...props }, ref) {
+	const autoId = useId();
+	const inputId = id || props.name || autoId;
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-field", error && "has-error", className),
+		children: [
+			label ? /* @__PURE__ */ jsx("label", {
+				className: "ui-label",
+				htmlFor: inputId,
+				children: label
+			}) : null,
+			/* @__PURE__ */ jsx("select", {
+				ref,
+				id: inputId,
+				className: "ui-input ui-select",
+				...props,
+				children: options.map((opt) => /* @__PURE__ */ jsx("option", {
+					value: opt.value,
+					children: opt.label
+				}, opt.value))
+			}),
+			error ? /* @__PURE__ */ jsx("span", {
+				className: "ui-hint ui-hint--error",
+				children: error
+			}) : null,
+			!error && hint ? /* @__PURE__ */ jsx("span", {
+				className: "ui-hint",
+				children: hint
+			}) : null
+		]
 	});
-}
-function Checkbox({ label, className, ...props }) {
+});
+var Checkbox = forwardRef(function Checkbox({ label, className, ...props }, ref) {
 	return /* @__PURE__ */ jsxs("label", {
 		className: clsx("ui-check", className),
 		children: [
 			/* @__PURE__ */ jsx("input", {
+				ref,
 				type: "checkbox",
 				...props
 			}),
@@ -358,12 +394,13 @@ function Checkbox({ label, className, ...props }) {
 			label ? /* @__PURE__ */ jsx("span", { children: label }) : null
 		]
 	});
-}
-function Radio({ label, className, ...props }) {
+});
+var Radio = forwardRef(function Radio({ label, className, ...props }, ref) {
 	return /* @__PURE__ */ jsxs("label", {
 		className: clsx("ui-radio", className),
 		children: [
 			/* @__PURE__ */ jsx("input", {
+				ref,
 				type: "radio",
 				...props
 			}),
@@ -374,9 +411,10 @@ function Radio({ label, className, ...props }) {
 			label ? /* @__PURE__ */ jsx("span", { children: label }) : null
 		]
 	});
-}
-function Switch({ checked, onCheckedChange, label, className, ...props }) {
+});
+var Switch = forwardRef(function Switch({ checked, onCheckedChange, label, className, ...props }, ref) {
 	return /* @__PURE__ */ jsxs("button", {
+		ref,
 		type: "button",
 		role: "switch",
 		"aria-checked": checked,
@@ -391,8 +429,8 @@ function Switch({ checked, onCheckedChange, label, className, ...props }) {
 			children: label
 		}) : null]
 	});
-}
-function Slider({ value, onChange, min = 0, max = 100, step, label, hint, className, ...props }) {
+});
+var Slider = forwardRef(function Slider({ value, onChange, min = 0, max = 100, step, label, hint, className, ...props }, ref) {
 	return /* @__PURE__ */ jsxs("label", {
 		className: clsx("ui-slider", className),
 		children: [label ? /* @__PURE__ */ jsxs("span", {
@@ -408,6 +446,7 @@ function Slider({ value, onChange, min = 0, max = 100, step, label, hint, classN
 				children: value
 			})]
 		}) : null, /* @__PURE__ */ jsx("input", {
+			ref,
 			type: "range",
 			min,
 			max,
@@ -417,440 +456,16 @@ function Slider({ value, onChange, min = 0, max = 100, step, label, hint, classN
 			...props
 		})]
 	});
-}
-function Card({ children, className, title, description, action, padded = true, variant = "glass" }) {
-	return /* @__PURE__ */ jsxs("section", {
-		className: clsx("ui-card", variant === "glass" && "glass sheen", variant === "flat" && "ui-card--flat", variant === "soft" && "ui-card--soft", variant === "outline" && "ui-card--outline", padded && "ui-card--padded", className),
-		children: [(title || action) && /* @__PURE__ */ jsxs("header", {
-			className: "ui-card__head",
-			children: [/* @__PURE__ */ jsxs("div", { children: [title ? /* @__PURE__ */ jsx("h3", {
-				className: "ui-card__title",
-				children: title
-			}) : null, description ? /* @__PURE__ */ jsx("p", {
-				className: "ui-card__desc",
-				children: description
-			}) : null] }), action]
-		}), children]
-	});
-}
-function Badge({ children, tone = "neutral", className }) {
-	return /* @__PURE__ */ jsx("span", {
-		className: clsx("ui-badge", `ui-badge--${tone}`, className),
-		children
-	});
-}
-function Avatar({ name, src, size = "md", className }) {
-	const initials = name?.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
-	return /* @__PURE__ */ jsx("span", {
-		className: clsx("ui-avatar", `ui-avatar--${size}`, className),
-		title: name,
-		children: src ? /* @__PURE__ */ jsx("img", {
-			src,
-			alt: name
-		}) : initials
-	});
-}
-function Alert({ title, children, tone = "info", className }) {
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-alert", `ui-alert--${tone}`, className),
-		role: "status",
-		children: [title ? /* @__PURE__ */ jsx("strong", { children: title }) : null, children ? /* @__PURE__ */ jsx("p", { children }) : null]
-	});
-}
-function Progress({ value = 0, className, label }) {
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-progress", className),
-		children: [label ? /* @__PURE__ */ jsxs("div", {
-			className: "ui-progress__head",
-			children: [/* @__PURE__ */ jsx("span", { children: label }), /* @__PURE__ */ jsxs("span", { children: [value, "%"] })]
-		}) : null, /* @__PURE__ */ jsx("div", {
-			className: "ui-progress__track",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "ui-progress__bar",
-				style: { width: `${Math.min(100, Math.max(0, value))}%` }
-			})
-		})]
-	});
-}
-function Skeleton({ className, style }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-skeleton", className),
-		style,
-		"aria-hidden": "true"
-	});
-}
-function Separator({ className, label }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-sep", className),
-		role: "separator",
-		children: label ? /* @__PURE__ */ jsx("span", { children: label }) : null
-	});
-}
-function Tabs({ tabs, value, onChange, className }) {
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-tabs", className),
-		children: [/* @__PURE__ */ jsx("div", {
-			className: "ui-tabs__list",
-			role: "tablist",
-			children: tabs.map((tab) => /* @__PURE__ */ jsx("button", {
-				type: "button",
-				role: "tab",
-				"aria-selected": value === tab.id,
-				className: clsx("ui-tabs__tab", value === tab.id && "is-active"),
-				onClick: () => onChange?.(tab.id),
-				children: tab.label
-			}, tab.id))
-		}), /* @__PURE__ */ jsx("div", {
-			className: "ui-tabs__panel",
-			children: tabs.find((t) => t.id === value)?.content
-		})]
-	});
-}
-function Accordion({ items, className }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-accordion", className),
-		children: items.map((item) => /* @__PURE__ */ jsxs("details", {
-			className: "ui-accordion__item",
-			children: [/* @__PURE__ */ jsx("summary", { children: item.title }), /* @__PURE__ */ jsx("div", {
-				className: "ui-accordion__body",
-				children: item.content
-			})]
-		}, item.id))
-	});
-}
-function Table({ columns, rows, className }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-table-wrap", className),
-		children: /* @__PURE__ */ jsxs("table", {
-			className: "ui-table",
-			children: [/* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { children: columns.map((col) => /* @__PURE__ */ jsx("th", { children: col.label }, col.key)) }) }), /* @__PURE__ */ jsx("tbody", { children: rows.map((row) => /* @__PURE__ */ jsx("tr", { children: columns.map((col) => /* @__PURE__ */ jsx("td", { children: col.render ? col.render(row) : row[col.key] }, col.key)) }, row.id)) })]
-		})
-	});
-}
-function Breadcrumb({ items, className }) {
-	return /* @__PURE__ */ jsx("nav", {
-		className: clsx("ui-breadcrumb", className),
-		"aria-label": "Breadcrumb",
-		children: items.map((item, i) => /* @__PURE__ */ jsxs("span", {
-			className: "ui-breadcrumb__item",
-			children: [i > 0 ? /* @__PURE__ */ jsx("span", {
-				className: "ui-breadcrumb__sep",
-				children: "/"
-			}) : null, item.href ? /* @__PURE__ */ jsx("a", {
-				href: item.href,
-				children: item.label
-			}) : /* @__PURE__ */ jsx("span", { children: item.label })]
-		}, item.label))
-	});
-}
-function Pagination({ page, pages, onChange, className }) {
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-pagination", className),
-		children: [
-			/* @__PURE__ */ jsx("button", {
-				type: "button",
-				disabled: page <= 1,
-				onClick: () => onChange?.(page - 1),
-				children: "Prev"
-			}),
-			Array.from({ length: pages }, (_, i) => i + 1).map((n) => /* @__PURE__ */ jsx("button", {
-				type: "button",
-				className: clsx(n === page && "is-active"),
-				onClick: () => onChange?.(n),
-				children: n
-			}, n)),
-			/* @__PURE__ */ jsx("button", {
-				type: "button",
-				disabled: page >= pages,
-				onClick: () => onChange?.(page + 1),
-				children: "Next"
-			})
-		]
-	});
-}
-function Dialog({ open, onClose, title, children, footer, description }) {
-	useEscapeClose(open, onClose);
-	useBodyScrollLock(open);
-	if (!open) return null;
-	return createPortal(/* @__PURE__ */ jsxs("div", {
-		className: "ui-dialog-root",
-		role: "presentation",
-		children: [/* @__PURE__ */ jsx("button", {
-			type: "button",
-			className: "ui-dialog__backdrop",
-			"aria-label": "Close",
-			onClick: onClose
-		}), /* @__PURE__ */ jsxs("div", {
-			className: "ui-dialog glass sheen",
-			role: "dialog",
-			"aria-modal": "true",
-			"aria-label": title,
-			children: [
-				/* @__PURE__ */ jsxs("header", {
-					className: "ui-dialog__head",
-					children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("h3", { children: title }), description ? /* @__PURE__ */ jsx("p", {
-						className: "ui-dialog__desc",
-						children: description
-					}) : null] }), /* @__PURE__ */ jsx("button", {
-						type: "button",
-						className: "ui-icon-btn ui-icon-btn--ghost",
-						onClick: onClose,
-						"aria-label": "Close",
-						children: "✕"
-					})]
-				}),
-				/* @__PURE__ */ jsx("div", {
-					className: "ui-dialog__body",
-					children
-				}),
-				footer ? /* @__PURE__ */ jsx("footer", {
-					className: "ui-dialog__foot",
-					children: footer
-				}) : null
-			]
-		})]
-	}), document.body);
-}
-function AlertDialog({ open, onClose, title, description, confirmLabel = "Continue", cancelLabel = "Cancel", tone = "danger", onConfirm }) {
-	return /* @__PURE__ */ jsx(Dialog, {
-		open,
-		onClose,
-		title,
-		description,
-		footer: /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(Button, {
-			variant: "outline",
-			onClick: onClose,
-			children: cancelLabel
-		}), /* @__PURE__ */ jsx(Button, {
-			variant: tone === "danger" ? "danger" : "primary",
-			onClick: () => {
-				onConfirm?.();
-				onClose?.();
-			},
-			children: confirmLabel
-		})] })
-	});
-}
-function Label({ children, className, htmlFor }) {
-	return /* @__PURE__ */ jsx("label", {
-		className: clsx("ui-label", className),
-		htmlFor,
-		children
-	});
-}
-function Collapsible({ title, children, defaultOpen = false, className }) {
-	return /* @__PURE__ */ jsxs("details", {
-		className: clsx("ui-collapsible", className),
-		open: defaultOpen || void 0,
-		children: [/* @__PURE__ */ jsx("summary", { children: title }), /* @__PURE__ */ jsx("div", {
-			className: "ui-collapsible__body",
-			children
-		})]
-	});
-}
-function Command({ items = [], placeholder = "Type a command…", onSelect, className }) {
-	const [q, setQ] = useState("");
-	const filtered = items.filter((item) => item.label.toLowerCase().includes(q.toLowerCase()));
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-command glass sheen", className),
-		children: [/* @__PURE__ */ jsx("input", {
-			className: "ui-command__input",
-			value: q,
-			onChange: (e) => setQ(e.target.value),
-			placeholder
-		}), /* @__PURE__ */ jsx("div", {
-			className: "ui-command__list",
-			role: "listbox",
-			children: filtered.length === 0 ? /* @__PURE__ */ jsx("div", {
-				className: "ui-command__empty",
-				children: "No results"
-			}) : filtered.map((item) => /* @__PURE__ */ jsxs("button", {
-				type: "button",
-				className: "ui-command__item",
-				onClick: () => onSelect?.(item),
-				children: [
-					item.icon ? /* @__PURE__ */ jsx("span", { children: item.icon }) : null,
-					/* @__PURE__ */ jsx("span", { children: item.label }),
-					item.shortcut ? /* @__PURE__ */ jsx("kbd", {
-						className: "ui-kbd",
-						children: item.shortcut
-					}) : null
-				]
-			}, item.id || item.label))
-		})]
-	});
-}
-function Kbd({ children, className }) {
-	return /* @__PURE__ */ jsx("kbd", {
-		className: clsx("ui-kbd", className),
-		children
-	});
-}
-function ScrollArea({ children, className, style }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-scroll", className),
-		style,
-		children
-	});
-}
-function AspectRatio({ ratio = 16 / 9, children, className }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-aspect", className),
-		style: { paddingBottom: `${100 / ratio}%` },
-		children: /* @__PURE__ */ jsx("div", {
-			className: "ui-aspect__inner",
-			children
-		})
-	});
-}
-function Tooltip({ content, children }) {
-	return /* @__PURE__ */ jsxs("span", {
-		className: "ui-tooltip",
-		children: [children, /* @__PURE__ */ jsx("span", {
-			className: "ui-tooltip__bubble",
-			role: "tooltip",
-			children: content
-		})]
-	});
-}
-function EmptyState({ title, description, action, className }) {
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-empty", className),
-		children: [
-			/* @__PURE__ */ jsx("h3", { children: title }),
-			description ? /* @__PURE__ */ jsx("p", { children: description }) : null,
-			action
-		]
-	});
-}
-function Toggle({ pressed, onPressedChange, children, className, ...props }) {
-	return /* @__PURE__ */ jsx("button", {
-		type: "button",
-		"aria-pressed": pressed,
-		className: clsx("ui-toggle", pressed && "is-on", className),
-		onClick: () => onPressedChange?.(!pressed),
-		...props,
-		children
-	});
-}
-function ToggleGroup({ value, onChange, options = [], className }) {
-	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-toggle-group", className),
-		role: "group",
-		children: options.map((opt) => /* @__PURE__ */ jsx("button", {
-			type: "button",
-			className: clsx("ui-toggle", value === opt.value && "is-on"),
-			"aria-pressed": value === opt.value,
-			onClick: () => onChange?.(opt.value),
-			children: opt.label
-		}, opt.value))
-	});
-}
-function DropdownMenu({ trigger, items, className }) {
-	const [open, setOpen] = useState(false);
-	const anchorRef = useRef(null);
-	const coords = useAnchorCoords(open, anchorRef);
-	useEscapeClose(open, () => setOpen(false));
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-dropdown", className),
-		ref: anchorRef,
-		children: [/* @__PURE__ */ jsx("div", {
-			onClick: () => setOpen((v) => !v),
-			children: trigger
-		}), open && coords ? createPortal(/* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
-			type: "button",
-			className: "ui-dropdown__scrim",
-			"aria-label": "Close",
-			onClick: () => setOpen(false)
-		}), /* @__PURE__ */ jsx("div", {
-			className: "ui-dropdown__menu glass sheen is-portaled",
-			role: "menu",
-			style: {
-				top: coords.top,
-				left: coords.left,
-				minWidth: coords.width
-			},
-			children: items.map((item) => /* @__PURE__ */ jsx("button", {
-				type: "button",
-				role: "menuitem",
-				className: "ui-dropdown__item",
-				disabled: item.disabled,
-				onClick: () => {
-					item.onSelect?.();
-					setOpen(false);
-				},
-				children: item.label
-			}, item.id || item.label))
-		})] }), document.body) : null]
-	});
-}
-function Popover({ trigger, children, className }) {
-	const [open, setOpen] = useState(false);
-	const anchorRef = useRef(null);
-	const coords = useAnchorCoords(open, anchorRef);
-	useEscapeClose(open, () => setOpen(false));
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-popover", className),
-		ref: anchorRef,
-		children: [/* @__PURE__ */ jsx("div", {
-			onClick: () => setOpen((v) => !v),
-			children: trigger
-		}), open && coords ? createPortal(/* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
-			type: "button",
-			className: "ui-dropdown__scrim",
-			"aria-label": "Close",
-			onClick: () => setOpen(false)
-		}), /* @__PURE__ */ jsx("div", {
-			className: "ui-popover__panel glass sheen is-portaled",
-			style: {
-				top: coords.top,
-				left: coords.left,
-				minWidth: Math.max(coords.width, 220)
-			},
-			children
-		})] }), document.body) : null]
-	});
-}
-function Sheet({ open, onClose, title, children, side = "right" }) {
-	useEscapeClose(open, onClose);
-	useBodyScrollLock(open);
-	if (!open) return null;
-	return createPortal(/* @__PURE__ */ jsxs("div", {
-		className: "ui-sheet-root",
-		role: "presentation",
-		children: [/* @__PURE__ */ jsx("button", {
-			type: "button",
-			className: "ui-sheet__backdrop",
-			"aria-label": "Close",
-			onClick: onClose
-		}), /* @__PURE__ */ jsxs("aside", {
-			className: clsx("ui-sheet glass sheen", `ui-sheet--${side}`),
-			role: "dialog",
-			"aria-modal": "true",
-			children: [/* @__PURE__ */ jsxs("header", {
-				className: "ui-sheet__head",
-				children: [/* @__PURE__ */ jsx("h3", { children: title }), /* @__PURE__ */ jsx("button", {
-					type: "button",
-					className: "ui-icon-btn ui-icon-btn--ghost",
-					onClick: onClose,
-					"aria-label": "Close",
-					children: "✕"
-				})]
-			}), /* @__PURE__ */ jsx("div", {
-				className: "ui-sheet__body",
-				children
-			})]
-		})]
-	}), document.body);
-}
-function DateField({ label, className, ...props }) {
+});
+var DateField = forwardRef(function DateField({ label, className, ...props }, ref) {
 	return /* @__PURE__ */ jsx(Input, {
+		ref,
 		className,
 		label,
 		type: "date",
 		...props
 	});
-}
+});
 function OtpInput({ length = 6, value = "", onChange, className }) {
 	const chars = Array.from({ length }, (_, i) => value[i] || "");
 	return /* @__PURE__ */ jsx("div", {
@@ -866,7 +481,7 @@ function OtpInput({ length = 6, value = "", onChange, className }) {
 				next[i] = e.target.value.replace(/\D/g, "").slice(-1);
 				onChange?.(next.join("").slice(0, length));
 			}
-		}, i))
+		}, `otp-${i}`))
 	});
 }
 function Combobox({ label, options = [], value, onChange, placeholder = "Search…", className }) {
@@ -928,6 +543,156 @@ function Combobox({ label, options = [], value, onChange, placeholder = "Search�
 		]
 	});
 }
+//#endregion
+//#region src/components/ui/layout.jsx
+function Card({ children, className, title, description, action, padded = true, variant = "glass" }) {
+	return /* @__PURE__ */ jsxs("section", {
+		className: clsx("ui-card", variant === "glass" && "glass sheen", variant === "flat" && "ui-card--flat", variant === "soft" && "ui-card--soft", variant === "outline" && "ui-card--outline", padded && "ui-card--padded", className),
+		children: [(title || action) && /* @__PURE__ */ jsxs("header", {
+			className: "ui-card__head",
+			children: [/* @__PURE__ */ jsxs("div", { children: [title ? /* @__PURE__ */ jsx("h3", {
+				className: "ui-card__title",
+				children: title
+			}) : null, description ? /* @__PURE__ */ jsx("p", {
+				className: "ui-card__desc",
+				children: description
+			}) : null] }), action]
+		}), children]
+	});
+}
+function Separator({ className, label }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-sep", className),
+		role: "separator",
+		children: label ? /* @__PURE__ */ jsx("span", { children: label }) : null
+	});
+}
+function ScrollArea({ children, className, style }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-scroll", className),
+		style,
+		children
+	});
+}
+function AspectRatio({ ratio = 16 / 9, children, className }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-aspect", className),
+		style: { paddingBottom: `${100 / ratio}%` },
+		children: /* @__PURE__ */ jsx("div", {
+			className: "ui-aspect__inner",
+			children
+		})
+	});
+}
+function Accordion({ items, className }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-accordion", className),
+		children: items.map((item) => /* @__PURE__ */ jsxs("details", {
+			className: "ui-accordion__item",
+			children: [/* @__PURE__ */ jsx("summary", { children: item.title }), /* @__PURE__ */ jsx("div", {
+				className: "ui-accordion__body",
+				children: item.content
+			})]
+		}, item.id))
+	});
+}
+function Collapsible({ title, children, defaultOpen = false, className }) {
+	return /* @__PURE__ */ jsxs("details", {
+		className: clsx("ui-collapsible", className),
+		open: defaultOpen || void 0,
+		children: [/* @__PURE__ */ jsx("summary", { children: title }), /* @__PURE__ */ jsx("div", {
+			className: "ui-collapsible__body",
+			children
+		})]
+	});
+}
+function Resizable({ left, right, initial = 42, min = 22, max = 78, className }) {
+	const [pct, setPct] = useState(initial);
+	const dragging = useRef(false);
+	const rootRef = useRef(null);
+	useEffect(() => {
+		function onMove(e) {
+			if (!dragging.current || !rootRef.current) return;
+			const rect = rootRef.current.getBoundingClientRect();
+			const next = (e.clientX - rect.left) / rect.width * 100;
+			setPct(Math.min(max, Math.max(min, next)));
+		}
+		function onUp() {
+			dragging.current = false;
+		}
+		window.addEventListener("pointermove", onMove);
+		window.addEventListener("pointerup", onUp);
+		return () => {
+			window.removeEventListener("pointermove", onMove);
+			window.removeEventListener("pointerup", onUp);
+		};
+	}, [min, max]);
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-resizable", className),
+		ref: rootRef,
+		children: [
+			/* @__PURE__ */ jsx("div", {
+				className: "ui-resizable__pane",
+				style: { width: `${pct}%` },
+				children: left
+			}),
+			/* @__PURE__ */ jsx("button", {
+				type: "button",
+				className: "ui-resizable__handle",
+				"aria-label": "Resize panes",
+				onPointerDown: () => {
+					dragging.current = true;
+				}
+			}),
+			/* @__PURE__ */ jsx("div", {
+				className: "ui-resizable__pane",
+				style: { width: `${100 - pct}%` },
+				children: right
+			})
+		]
+	});
+}
+//#endregion
+//#region src/components/ui/feedback.jsx
+function Skeleton({ className, style }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-skeleton", className),
+		style,
+		"aria-hidden": "true"
+	});
+}
+function Alert({ title, children, tone = "info", className }) {
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-alert", `ui-alert--${tone}`, className),
+		role: "status",
+		children: [title ? /* @__PURE__ */ jsx("strong", { children: title }) : null, children ? /* @__PURE__ */ jsx("p", { children }) : null]
+	});
+}
+function Progress({ value = 0, className, label }) {
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-progress", className),
+		children: [label ? /* @__PURE__ */ jsxs("div", {
+			className: "ui-progress__head",
+			children: [/* @__PURE__ */ jsx("span", { children: label }), /* @__PURE__ */ jsxs("span", { children: [value, "%"] })]
+		}) : null, /* @__PURE__ */ jsx("div", {
+			className: "ui-progress__track",
+			children: /* @__PURE__ */ jsx("div", {
+				className: "ui-progress__bar",
+				style: { width: `${Math.min(100, Math.max(0, value))}%` }
+			})
+		})]
+	});
+}
+function EmptyState({ title, description, action, className }) {
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-empty", className),
+		children: [
+			/* @__PURE__ */ jsx("h3", { children: title }),
+			description ? /* @__PURE__ */ jsx("p", { children: description }) : null,
+			action
+		]
+	});
+}
 function Toast({ open, message, onClose }) {
 	useEffect(() => {
 		if (!open) return void 0;
@@ -941,154 +706,65 @@ function Toast({ open, message, onClose }) {
 		children: message
 	}), document.body);
 }
-function Calendar({ value, onChange, className }) {
-	const base = value ? new Date(value) : /* @__PURE__ */ new Date();
-	const year = base.getFullYear();
-	const month = base.getMonth();
-	const first = new Date(year, month, 1).getDay();
-	const days = new Date(year, month + 1, 0).getDate();
-	const cells = Array.from({ length: first + days }, (_, i) => {
-		if (i < first) return null;
-		return i - first + 1;
-	});
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-calendar glass sheen", className),
-		children: [/* @__PURE__ */ jsx("div", {
-			className: "ui-calendar__head",
-			children: base.toLocaleString("default", {
-				month: "long",
-				year: "numeric"
-			})
-		}), /* @__PURE__ */ jsxs("div", {
-			className: "ui-calendar__grid",
-			children: [[
-				"S",
-				"M",
-				"T",
-				"W",
-				"T",
-				"F",
-				"S"
-			].map((d) => /* @__PURE__ */ jsx("span", {
-				className: "ui-calendar__dow",
-				children: d
-			}, d)), cells.map((day, i) => day == null ? /* @__PURE__ */ jsx("span", {}, `e-${i}`) : /* @__PURE__ */ jsx("button", {
-				type: "button",
-				className: clsx("ui-calendar__day", value === `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}` && "is-active"),
-				onClick: () => onChange?.(`${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`),
-				children: day
-			}, day))]
-		})]
+var ToastCtx = createContext(null);
+function ToastProvider({ children }) {
+	const [toasts, setToasts] = useState([]);
+	const api = useMemo(() => ({ push: (message, tone = "default") => {
+		const id = `${Date.now()}-${Math.random()}`;
+		setToasts((prev) => [...prev, {
+			id,
+			message,
+			tone
+		}]);
+		window.setTimeout(() => {
+			setToasts((prev) => prev.filter((t) => t.id !== id));
+		}, 2600);
+	} }), []);
+	return /* @__PURE__ */ jsxs(ToastCtx.Provider, {
+		value: api,
+		children: [children, createPortal(/* @__PURE__ */ jsx("div", {
+			className: "ui-toast-stack",
+			"aria-live": "polite",
+			children: toasts.map((t) => /* @__PURE__ */ jsx("div", {
+				className: clsx("ui-toast glass sheen", `ui-toast--${t.tone}`),
+				children: t.message
+			}, t.id))
+		}), document.body)]
 	});
 }
-function Carousel({ items = [], className }) {
-	const [index, setIndex] = useState(0);
-	const item = items[index];
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-carousel glass sheen", className),
-		children: [/* @__PURE__ */ jsx("div", {
-			className: "ui-carousel__frame",
-			children: item
-		}), /* @__PURE__ */ jsxs("div", {
-			className: "ui-carousel__nav",
-			children: [
-				/* @__PURE__ */ jsx("button", {
-					type: "button",
-					onClick: () => setIndex((i) => (i - 1 + items.length) % items.length),
-					children: "Prev"
-				}),
-				/* @__PURE__ */ jsxs("span", { children: [
-					index + 1,
-					"/",
-					items.length
-				] }),
-				/* @__PURE__ */ jsx("button", {
-					type: "button",
-					onClick: () => setIndex((i) => (i + 1) % items.length),
-					children: "Next"
-				})
-			]
-		})]
+function useToast() {
+	const ctx = useContext(ToastCtx);
+	if (!ctx) return { push: (message) => {
+		console.warn("useToast requires ToastProvider", message);
+	} };
+	return ctx;
+}
+//#endregion
+//#region src/components/ui/data.jsx
+function Badge({ children, tone = "neutral", className }) {
+	return /* @__PURE__ */ jsx("span", {
+		className: clsx("ui-badge", `ui-badge--${tone}`, className),
+		children
 	});
 }
-function HoverCard({ trigger, children, className }) {
-	return /* @__PURE__ */ jsxs("span", {
-		className: clsx("ui-hovercard", className),
-		children: [trigger, /* @__PURE__ */ jsx("span", {
-			className: "ui-hovercard__panel glass sheen",
-			children
-		})]
+function Avatar({ name, src, size = "md", className }) {
+	const initials = name?.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
+	return /* @__PURE__ */ jsx("span", {
+		className: clsx("ui-avatar", `ui-avatar--${size}`, className),
+		title: name,
+		children: src ? /* @__PURE__ */ jsx("img", {
+			src,
+			alt: name
+		}) : initials
 	});
 }
-function ContextMenu({ children, items = [], className }) {
-	const [pos, setPos] = useState(null);
-	useEscapeClose(Boolean(pos), () => setPos(null));
-	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-context", className),
-		onContextMenu: (e) => {
-			e.preventDefault();
-			const menuW = 200;
-			const menuH = Math.min(280, (items.length || 1) * 42 + 16);
-			const x = Math.min(e.clientX, window.innerWidth - menuW - 8);
-			const y = Math.min(e.clientY, window.innerHeight - menuH - 8);
-			setPos({
-				x,
-				y
-			});
-		},
-		children: [children, pos ? createPortal(/* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
-			type: "button",
-			className: "ui-dropdown__scrim",
-			"aria-label": "Close",
-			onClick: () => setPos(null)
-		}), /* @__PURE__ */ jsx("div", {
-			className: "ui-context__menu glass sheen is-portaled",
-			style: {
-				left: pos.x,
-				top: pos.y
-			},
-			role: "menu",
-			children: items.map((item) => /* @__PURE__ */ jsx("button", {
-				type: "button",
-				role: "menuitem",
-				className: "ui-dropdown__item",
-				disabled: item.disabled,
-				onClick: () => {
-					item.onSelect?.();
-					setPos(null);
-				},
-				children: item.label
-			}, item.id || item.label))
-		})] }), document.body) : null]
-	});
-}
-function Menubar({ menus = [], className }) {
-	const [open, setOpen] = useState(null);
+function Table({ columns, rows, className }) {
 	return /* @__PURE__ */ jsx("div", {
-		className: clsx("ui-menubar glass sheen", className),
-		role: "menubar",
-		children: menus.map((menu) => /* @__PURE__ */ jsxs("div", {
-			className: "ui-menubar__item",
-			children: [/* @__PURE__ */ jsx("button", {
-				type: "button",
-				className: clsx("ui-menubar__trigger", open === menu.label && "is-open"),
-				onClick: () => setOpen((v) => v === menu.label ? null : menu.label),
-				children: menu.label
-			}), open === menu.label ? /* @__PURE__ */ jsx("div", {
-				className: "ui-menubar__panel glass sheen",
-				role: "menu",
-				children: (menu.items || []).map((item) => /* @__PURE__ */ jsx("button", {
-					type: "button",
-					role: "menuitem",
-					className: "ui-dropdown__item",
-					onClick: () => {
-						item.onSelect?.();
-						setOpen(null);
-					},
-					children: item.label
-				}, item.label))
-			}) : null]
-		}, menu.id || menu.label))
+		className: clsx("ui-table-wrap", className),
+		children: /* @__PURE__ */ jsxs("table", {
+			className: "ui-table",
+			children: [/* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { children: columns.map((col) => /* @__PURE__ */ jsx("th", { children: col.label }, col.key)) }) }), /* @__PURE__ */ jsx("tbody", { children: rows.map((row) => /* @__PURE__ */ jsx("tr", { children: columns.map((col) => /* @__PURE__ */ jsx("td", { children: col.render ? col.render(row) : row[col.key] }, col.key)) }, row.id)) })]
+		})
 	});
 }
 function DataTable({ columns, rows, className, selectable = false, onSelectionChange }) {
@@ -1169,84 +845,476 @@ function DataTable({ columns, rows, className, selectable = false, onSelectionCh
 		})
 	});
 }
-function Resizable({ left, right, initial = 42, min = 22, max = 78, className }) {
-	const [pct, setPct] = useState(initial);
-	const dragging = useRef(false);
-	const rootRef = useRef(null);
-	useEffect(() => {
-		function onMove(e) {
-			if (!dragging.current || !rootRef.current) return;
-			const rect = rootRef.current.getBoundingClientRect();
-			const next = (e.clientX - rect.left) / rect.width * 100;
-			setPct(Math.min(max, Math.max(min, next)));
-		}
-		function onUp() {
-			dragging.current = false;
-		}
-		window.addEventListener("pointermove", onMove);
-		window.addEventListener("pointerup", onUp);
-		return () => {
-			window.removeEventListener("pointermove", onMove);
-			window.removeEventListener("pointerup", onUp);
-		};
-	}, [min, max]);
+function Carousel({ items = [], className }) {
+	const [index, setIndex] = useState(0);
+	const count = items.length || 1;
+	const item = items[index];
 	return /* @__PURE__ */ jsxs("div", {
-		className: clsx("ui-resizable", className),
-		ref: rootRef,
+		className: clsx("ui-carousel glass sheen", className),
+		children: [/* @__PURE__ */ jsx("div", {
+			className: "ui-carousel__frame",
+			children: item
+		}), /* @__PURE__ */ jsxs("div", {
+			className: "ui-carousel__nav",
+			children: [
+				/* @__PURE__ */ jsx("button", {
+					type: "button",
+					onClick: () => setIndex((i) => (i - 1 + count) % count),
+					children: "Prev"
+				}),
+				/* @__PURE__ */ jsxs("span", { children: [
+					items.length === 0 ? 0 : index + 1,
+					"/",
+					items.length
+				] }),
+				/* @__PURE__ */ jsx("button", {
+					type: "button",
+					onClick: () => setIndex((i) => (i + 1) % count),
+					children: "Next"
+				})
+			]
+		})]
+	});
+}
+var WEEKDAYS = [
+	{
+		key: "sun",
+		label: "S"
+	},
+	{
+		key: "mon",
+		label: "M"
+	},
+	{
+		key: "tue",
+		label: "T"
+	},
+	{
+		key: "wed",
+		label: "W"
+	},
+	{
+		key: "thu",
+		label: "T"
+	},
+	{
+		key: "fri",
+		label: "F"
+	},
+	{
+		key: "sat",
+		label: "S"
+	}
+];
+function Calendar({ value, onChange, className }) {
+	const base = value ? new Date(value) : /* @__PURE__ */ new Date();
+	const year = base.getFullYear();
+	const month = base.getMonth();
+	const first = new Date(year, month, 1).getDay();
+	const days = new Date(year, month + 1, 0).getDate();
+	const cells = Array.from({ length: first + days }, (_, i) => {
+		if (i < first) return null;
+		return i - first + 1;
+	});
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-calendar glass sheen", className),
+		children: [/* @__PURE__ */ jsx("div", {
+			className: "ui-calendar__head",
+			children: base.toLocaleString("default", {
+				month: "long",
+				year: "numeric"
+			})
+		}), /* @__PURE__ */ jsxs("div", {
+			className: "ui-calendar__grid",
+			children: [WEEKDAYS.map((d) => /* @__PURE__ */ jsx("span", {
+				className: "ui-calendar__dow",
+				children: d.label
+			}, d.key)), cells.map((day, i) => day == null ? /* @__PURE__ */ jsx("span", {}, `e-${i}`) : /* @__PURE__ */ jsx("button", {
+				type: "button",
+				className: clsx("ui-calendar__day", value === `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}` && "is-active"),
+				onClick: () => onChange?.(`${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`),
+				children: day
+			}, day))]
+		})]
+	});
+}
+//#endregion
+//#region src/components/ui/overlay.jsx
+function Dialog({ open, onClose, title, children, footer, description }) {
+	useEscapeClose(open, onClose);
+	useBodyScrollLock(open);
+	if (!open) return null;
+	return createPortal(/* @__PURE__ */ jsxs("div", {
+		className: "ui-dialog-root",
+		role: "presentation",
+		children: [/* @__PURE__ */ jsx("button", {
+			type: "button",
+			className: "ui-dialog__backdrop",
+			"aria-label": "Dismiss dialog",
+			onClick: onClose
+		}), /* @__PURE__ */ jsxs("div", {
+			className: "ui-dialog glass sheen",
+			role: "dialog",
+			"aria-modal": "true",
+			"aria-label": title,
+			children: [
+				/* @__PURE__ */ jsxs("header", {
+					className: "ui-dialog__head",
+					children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("h3", { children: title }), description ? /* @__PURE__ */ jsx("p", {
+						className: "ui-dialog__desc",
+						children: description
+					}) : null] }), /* @__PURE__ */ jsx("button", {
+						type: "button",
+						className: "ui-icon-btn ui-icon-btn--ghost",
+						onClick: onClose,
+						"aria-label": "Close",
+						children: /* @__PURE__ */ jsx(X$1, { size: 16 })
+					})]
+				}),
+				/* @__PURE__ */ jsx("div", {
+					className: "ui-dialog__body",
+					children
+				}),
+				footer ? /* @__PURE__ */ jsx("footer", {
+					className: "ui-dialog__foot",
+					children: footer
+				}) : null
+			]
+		})]
+	}), document.body);
+}
+function AlertDialog({ open, onClose, title, description, confirmLabel = "Continue", cancelLabel = "Cancel", tone = "danger", onConfirm }) {
+	return /* @__PURE__ */ jsx(Dialog, {
+		open,
+		onClose,
+		title,
+		description,
+		footer: /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(Button, {
+			variant: "outline",
+			onClick: onClose,
+			children: cancelLabel
+		}), /* @__PURE__ */ jsx(Button, {
+			variant: tone === "danger" ? "danger" : "primary",
+			onClick: () => {
+				onConfirm?.();
+				onClose?.();
+			},
+			children: confirmLabel
+		})] })
+	});
+}
+function Sheet({ open, onClose, title, children, side = "right" }) {
+	useEscapeClose(open, onClose);
+	useBodyScrollLock(open);
+	if (!open) return null;
+	return createPortal(/* @__PURE__ */ jsxs("div", {
+		className: "ui-sheet-root",
+		role: "presentation",
+		children: [/* @__PURE__ */ jsx("button", {
+			type: "button",
+			className: "ui-sheet__backdrop",
+			"aria-label": "Dismiss sheet",
+			onClick: onClose
+		}), /* @__PURE__ */ jsxs("aside", {
+			className: clsx("ui-sheet glass sheen", `ui-sheet--${side}`),
+			role: "dialog",
+			"aria-modal": "true",
+			"aria-label": title,
+			children: [/* @__PURE__ */ jsxs("header", {
+				className: "ui-sheet__head",
+				children: [/* @__PURE__ */ jsx("h3", { children: title }), /* @__PURE__ */ jsx("button", {
+					type: "button",
+					className: "ui-icon-btn ui-icon-btn--ghost",
+					onClick: onClose,
+					"aria-label": "Close",
+					children: /* @__PURE__ */ jsx(X$1, { size: 16 })
+				})]
+			}), /* @__PURE__ */ jsx("div", {
+				className: "ui-sheet__body",
+				children
+			})]
+		})]
+	}), document.body);
+}
+function DropdownMenu({ trigger, items, className }) {
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef(null);
+	const coords = useAnchorCoords(open, anchorRef);
+	useEscapeClose(open, () => setOpen(false));
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-dropdown", className),
+		ref: anchorRef,
+		children: [/* @__PURE__ */ jsx("div", {
+			onClick: () => setOpen((v) => !v),
+			children: trigger
+		}), open && coords ? createPortal(/* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
+			type: "button",
+			className: "ui-dropdown__scrim",
+			"aria-label": "Close",
+			onClick: () => setOpen(false)
+		}), /* @__PURE__ */ jsx("div", {
+			className: "ui-dropdown__menu glass sheen is-portaled",
+			role: "menu",
+			style: {
+				top: coords.top,
+				left: coords.left,
+				minWidth: coords.width
+			},
+			children: items.map((item) => /* @__PURE__ */ jsx("button", {
+				type: "button",
+				role: "menuitem",
+				className: "ui-dropdown__item",
+				disabled: item.disabled,
+				onClick: () => {
+					item.onSelect?.();
+					setOpen(false);
+				},
+				children: item.label
+			}, item.id || item.label))
+		})] }), document.body) : null]
+	});
+}
+function Popover({ trigger, children, className }) {
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef(null);
+	const coords = useAnchorCoords(open, anchorRef);
+	useEscapeClose(open, () => setOpen(false));
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-popover", className),
+		ref: anchorRef,
+		children: [/* @__PURE__ */ jsx("div", {
+			onClick: () => setOpen((v) => !v),
+			children: trigger
+		}), open && coords ? createPortal(/* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
+			type: "button",
+			className: "ui-dropdown__scrim",
+			"aria-label": "Close",
+			onClick: () => setOpen(false)
+		}), /* @__PURE__ */ jsx("div", {
+			className: "ui-popover__panel glass sheen is-portaled",
+			style: {
+				top: coords.top,
+				left: coords.left,
+				minWidth: Math.max(coords.width, 220)
+			},
+			children
+		})] }), document.body) : null]
+	});
+}
+function Tooltip({ content, children }) {
+	return /* @__PURE__ */ jsxs("span", {
+		className: "ui-tooltip",
+		children: [children, /* @__PURE__ */ jsx("span", {
+			className: "ui-tooltip__bubble",
+			role: "tooltip",
+			children: content
+		})]
+	});
+}
+function HoverCard({ trigger, children, className }) {
+	return /* @__PURE__ */ jsxs("span", {
+		className: clsx("ui-hovercard", className),
+		children: [trigger, /* @__PURE__ */ jsx("span", {
+			className: "ui-hovercard__panel glass sheen",
+			children
+		})]
+	});
+}
+function ContextMenu({ children, items = [], className }) {
+	const [pos, setPos] = useState(null);
+	useEscapeClose(Boolean(pos), () => setPos(null));
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-context", className),
+		onContextMenu: (e) => {
+			e.preventDefault();
+			const menuW = 200;
+			const menuH = Math.min(280, (items.length || 1) * 42 + 16);
+			const x = Math.min(e.clientX, window.innerWidth - menuW - 8);
+			const y = Math.min(e.clientY, window.innerHeight - menuH - 8);
+			setPos({
+				x,
+				y
+			});
+		},
+		children: [children, pos ? createPortal(/* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("button", {
+			type: "button",
+			className: "ui-dropdown__scrim",
+			"aria-label": "Close",
+			onClick: () => setPos(null)
+		}), /* @__PURE__ */ jsx("div", {
+			className: "ui-context__menu glass sheen is-portaled",
+			style: {
+				left: pos.x,
+				top: pos.y
+			},
+			role: "menu",
+			children: items.map((item) => /* @__PURE__ */ jsx("button", {
+				type: "button",
+				role: "menuitem",
+				className: "ui-dropdown__item",
+				disabled: item.disabled,
+				onClick: () => {
+					item.onSelect?.();
+					setPos(null);
+				},
+				children: item.label
+			}, item.id || item.label))
+		})] }), document.body) : null]
+	});
+}
+//#endregion
+//#region src/components/ui/navigation.jsx
+function Tabs({ tabs, value, onChange, className }) {
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-tabs", className),
+		children: [/* @__PURE__ */ jsx("div", {
+			className: "ui-tabs__list",
+			role: "tablist",
+			children: tabs.map((tab) => /* @__PURE__ */ jsx("button", {
+				type: "button",
+				role: "tab",
+				"aria-selected": value === tab.id,
+				className: clsx("ui-tabs__tab", value === tab.id && "is-active"),
+				onClick: () => onChange?.(tab.id),
+				children: tab.label
+			}, tab.id))
+		}), /* @__PURE__ */ jsx("div", {
+			className: "ui-tabs__panel",
+			children: tabs.find((t) => t.id === value)?.content
+		})]
+	});
+}
+function Breadcrumb({ items, className }) {
+	return /* @__PURE__ */ jsx("nav", {
+		className: clsx("ui-breadcrumb", className),
+		"aria-label": "Breadcrumb",
+		children: items.map((item, i) => /* @__PURE__ */ jsxs("span", {
+			className: "ui-breadcrumb__item",
+			children: [i > 0 ? /* @__PURE__ */ jsx("span", {
+				className: "ui-breadcrumb__sep",
+				children: "/"
+			}) : null, item.href ? /* @__PURE__ */ jsx("a", {
+				href: item.href,
+				children: item.label
+			}) : /* @__PURE__ */ jsx("span", { children: item.label })]
+		}, item.label))
+	});
+}
+function Pagination({ page, pages, onChange, className }) {
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-pagination", className),
 		children: [
-			/* @__PURE__ */ jsx("div", {
-				className: "ui-resizable__pane",
-				style: { width: `${pct}%` },
-				children: left
-			}),
 			/* @__PURE__ */ jsx("button", {
 				type: "button",
-				className: "ui-resizable__handle",
-				"aria-label": "Resize panes",
-				onPointerDown: () => {
-					dragging.current = true;
-				}
+				disabled: page <= 1,
+				onClick: () => onChange?.(page - 1),
+				children: "Prev"
 			}),
-			/* @__PURE__ */ jsx("div", {
-				className: "ui-resizable__pane",
-				style: { width: `${100 - pct}%` },
-				children: right
+			Array.from({ length: pages }, (_, i) => i + 1).map((n) => /* @__PURE__ */ jsx("button", {
+				type: "button",
+				className: clsx(n === page && "is-active"),
+				onClick: () => onChange?.(n),
+				children: n
+			}, n)),
+			/* @__PURE__ */ jsx("button", {
+				type: "button",
+				disabled: page >= pages,
+				onClick: () => onChange?.(page + 1),
+				children: "Next"
 			})
 		]
 	});
 }
-var ToastCtx = createContext(null);
-function ToastProvider({ children }) {
-	const [toasts, setToasts] = useState([]);
-	const api = useMemo(() => ({ push: (message, tone = "default") => {
-		const id = `${Date.now()}-${Math.random()}`;
-		setToasts((prev) => [...prev, {
-			id,
-			message,
-			tone
-		}]);
-		window.setTimeout(() => {
-			setToasts((prev) => prev.filter((t) => t.id !== id));
-		}, 2600);
-	} }), []);
-	return /* @__PURE__ */ jsxs(ToastCtx.Provider, {
-		value: api,
-		children: [children, createPortal(/* @__PURE__ */ jsx("div", {
-			className: "ui-toast-stack",
-			"aria-live": "polite",
-			children: toasts.map((t) => /* @__PURE__ */ jsx("div", {
-				className: clsx("ui-toast glass sheen", `ui-toast--${t.tone}`),
-				children: t.message
-			}, t.id))
-		}), document.body)]
+function Command({ items = [], placeholder = "Type a command…", onSelect, className }) {
+	const [q, setQ] = useState("");
+	const filtered = items.filter((item) => item.label.toLowerCase().includes(q.toLowerCase()));
+	return /* @__PURE__ */ jsxs("div", {
+		className: clsx("ui-command glass sheen", className),
+		children: [/* @__PURE__ */ jsx("input", {
+			className: "ui-command__input",
+			value: q,
+			onChange: (e) => setQ(e.target.value),
+			placeholder
+		}), /* @__PURE__ */ jsx("div", {
+			className: "ui-command__list",
+			role: "listbox",
+			children: filtered.length === 0 ? /* @__PURE__ */ jsx("div", {
+				className: "ui-command__empty",
+				children: "No results"
+			}) : filtered.map((item) => /* @__PURE__ */ jsxs("button", {
+				type: "button",
+				className: "ui-command__item",
+				onClick: () => onSelect?.(item),
+				children: [
+					item.icon ? /* @__PURE__ */ jsx("span", { children: item.icon }) : null,
+					/* @__PURE__ */ jsx("span", { children: item.label }),
+					item.shortcut ? /* @__PURE__ */ jsx("kbd", {
+						className: "ui-kbd",
+						children: item.shortcut
+					}) : null
+				]
+			}, item.id || item.label))
+		})]
 	});
 }
-function useToast() {
-	const ctx = useContext(ToastCtx);
-	if (!ctx) return { push: (message) => {
-		console.warn("useToast requires ToastProvider", message);
-	} };
-	return ctx;
+function Kbd({ children, className }) {
+	return /* @__PURE__ */ jsx("kbd", {
+		className: clsx("ui-kbd", className),
+		children
+	});
+}
+var Toggle = forwardRef(function Toggle({ pressed, onPressedChange, children, className, ...props }, ref) {
+	return /* @__PURE__ */ jsx("button", {
+		ref,
+		type: "button",
+		"aria-pressed": pressed,
+		className: clsx("ui-toggle", pressed && "is-on", className),
+		onClick: () => onPressedChange?.(!pressed),
+		...props,
+		children
+	});
+});
+function ToggleGroup({ value, onChange, options = [], className }) {
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-toggle-group", className),
+		role: "group",
+		children: options.map((opt) => /* @__PURE__ */ jsx("button", {
+			type: "button",
+			className: clsx("ui-toggle", value === opt.value && "is-on"),
+			"aria-pressed": value === opt.value,
+			onClick: () => onChange?.(opt.value),
+			children: opt.label
+		}, opt.value))
+	});
+}
+function Menubar({ menus = [], className }) {
+	const [open, setOpen] = useState(null);
+	return /* @__PURE__ */ jsx("div", {
+		className: clsx("ui-menubar glass sheen", className),
+		role: "menubar",
+		children: menus.map((menu) => /* @__PURE__ */ jsxs("div", {
+			className: "ui-menubar__item",
+			children: [/* @__PURE__ */ jsx("button", {
+				type: "button",
+				className: clsx("ui-menubar__trigger", open === menu.label && "is-open"),
+				onClick: () => setOpen((v) => v === menu.label ? null : menu.label),
+				children: menu.label
+			}), open === menu.label ? /* @__PURE__ */ jsx("div", {
+				className: "ui-menubar__panel glass sheen",
+				role: "menu",
+				children: (menu.items || []).map((item) => /* @__PURE__ */ jsx("button", {
+					type: "button",
+					role: "menuitem",
+					className: "ui-dropdown__item",
+					onClick: () => {
+						item.onSelect?.();
+						setOpen(null);
+					},
+					children: item.label
+				}, item.label))
+			}) : null]
+		}, menu.id || menu.label))
+	});
 }
 //#endregion
 //#region src/components/ui/registry.js
@@ -1407,6 +1475,22 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
+		id: "label",
+		name: "Label",
+		category: "forms",
+		description: "Standalone field label for composed controls.",
+		tags: ["form", "label"],
+		animated: false
+	},
+	{
+		id: "toggle",
+		name: "Toggle",
+		category: "forms",
+		description: "Pressed/unpressed button for formatting and filters.",
+		tags: ["form", "toggle"],
+		animated: true
+	},
+	{
 		id: "toggle-group",
 		name: "Toggle Group",
 		category: "forms",
@@ -1497,6 +1581,14 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
+		id: "collapsible",
+		name: "Collapsible",
+		category: "layout",
+		description: "Single disclosure panel.",
+		tags: ["layout", "collapsible"],
+		animated: true
+	},
+	{
 		id: "accordion",
 		name: "Accordion",
 		category: "layout",
@@ -1543,6 +1635,15 @@ var COMPONENT_REGISTRY = [
 			"md",
 			"lg"
 		],
+		animated: false
+	},
+	{
+		id: "table",
+		name: "Table",
+		category: "data",
+		span: "wide",
+		description: "Simple read-only table for static rows.",
+		tags: ["table"],
 		animated: false
 	},
 	{
@@ -1613,6 +1714,19 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
+		id: "alert-dialog",
+		name: "Alert Dialog",
+		category: "overlay",
+		span: "wide",
+		description: "Confirm / destructive modal built on Dialog.",
+		tags: [
+			"modal",
+			"confirm",
+			"alert"
+		],
+		animated: true
+	},
+	{
 		id: "sheet",
 		name: "Sheet",
 		category: "overlay",
@@ -1635,6 +1749,22 @@ var COMPONENT_REGISTRY = [
 		category: "overlay",
 		description: "Lightweight floating content (click or hover rich previews).",
 		tags: ["overlay", "hover"],
+		animated: true
+	},
+	{
+		id: "hover-card",
+		name: "Hover Card",
+		category: "overlay",
+		description: "Rich preview that appears on hover.",
+		tags: ["overlay", "hover"],
+		animated: true
+	},
+	{
+		id: "context-menu",
+		name: "Context Menu",
+		category: "overlay",
+		description: "Right-click action menu.",
+		tags: ["menu", "context"],
 		animated: true
 	},
 	{
@@ -1703,6 +1833,19 @@ var COMPONENT_REGISTRY = [
 		span: "wide",
 		description: "Slide carousel for marketing and galleries.",
 		tags: ["media"],
+		animated: true
+	},
+	{
+		id: "dashboard-shell",
+		name: "Dashboard Shell",
+		category: "layout",
+		span: "full",
+		description: "Collapsible sidebar layout. Pass linkComponent={NavLink} when using React Router.",
+		tags: [
+			"layout",
+			"dashboard",
+			"nav"
+		],
 		animated: true
 	}
 ];
@@ -2088,6 +2231,9 @@ function useTheme() {
 }
 //#endregion
 //#region src/components/charts/Charts.jsx
+function chartToken(index) {
+	return `var(--chart-${index % 4 + 1})`;
+}
 function BarChart({ values, labels, className = "", formatValue = (v) => String(v) }) {
 	const [active, setActive] = useState(null);
 	const max = Math.max(...values, 1);
@@ -2255,7 +2401,7 @@ function DonutChart({ segments, className = "", centerLabel = "Total", centerVal
 						cx: "60",
 						cy: "60",
 						r,
-						stroke: seg.color || `hsl(${(i * 57 + 190) % 360} 75% 55%)`,
+						stroke: seg.color || chartToken(i),
 						strokeDasharray: dash,
 						strokeDashoffset: -offset,
 						onMouseEnter: () => setActive(i),
@@ -2276,7 +2422,7 @@ function DonutChart({ segments, className = "", centerLabel = "Total", centerVal
 				onMouseEnter: () => setActive(i),
 				onMouseLeave: () => setActive(null),
 				children: [
-					/* @__PURE__ */ jsx("i", { style: { background: seg.color || `hsl(${(i * 57 + 190) % 360} 75% 55%)` } }),
+					/* @__PURE__ */ jsx("i", { style: { background: seg.color || chartToken(i) } }),
 					/* @__PURE__ */ jsx("span", { children: seg.label }),
 					/* @__PURE__ */ jsxs("em", { children: [Math.round(seg.value / total * 100), "%"] })
 				]
@@ -2770,6 +2916,13 @@ function GlassOrbField({ denser = false }) {
 }
 //#endregion
 //#region src/components/layout/DashboardShell.jsx
+function DefaultLink({ to, end: _end, children, ...props }) {
+	return /* @__PURE__ */ jsx("a", {
+		href: to,
+		...props,
+		children
+	});
+}
 var COLLAPSE_KEY = "suk-sidebar-collapsed";
 function useSidebarCollapsed(defaultCollapsed = false) {
 	const [collapsed, setCollapsed] = useState(() => {
@@ -2792,7 +2945,7 @@ function useSidebarCollapsed(defaultCollapsed = false) {
 * Dashboard layout with a collapsible sidebar (icon rail when collapsed).
 * Collapse is a layout control — not part of Taste.
 */
-function DashboardShell({ children, brand, items = [], footer, collapsed: collapsedProp, onCollapsedChange, defaultCollapsed = false, mobileOpen = false, onMobileOpenChange, className, collapsible = true }) {
+function DashboardShell({ children, brand, items = [], footer, collapsed: collapsedProp, onCollapsedChange, defaultCollapsed = false, mobileOpen = false, onMobileOpenChange, className, collapsible = true, linkComponent: Link = DefaultLink }) {
 	const labelId = useId();
 	const [uncontrolled, setUncontrolled] = useState(defaultCollapsed);
 	const collapsed = collapsedProp ?? uncontrolled;
@@ -2835,7 +2988,7 @@ function DashboardShell({ children, brand, items = [], footer, collapsed: collap
 					"aria-label": "Primary",
 					children: items.map((item) => {
 						const Icon = item.icon;
-						return /* @__PURE__ */ jsxs(NavLink, {
+						return /* @__PURE__ */ jsxs(Link, {
 							to: item.to,
 							end: item.end,
 							"aria-label": item.label,
@@ -2942,6 +3095,6 @@ function DashboardShellPreview() {
 	});
 }
 //#endregion
-export { Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, BarChart, BarChart as HoverChart, Breadcrumb, Button, COMPONENT_CATEGORIES, COMPONENT_REGISTRY, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, ContextMenu, DEFAULT_EFFECTS, DEFAULT_TWEAKS, DashboardShell, DashboardShellPreview, DataTable, DateField, Dialog, DonutChart, DotMatrixChart, DropdownMenu, EmptyState, FormField, FunnelChart, GlassOrbField, GlassRing, HeatmapChart, HoverCard, IconButton, Input, InputGroup, Kbd, Label, LineChart, Menubar, OtpInput, Pagination, PasswordInput, Popover, Progress, RadarChart, RadialBars, RadialProgress, Radio, Resizable, ScatterChart, ScrollArea, SegmentedBar, Select, Separator, Sheet, Skeleton, Slider, Sparkline, Switch, THEMES, THEME_ACCENT_HUE, Table, Tabs, Textarea, ThemeProvider, TimelineBar, Toast, ToastProvider, Toggle, ToggleGroup, Tooltip, cn, icons_exports as icons, searchComponents, useSidebarCollapsed, useTheme, useToast };
+export { Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, BarChart, Breadcrumb, Button, COMPONENT_CATEGORIES, COMPONENT_REGISTRY, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, ContextMenu, DEFAULT_EFFECTS, DEFAULT_TWEAKS, DashboardShell, DashboardShellPreview, DataTable, DateField, Dialog, DonutChart, DotMatrixChart, DropdownMenu, EmptyState, FormField, FunnelChart, GlassOrbField, GlassRing, HeatmapChart, HoverCard, IconButton, Input, InputGroup, Kbd, Label, LineChart, Menubar, OtpInput, Pagination, PasswordInput, Popover, Progress, RadarChart, RadialBars, RadialProgress, Radio, Resizable, ScatterChart, ScrollArea, SegmentedBar, Select, Separator, Sheet, Skeleton, Slider, Sparkline, Switch, THEMES, THEME_ACCENT_HUE, Table, Tabs, Textarea, ThemeProvider, TimelineBar, Toast, ToastProvider, Toggle, ToggleGroup, Tooltip, cn, icons_exports as icons, searchComponents, useSidebarCollapsed, useTheme, useToast };
 
 //# sourceMappingURL=soft-ui-kit.js.map

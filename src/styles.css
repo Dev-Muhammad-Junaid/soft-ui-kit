@@ -1,3 +1,4 @@
 /* Soft UI Kit — import once in your app root */
 @import "./styles/tokens.css";
 @import "./styles/components.css";
+@import "./styles/shell.css";

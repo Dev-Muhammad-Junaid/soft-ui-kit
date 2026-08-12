@@ -8,6 +8,10 @@ import {
 import { Card } from "../components/ui";
 import { CatalogPreview } from "./catalog/CatalogPreviews";
 
+function exportName(item) {
+  return item.exportName || item.name.replace(/\s+/g, "");
+}
+
 const CATEGORY_LABELS = Object.fromEntries(
   COMPONENT_CATEGORIES.map((c) => [c.id, c.label]),
 );
@@ -90,6 +94,7 @@ export function CatalogPage() {
                 >
                   <h3>{item.name}</h3>
                   <p className="catalog-card__meta">{item.description}</p>
+                  <code className="catalog-card__import">{`import { ${exportName(item)} } from "soft-ui-kit"`}</code>
                   <div className="catalog-card__preview">
                     <CatalogPreview id={item.id} />
                   </div>

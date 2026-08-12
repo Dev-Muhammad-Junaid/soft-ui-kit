@@ -1,10 +1,19 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { copyFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 /** Library build — npm / pnpm / bun installable package. */
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: "copy-dts",
+      closeBundle() {
+        copyFileSync(resolve(__dirname, "src/index.d.ts"), resolve(__dirname, "dist/lib/soft-ui-kit.d.ts"));
+      },
+    },
+  ],
   publicDir: false,
   build: {
     outDir: "dist/lib",
@@ -20,11 +29,9 @@ export default defineConfig({
         "react",
         "react-dom",
         "react/jsx-runtime",
-        "react-router-dom",
         "clsx",
         "@phosphor-icons/react",
         /^@phosphor-icons\/react\//,
-        "border-beam",
       ],
       output: {
         assetFileNames: "soft-ui-kit.[ext]",

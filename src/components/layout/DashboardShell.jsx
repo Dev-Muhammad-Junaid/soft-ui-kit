@@ -1,8 +1,15 @@
 import { useEffect, useId, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { Home, PanelLeft, PanelLeftClose, Users } from "../icons";
 import clsx from "clsx";
 import { IconButton } from "../ui";
+
+function DefaultLink({ to, end: _end, children, ...props }) {
+  return (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  );
+}
 
 const COLLAPSE_KEY = "suk-sidebar-collapsed";
 
@@ -44,6 +51,7 @@ export function DashboardShell({
   onMobileOpenChange,
   className,
   collapsible = true,
+  linkComponent: Link = DefaultLink,
 }) {
   const labelId = useId();
   const [uncontrolled, setUncontrolled] = useState(defaultCollapsed);
@@ -97,7 +105,7 @@ export function DashboardShell({
           {items.map((item) => {
             const Icon = item.icon;
             return (
-              <NavLink
+              <Link
                 key={item.to || item.id}
                 to={item.to}
                 end={item.end}
@@ -106,7 +114,7 @@ export function DashboardShell({
               >
                 {Icon ? <Icon size={18} strokeWidth={1.7} aria-hidden /> : null}
                 <span className="side-nav__label">{item.label}</span>
-              </NavLink>
+              </Link>
             );
           })}
         </nav>
