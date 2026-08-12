@@ -61,7 +61,7 @@ export function App() {
 - **Layout** — `DashboardShell` (collapsible sidebar)
 - **Effects** — `GlassRing`, `GlassOrbField`
 - **Utils** — `cn()`
-- **Icons** — `import { icons } from "soft-ui-kit"` (Phosphor, light weight)
+- **Icons** — `import { icons } from "soft-ui-kit"` (Phosphor, light weight). Custom icon style labs (Line, Glass, Chrome, Frosted, Glassy mix) live on `explore/icons-*` branches and are **not** part of this package.
 
 ## Demo site (this repo)
 
@@ -82,6 +82,7 @@ npm run build:lib # package entry only → dist/lib
 - **Taste playground** (demo) — live radius, glass, color, effects
 - **UI Kit · Charts · Effects** — separate galleries; Taste dials stay in sync
 - **SaaS samples** — Ops, Autumn, Travel, Finance, Kanban
+- **Phosphor icons** — light-stroke set for kit chrome; experimental icon languages stay on `explore/icons-*` (do not merge into `main`)
 
 ## License
 
