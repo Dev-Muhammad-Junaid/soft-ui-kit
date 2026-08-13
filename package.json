@@ -54,7 +54,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "preview": "vite preview",
-    "preview:capture": "node scripts/capture-preview.mjs"
+    "preview:capture": "node scripts/capture-preview.mjs",
+    "validate:frosted": "node scripts/validate-frosted-icons.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
