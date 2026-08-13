@@ -16,13 +16,13 @@ import {
  * Layers: [data-soft-layer="shadow|extrude|face|glyph|specular|glow"]
  *
  * Frosted glass `version`:
- *   - "tiled" — Soft Complex catalog (TileMark plates + shaped SoftMarks as designed)
- *   - "bare"  — SoftMark language (Arrow / User / Bell / Chart), not plate-off tiles
+ *   - "bare"  — lab surface: SoftMark language (Arrow / User / Bell / Chart)
+ *   - "tiled" — origin Soft Complex plates (not shown on the lab page)
  */
 export function SoftComplexIcon({
   name = "check",
   material = "glass",
-  version = "tiled",
+  version = "bare",
   size = 48,
   intensity = 1,
   animate = false,
@@ -74,7 +74,7 @@ export function SoftComplexIcon({
 
 export function SoftComplexIconSet({
   material = "glass",
-  version = "tiled",
+  version = "bare",
   size = 44,
   animate = false,
   intensity = 1,
@@ -110,7 +110,7 @@ export function SoftFrostedCatalog({
   size = 48,
   animate = false,
   intensity = 1,
-  version = "tiled",
+  version = "bare",
   className,
 }) {
   return (

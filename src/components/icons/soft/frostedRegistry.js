@@ -1,14 +1,12 @@
 /**
- * Frosted isometric tile set — common icons for apps, dashboards, admin & SaaS.
+ * Frosted SoftMark lab catalog (explore/icons-frosted only — not a kit export).
  *
- * Presentation modes:
- * - tiled: Soft Complex identity (GlassTile plates + original shaped SoftMarks)
- * - bare: SoftMark language (Arrow / User / Bell / Chart) — NOT plate-off TileMark glyphs
+ * Lab surface is Bare: shaped / stroke glass marks (Arrow, User, Bell, Chart).
+ * Tiled Soft Complex plates stay in frostedIcons.jsx as origin artwork only.
  * Geometry: viewBox 0 0 48 48; default tile 9/9/30/30 rx≈10
- * Layers: shadow → extrude → face → glyph → specular → glow
  */
 
-export const FROSTED_VERSIONS = ["tiled", "bare"];
+export const FROSTED_VERSIONS = ["bare", "tiled"];
 
 export const FROSTED_STANDARDS = {
   viewBox: "0 0 48 48",
@@ -16,15 +14,14 @@ export const FROSTED_STANDARDS = {
   glyphInset: { min: 14, max: 34 },
   strokeWidth: { min: 2.4, max: 3.4 },
   bareGlyphScale: 1,
-  layers: ["shadow", "extrude", "face", "glyph", "specular", "glow"],
+  layers: ["extrude", "face", "glyph", "specular"],
   checklist: [
-    "Bare must match original bare mark language (SoftMark / stroke / soft-shaped glass)",
-    "Tiled must match Soft Complex tiled language (GlassTile plates + origin shaped marks)",
-    "Do not implement Bare as plate-off of TileMark glyphs",
-    "Layers: shadow → extrude → face → glyph → specular → glow",
-    "Color tokens from core/face/rim/spec/frost/mark/cut only (theme via currentColor + --soft-cx-*)",
-    "No raw hex fills in frosted glass icons — use gradients or CSS variables",
-    "Safe area ~6–42; name matches silhouette",
+    "Lab reviews Bare SoftMark only (shaped / SoftStrokeMark) — not plate-off TileMarks",
+    "Origin silhouettes stay intact; do not overlay scaled cores or hard Spec H/V cuts on arrows",
+    "Bright core accent on interior detail; theme via currentColor + --soft-cx-*",
+    "No raw hex fills — gradients or CSS variables",
+    "Safe area ~6–42; name matches silhouette; Close/Check/Plus are stroke weight peers",
+    "Do not merge this catalog into main; Phosphor remains the shipped icon set",
   ],
 };
 

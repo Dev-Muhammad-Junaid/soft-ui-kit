@@ -1,98 +1,81 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   SoftFrostedCatalog,
   FROSTED_ICON_KEYS,
   FROSTED_STANDARDS,
-  FROSTED_VERSIONS,
 } from "../components/icons/soft/SoftComplexIcon";
-import { Badge, Card, Switch, ToggleGroup } from "../components/ui";
-
-const VERSION_OPTIONS = [
-  { value: "tiled", label: "Tiled" },
-  { value: "bare", label: "Bare" },
-];
+import { Badge, Card, Switch } from "../components/ui";
 
 export function IconFrostedPage() {
   const [complexAnimate, setComplexAnimate] = useState(true);
-  const [version, setVersion] = useState("tiled");
-
-  const versionHint = useMemo(
-    () =>
-      version === "tiled"
-        ? "Original Soft Complex identity — frosted plates and shaped SoftMarks as designed."
-        : "SoftMark bare language — shaped / stroke glass marks (Arrow, User, Bell, Chart), not plate-off tiles.",
-    [version]
-  );
 
   return (
     <div className="icon-styles-page">
       <header className="page-header">
         <div>
-          <h1>Frosted isometric icons</h1>
+          <h1>Frosted SoftMark lab</h1>
           <p>
-            Soft Complex glass catalog for SaaS, dashboard, and admin chrome — Tiled (origin Soft
-            Complex) vs Bare (SoftMark language). Taste accent.
+            Standalone Bare glass-mark catalog for review on this branch only. Production Soft UI
+            Kit icons stay Phosphor on <code>main</code> — this set is not a kit export.
           </p>
         </div>
         <div className="icon-styles-page__controls">
-          <div className="icon-styles-page__version" role="group" aria-label="Frosted version">
-            <span className="icon-styles-page__version-label">Version</span>
-            <ToggleGroup
-              value={version}
-              onChange={(v) => FROSTED_VERSIONS.includes(v) && setVersion(v)}
-              options={VERSION_OPTIONS}
-            />
-          </div>
           <Switch
             checked={complexAnimate}
             onCheckedChange={setComplexAnimate}
-            label="Complex idle FX"
+            label="Idle FX"
           />
-          <Badge tone="accent">{FROSTED_ICON_KEYS.length} icons</Badge>
+          <Badge tone="accent">{FROSTED_ICON_KEYS.length} marks</Badge>
         </div>
       </header>
 
       <Card
+        className="icon-styles-lab-note glass"
+        title="Lab, not product"
+        description="explore/icons-frosted · draft PR #4 · do not merge to main · do not publish npm"
+      >
+        <p className="frosted-standards__hint">
+          Language notes: <code>docs/icon-lab-frosted.md</code>. Validate with{" "}
+          <code>npm run validate:frosted</code>. Theme FAB recolors via <code>--accent</code>.
+        </p>
+      </Card>
+
+      <Card
         className="icon-styles-complex glass sheen"
-        title={`Frosted isometric set — ${version}`}
-        description={`${FROSTED_ICON_KEYS.length} icons · ${versionHint}`}
+        title="Bare SoftMark set"
+        description={`${FROSTED_ICON_KEYS.length} marks · shaped / stroke frosted glass · Taste accent`}
       >
         <div className="icon-styles-complex__label" style={{ marginBottom: 8 }}>
-          <Badge tone="accent">frosted · {version}</Badge>
+          <Badge tone="accent">frosted · bare</Badge>
           <span>Nav · actions · people · comms · data · content · system</span>
         </div>
-        <SoftFrostedCatalog size={48} animate={complexAnimate} version={version} />
+        <SoftFrostedCatalog size={48} animate={complexAnimate} version="bare" />
       </Card>
 
       <Card
         className="icon-styles-standards glass sheen"
-        title="Frosted standards & review checklist"
-        description="Encode once, validate every new icon in BOTH versions before merge."
+        title="Language rules"
+        description="Apply to every new Bare mark before calling the lab done."
       >
         <div className="frosted-standards">
           <ul className="frosted-standards__rules">
             <li>
-              <strong>ViewBox</strong> {FROSTED_STANDARDS.viewBox}; tile{" "}
-              {FROSTED_STANDARDS.tile.x}/{FROSTED_STANDARDS.tile.y}/
-              {FROSTED_STANDARDS.tile.w}/{FROSTED_STANDARDS.tile.h}, rx≈
-              {FROSTED_STANDARDS.tile.rx}
+              <strong>ViewBox</strong> {FROSTED_STANDARDS.viewBox}; safe area ~6–42
             </li>
             <li>
               <strong>Glyph inset</strong> ~{FROSTED_STANDARDS.glyphInset.min}–
-              {FROSTED_STANDARDS.glyphInset.max}; stroke{" "}
-              {FROSTED_STANDARDS.strokeWidth.min}–{FROSTED_STANDARDS.strokeWidth.max}
+              {FROSTED_STANDARDS.glyphInset.max}; stroke {FROSTED_STANDARDS.strokeWidth.min}–
+              {FROSTED_STANDARDS.strokeWidth.max}
             </li>
             <li>
               <strong>Layers</strong> {FROSTED_STANDARDS.layers.join(" → ")}
             </li>
             <li>
-              <strong>Tiled</strong> Soft Complex plates / shaped marks · <strong>Bare</strong>{" "}
-              SoftMark language (not plate-off)
+              <strong>Language</strong> SoftMark / SoftStrokeMark — not plate-off TileMarks
             </li>
             <li>
-              <strong>Colors</strong> core / face / rim / spec / frost / mark / cut —
-              theme via <code>currentColor</code> (<code>--accent</code>) +{" "}
-              <code>--soft-cx-*</code>
+              <strong>Color</strong> <code>currentColor</code> (<code>--accent</code>) +{" "}
+              <code>--soft-cx-*</code> · core accent on interior detail
             </li>
           </ul>
           <ol className="frosted-standards__checklist">
@@ -100,10 +83,6 @@ export function IconFrostedPage() {
               <li key={item}>{item}</li>
             ))}
           </ol>
-          <p className="frosted-standards__hint">
-            Structural audit: <code>npm run validate:frosted</code> · review both toggle states on
-            this page for every icon.
-          </p>
         </div>
       </Card>
     </div>

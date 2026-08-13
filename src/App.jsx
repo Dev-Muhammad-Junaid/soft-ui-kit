@@ -43,6 +43,7 @@ export default function App() {
           <Route path="/catalog" element={<Navigate to="/ui" replace />} />
           <Route path="/charts" element={<ChartsGalleryPage />} />
           <Route path="/effects" element={<EffectsPage />} />
+          <Route path="/icon-styles" element={<Navigate to="/icon-styles/frosted" replace />} />
           <Route path="/icon-styles/frosted" element={<IconFrostedPage />} />
           <Route path="/saas" element={<SaasHubPage />} />
           <Route path="/saas/dashboard" element={<OpsDashboard />} />

@@ -41,13 +41,7 @@
   font-size: 12px;
   color: var(--ink-muted);
 }
-.frosted-standards__hint code {
-  font-size: 11px;
-  padding: 1px 6px;
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
-  color: var(--accent-ink);
-}
+.icon-styles-lab-note p { margin: 0; }
 .soft-cx--bare {
   /* SoftMark bare language — slightly richer without TileMark plate fill */
   filter: saturate(1.06) contrast(1.02);

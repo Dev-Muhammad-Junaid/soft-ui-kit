@@ -489,12 +489,11 @@ function arrowFace(dir) {
 function Arrow({ dir, ...p }) {
   const { uid, ...frame } = p;
   const face = arrowFace(dir);
+  // Origin silhouette, one fill. Extra layers (extrude/stroke/Spec) drew H/V seams.
   return (
     <Frame uid={uid} {...frame}>
       <g data-soft-layer="body">
-        <path data-soft-layer="extrude" d={face} fill={`url(#${uid}-body)`} opacity={0.48} transform="translate(1.3 1.6)" />
-        <path data-soft-layer="face" d={face} fill={`url(#${uid}-face)`} stroke={`url(#${uid}-rim)`} strokeWidth={1.15} />
-        <Spec uid={uid} d="M14 18.5h14" opacity={0.5} />
+        <path data-soft-layer="face" d={face} fill={`url(#${uid}-face)`} />
       </g>
     </Frame>
   );

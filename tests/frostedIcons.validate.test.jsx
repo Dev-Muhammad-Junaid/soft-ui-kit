@@ -59,21 +59,21 @@ describe.each(FROSTED_ICON_KEYS)("frosted icon %s", (name) => {
 });
 
 describe("frosted standards export", () => {
-  it("encodes bare vs tiled language rule", () => {
+  it("encodes Bare lab language rules", () => {
     expect(FROSTED_STANDARDS.viewBox).toBe("0 0 48 48");
     expect(FROSTED_STANDARDS.tile).toMatchObject({ x: 9, y: 9, w: 30, h: 30 });
-    expect(FROSTED_VERSIONS).toEqual(["tiled", "bare"]);
+    expect(FROSTED_VERSIONS[0]).toBe("bare");
     expect(
-      FROSTED_STANDARDS.checklist.some((c) => /Bare must match original bare mark language/i.test(c))
+      FROSTED_STANDARDS.checklist.some((c) => /Lab reviews Bare SoftMark only/i.test(c))
     ).toBe(true);
     expect(
-      FROSTED_STANDARDS.checklist.some((c) => /Tiled must match Soft Complex tiled language/i.test(c))
-    ).toBe(true);
-    expect(
-      FROSTED_STANDARDS.checklist.some((c) => /not implement Bare as plate-off/i.test(c))
+      FROSTED_STANDARDS.checklist.some((c) => /not plate-off TileMarks/i.test(c))
     ).toBe(true);
     expect(
       FROSTED_STANDARDS.checklist.some((c) => /No raw hex fills/i.test(c))
+    ).toBe(true);
+    expect(
+      FROSTED_STANDARDS.checklist.some((c) => /Do not merge this catalog into main/i.test(c))
     ).toBe(true);
   });
 });
