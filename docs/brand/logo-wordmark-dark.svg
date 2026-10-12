@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="72" viewBox="0 0 360 72" fill="none">
+  <title>Soft UI Kit</title>
+  <g transform="translate(4 4)">
+  <defs>
+    <linearGradient id="suk-fill" x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="0.5" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="suk-sheen" x1="32" y1="4" x2="32" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="suk-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 52) rotate(90) scale(22)">
+      <stop offset="0" stop-color="#f0abfc" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#f0abfc" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="suk-knob" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(41 39.5) scale(8)">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#bae6fd"/>
+    </radialGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="19" fill="url(#suk-fill)"/>
+  <rect x="4" y="4" width="56" height="56" rx="19" fill="url(#suk-glow)"/>
+  <rect x="5.5" y="5.5" width="53" height="28" rx="17.5" fill="url(#suk-sheen)"/>
+  <rect x="4.75" y="4.75" width="54.5" height="54.5" rx="18.25" stroke="#fff" stroke-opacity="0.6" stroke-width="1.5"/>
+  <!-- Off switch (top): frosted track, knob left -->
+  <rect x="13" y="14" width="38" height="16" rx="8" fill="#fff" fill-opacity="0.3" stroke="#fff" stroke-opacity="0.55"/>
+  <circle cx="21" cy="23" r="7" fill="#0f172a" fill-opacity="0.14"/>
+  <circle cx="21" cy="22" r="7" fill="#fff"/>
+  <!-- On switch (bottom): solid track, knob right -->
+  <rect x="13" y="34" width="38" height="16" rx="8" fill="#fff"/>
+  <circle cx="43" cy="43" r="6.5" fill="#0f172a" fill-opacity="0.12"/>
+  <circle cx="43" cy="42" r="6" fill="url(#suk-fill)"/>
+  </g>
+  <text x="84" y="42" fill="#e8eef8" font-family="Manrope, 'Plus Jakarta Sans', Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="800" letter-spacing="-0.9">Soft UI Kit</text>
+  <text x="85" y="61" fill="#9aa8bf" font-family="Manrope, Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="0.4">GLASS + SOFT REACT COMPONENTS</text>
+</svg>

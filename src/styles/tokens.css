@@ -14,7 +14,7 @@
   --t-radius: 1;
   --t-accent-h: 199;
   --t-lift: 1;
-  --t-hover-lift: 0.35;
+  --t-hover-lift: 0.2;
   --t-motion: 1;
 
   --radius-xs: calc(6px * var(--t-radius));
@@ -33,14 +33,39 @@
   --space-6: 24px;
   --space-8: 32px;
 
+  /* Control heights — buttons, inputs, icon buttons, toggles share one scale */
+  --control-sm: 34px;
+  --control-md: 42px;
+  --control-lg: 50px;
+
+  /* Icon sizes — Phosphor light weight throughout */
+  --icon-sm: 14px;
+  --icon-md: 16px;
+  --icon-lg: 20px;
+
   --accent: hsl(var(--t-accent-h) 85% 48%);
   --accent-soft: hsl(var(--t-accent-h) 90% 92%);
   --accent-ink: hsl(var(--t-accent-h) 70% 28%);
+  /* Fill that carries white text (primary buttons, checked boxes, selected days) */
+  --accent-strong: hsl(var(--t-accent-h) 85% 40%);
+  --on-accent: #fff;
 
+  /* Semantic fills (tints, dots, charts) and inks (text/icons, AA on glass) */
   --success: #34d399;
   --warning: #fb923c;
   --danger: #f87171;
   --info: #60a5fa;
+  --success-ink: #047857;
+  --warning-ink: #b45309;
+  --danger-ink: #be123c;
+  --info-ink: #1d4ed8;
+
+  /* Knobs and raised chips (switch/slider thumbs, avatars, active tabs) */
+  --knob-hi: #fff;
+  --knob-border: rgba(255, 255, 255, 0.95);
+  --surface-raised: rgba(255, 255, 255, 0.72);
+
+  color-scheme: light;
 
   --shadow-float:
     0 8px 22px rgba(148, 163, 184, calc(0.22 * var(--t-shadow))),
@@ -66,12 +91,21 @@
 }
 
 /* —— Themes —— */
+:root,
+[data-theme] {
+  /* Visible edge for form controls (inputs, checkboxes, OTP cells) */
+  --control-border: color-mix(in srgb, var(--ink) 16%, transparent);
+  --control-border-hover: color-mix(in srgb, var(--ink) 26%, transparent);
+}
+
+/* Soft Glass doubles as the default when no data-theme is set */
+:root,
 [data-theme="soft-glass"] {
   --bg: #e6ebf3;
   --bg-elevated: #eef2f8;
   --ink: #2b3445;
-  --ink-muted: #8b95a8;
-  --ink-faint: #a8b2c3;
+  --ink-muted: #5f6a7f;
+  --ink-faint: #78839a;
   --line: rgba(255, 255, 255, calc(0.75 * var(--t-rim)));
   --glass-base: rgba(255, 255, 255, var(--t-glass-opacity));
   --sidebar: rgba(255, 255, 255, 0.42);
@@ -92,8 +126,8 @@
   --bg: #edf4fb;
   --bg-elevated: #f5f9fd;
   --ink: #1e3a5f;
-  --ink-muted: #6b87a8;
-  --ink-faint: #93a9c2;
+  --ink-muted: #53708f;
+  --ink-faint: #6d87a6;
   --line: rgba(255, 255, 255, 0.95);
   --glass-base: rgba(255, 255, 255, calc(var(--t-glass-opacity) - 0.08));
   --sidebar: rgba(255, 255, 255, 0.5);
@@ -115,7 +149,7 @@
   --bg-elevated: #1c2331;
   --ink: #e8eef8;
   --ink-muted: #9aa8bf;
-  --ink-faint: #6f7d96;
+  --ink-faint: #7f8ca4;
   --line: rgba(255, 255, 255, 0.12);
   --glass-base: rgba(28, 36, 52, calc(var(--t-glass-opacity) + 0.2));
   --sidebar: rgba(18, 23, 34, 0.78);
@@ -130,6 +164,16 @@
   --accent: hsl(205 85% 58%);
   --accent-soft: hsl(205 40% 22%);
   --accent-ink: hsl(205 90% 78%);
+  --knob-hi: hsl(205 30% 86%);
+  --surface-raised: rgba(255, 255, 255, 0.08);
+  --success-ink: #6ee7b7;
+  --warning-ink: #fdba74;
+  --danger-ink: #fda4af;
+  --info-ink: #93c5fd;
+  --knob-border: rgba(255, 255, 255, 0.28);
+  --control-border: rgba(255, 255, 255, 0.14);
+  --control-border-hover: rgba(255, 255, 255, 0.24);
+  color-scheme: dark;
   /* Dark-only depth — no light/white neumorphic highlights */
   --shadow-float:
     0 12px 28px rgba(0, 0, 0, calc(0.55 * var(--t-shadow))),
@@ -175,7 +219,6 @@
 
 [data-theme="dusk"] .ui-btn--ghost:hover,
 [data-theme="dusk"] .ui-icon-btn--ghost:hover,
-[data-theme="dusk"] .ui-tabs__tab.is-active,
 [data-theme="dusk"] .side-nav a:hover,
 [data-theme="dusk"] .side-nav a.active {
   background: rgba(255, 255, 255, 0.06);
@@ -185,8 +228,8 @@
   --bg: #ebe8f8;
   --bg-elevated: #f3f0fc;
   --ink: #2e2450;
-  --ink-muted: #8577ad;
-  --ink-faint: #a99bc8;
+  --ink-muted: #6e6098;
+  --ink-faint: #8577ad;
   --line: rgba(255, 255, 255, 0.9);
   --glass-base: rgba(255, 255, 255, var(--t-glass-opacity));
   --sidebar: rgba(255, 255, 255, 0.45);
@@ -208,7 +251,7 @@
   --bg-elevated: #1a1716;
   --ink: #f3ebe3;
   --ink-muted: #a89a8c;
-  --ink-faint: #6f645a;
+  --ink-faint: #8a7d70;
   --line: rgba(255, 236, 210, 0.1);
   --glass-base: rgba(32, 28, 26, calc(var(--t-glass-opacity) + 0.22));
   --sidebar: rgba(14, 12, 11, 0.82);
@@ -223,6 +266,16 @@
   --accent: hsl(32 90% 52%);
   --accent-soft: hsl(32 70% 18%);
   --accent-ink: hsl(32 90% 72%);
+  --knob-hi: hsl(32 40% 86%);
+  --surface-raised: rgba(255, 220, 180, 0.08);
+  --success-ink: #6ee7b7;
+  --warning-ink: #fdba74;
+  --danger-ink: #fda4af;
+  --info-ink: #93c5fd;
+  --knob-border: rgba(255, 255, 255, 0.28);
+  --control-border: rgba(255, 255, 255, 0.14);
+  --control-border-hover: rgba(255, 255, 255, 0.24);
+  color-scheme: dark;
   --shadow-float:
     0 12px 28px rgba(0, 0, 0, calc(0.6 * var(--t-shadow))),
     0 2px 8px rgba(0, 0, 0, calc(0.4 * var(--t-shadow))),
@@ -259,7 +312,6 @@
 
 [data-theme="midnight"] .ui-btn--ghost:hover,
 [data-theme="midnight"] .ui-icon-btn--ghost:hover,
-[data-theme="midnight"] .ui-tabs__tab.is-active,
 [data-theme="midnight"] .side-nav a:hover,
 [data-theme="midnight"] .side-nav a.active {
   background: rgba(255, 220, 180, 0.06);
@@ -340,11 +392,15 @@ a {
 .sheen {
   position: relative;
   overflow: hidden;
+  /* Own stacking context so the highlight can sit behind content */
+  isolation: isolate;
 }
 
+/* Rim highlight paints above the surface fill but below text and icons. */
 .sheen::before {
   content: "";
   position: absolute;
+  z-index: -1;
   inset: 1px;
   border-radius: inherit;
   pointer-events: none;
@@ -362,7 +418,8 @@ a {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  /* Behind page content inside the shell's stacking context */
+  z-index: -1;
   overflow: hidden;
 }
 
@@ -548,8 +605,26 @@ a {
   transform: none;
 }
 
-.glass-ring--soft .glass-ring__core svg {
-  width: 1.15em;
-  height: 1.15em;
+/* Dark themes: keep pastel gems from glaring against charcoal glass */
+[data-theme="dusk"] .glass-ring__core,
+[data-theme="midnight"] .glass-ring__core {
+  filter: saturate(0.92) brightness(0.94);
 }
 
+
+::placeholder {
+  color: var(--ink-faint);
+  opacity: 1;
+}
+
+/* Respect OS-level reduced motion: kill decorative loops and lifts */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

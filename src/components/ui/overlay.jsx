@@ -18,7 +18,7 @@ export function Dialog({ open, onClose, title, children, footer, description }) 
             <h3>{title}</h3>
             {description ? <p className="ui-dialog__desc">{description}</p> : null}
           </div>
-          <button type="button" className="ui-icon-btn ui-icon-btn--ghost" onClick={onClose} aria-label="Close">
+          <button type="button" className="ui-icon-btn ui-icon-btn--ghost ui-icon-btn--sm" onClick={onClose} aria-label="Close">
             <X size={16} />
           </button>
         </header>
@@ -81,7 +81,7 @@ export function Sheet({ open, onClose, title, children, side = "right" }) {
       >
         <header className="ui-sheet__head">
           <h3>{title}</h3>
-          <button type="button" className="ui-icon-btn ui-icon-btn--ghost" onClick={onClose} aria-label="Close">
+          <button type="button" className="ui-icon-btn ui-icon-btn--ghost ui-icon-btn--sm" onClick={onClose} aria-label="Close">
             <X size={16} />
           </button>
         </header>
