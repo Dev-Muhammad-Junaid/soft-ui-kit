@@ -113,20 +113,23 @@ export function RadialBars({
           const dash = (pct / 100) * c;
           return (
             <g key={s.label}>
+              {/* Inline style (not SVG attributes) so per-series color and width beat the CSS defaults */}
               <circle
                 className="radial-track"
                 cx={cx}
                 cy={cy}
                 r={r}
-                strokeWidth={size * 0.07}
+                style={{ strokeWidth: size * 0.07 }}
               />
               <circle
                 className="radial-fill"
                 cx={cx}
                 cy={cy}
                 r={r}
-                strokeWidth={size * 0.07}
-                stroke={s.color || `var(--chart-${(i % 4) + 1})`}
+                style={{
+                  strokeWidth: size * 0.07,
+                  stroke: s.color || `var(--chart-${(i % 4) + 1})`,
+                }}
                 strokeDasharray={`${dash} ${c}`}
                 transform={`rotate(-90 ${cx} ${cy})`}
               />
@@ -225,7 +228,7 @@ export function FunnelChart({
               className="funnel-bar"
               style={{
                 width: `${w}%`,
-                background: s.color || `var(--chart-${(i % 4) + 1})`,
+                backgroundColor: s.color || `var(--chart-${(i % 4) + 1})`,
               }}
             >
               <span>{s.label}</span>

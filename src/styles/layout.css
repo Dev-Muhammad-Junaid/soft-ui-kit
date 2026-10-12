@@ -907,12 +907,12 @@
   gap: 16px;
   flex-wrap: wrap;
 }
-.marketing-nav a {
+.marketing-nav a:not(.ui-btn) {
   font-size: 14px;
   font-weight: 700;
   color: var(--ink-muted);
 }
-.marketing-nav a:hover { color: var(--ink); }
+.marketing-nav a:not(.ui-btn):hover { color: var(--ink); }
 .marketing-hero {
   max-width: 920px;
   margin: 0 auto;
@@ -1515,8 +1515,15 @@
 .preview-card-grid .ui-card {
   margin: 0;
 }
+.preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
 .preview-row--rings {
   justify-content: space-between;
+  gap: 16px;
 }
 .preview-ring-cell {
   display: grid;

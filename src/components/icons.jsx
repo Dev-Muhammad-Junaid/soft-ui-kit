@@ -13,6 +13,10 @@ import {
   Briefcase as PhBriefcase,
   CalendarBlank,
   CaretDown,
+  CaretLeft as PhCaretLeft,
+  CaretRight as PhCaretRight,
+  CaretUp,
+  CaretUpDown,
   ChartBar,
   Check as PhCheck,
   CheckCircle,
@@ -30,6 +34,7 @@ import {
   House,
   Info as PhInfo,
   Layout,
+  List,
   MagicWand,
   MagnifyingGlass,
   MapPin as PhMapPin,
@@ -49,6 +54,8 @@ import {
   User as PhUser,
   Users as PhUsers,
   Wallet as PhWallet,
+  Warning,
+  WarningOctagon,
   X as PhX,
 } from "@phosphor-icons/react";
 
@@ -87,6 +94,10 @@ export const CalendarDays = withKitDefaults(CalendarBlank);
 export const Check = withKitDefaults(PhCheck);
 export const CheckCircle2 = withKitDefaults(CheckCircle);
 export const ChevronDown = withKitDefaults(CaretDown);
+export const ChevronLeft = withKitDefaults(PhCaretLeft);
+export const ChevronRight = withKitDefaults(PhCaretRight);
+export const ChevronUp = withKitDefaults(CaretUp);
+export const ChevronsUpDown = withKitDefaults(CaretUpDown);
 export const Clock3 = withKitDefaults(PhClock);
 export const CopySimple = withKitDefaults(PhCopySimple);
 export const CreditCard = withKitDefaults(PhCreditCard);
@@ -98,9 +109,12 @@ export const GripVertical = withKitDefaults(DotsSixVertical);
 export const HelpCircle = withKitDefaults(Question);
 export const Home = withKitDefaults(House);
 export const Info = withKitDefaults(PhInfo);
+export const AlertTriangle = withKitDefaults(Warning);
+export const AlertOctagon = withKitDefaults(WarningOctagon);
 export const LayoutDashboard = withKitDefaults(Layout);
 export const LayoutGrid = withKitDefaults(SquaresFour);
 export const MapPin = withKitDefaults(PhMapPin);
+export const Menu = withKitDefaults(List);
 export const Palette = withKitDefaults(PhPalette);
 export const PanelLeft = withKitDefaults(Sidebar);
 export const PanelLeftClose = withKitDefaults(SidebarSimple);

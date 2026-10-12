@@ -1,7 +1,7 @@
 {
   "name": "soft-ui-kit",
-  "version": "0.2.0",
-  "description": "Glass + soft UI kit for React — themes, Taste dials, components, and charts.",
+  "version": "0.3.0",
+  "description": "Glass + soft UI kit for React \u2014 themes, Taste dials, components, and charts.",
   "type": "module",
   "license": "MIT",
   "author": "Dev-Muhammad-Junaid",
@@ -28,7 +28,8 @@
   "files": [
     "dist/lib",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "main": "./dist/lib/soft-ui-kit.js",
   "module": "./dist/lib/soft-ui-kit.js",

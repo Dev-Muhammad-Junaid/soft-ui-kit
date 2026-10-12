@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import { ChevronDown } from "../icons";
+
+function DisclosureIcon() {
+  return (
+    <span className="ui-disclosure__icon" aria-hidden="true">
+      <ChevronDown size={16} />
+    </span>
+  );
+}
 
 export function Card({
   children,
@@ -65,7 +74,10 @@ export function Accordion({ items, className }) {
     <div className={clsx("ui-accordion", className)}>
       {items.map((item) => (
         <details key={item.id} className="ui-accordion__item">
-          <summary>{item.title}</summary>
+          <summary>
+            <span>{item.title}</span>
+            <DisclosureIcon />
+          </summary>
           <div className="ui-accordion__body">{item.content}</div>
         </details>
       ))}
@@ -76,7 +88,10 @@ export function Accordion({ items, className }) {
 export function Collapsible({ title, children, defaultOpen = false, className }) {
   return (
     <details className={clsx("ui-collapsible", className)} open={defaultOpen || undefined}>
-      <summary>{title}</summary>
+      <summary>
+        <span>{title}</span>
+        <DisclosureIcon />
+      </summary>
       <div className="ui-collapsible__body">{children}</div>
     </details>
   );

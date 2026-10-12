@@ -1,16 +1,37 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { AlertOctagon, AlertTriangle, CheckCircle2, Info } from "../icons";
+
+const TONE_ICONS = {
+  info: Info,
+  success: CheckCircle2,
+  warning: AlertTriangle,
+  danger: AlertOctagon,
+};
 
 export function Skeleton({ className, style }) {
   return <div className={clsx("ui-skeleton", className)} style={style} aria-hidden="true" />;
 }
 
-export function Alert({ title, children, tone = "info", className }) {
+/** `icon` overrides the tone icon; pass `icon={false}` to hide it. */
+export function Alert({ title, children, tone = "info", icon, className }) {
+  const ToneIcon = TONE_ICONS[tone] || Info;
+  const glyph = icon === undefined ? <ToneIcon size={16} weight="regular" /> : icon;
   return (
-    <div className={clsx("ui-alert", `ui-alert--${tone}`, className)} role="status">
-      {title ? <strong>{title}</strong> : null}
-      {children ? <p>{children}</p> : null}
+    <div
+      className={clsx("ui-alert", `ui-alert--${tone}`, className)}
+      role={tone === "danger" || tone === "warning" ? "alert" : "status"}
+    >
+      {glyph ? (
+        <span className="ui-alert__icon" aria-hidden="true">
+          {glyph}
+        </span>
+      ) : null}
+      <div className="ui-alert__body">
+        {title ? <strong>{title}</strong> : null}
+        {children ? <p>{children}</p> : null}
+      </div>
     </div>
   );
 }
@@ -61,6 +82,9 @@ const ToastCtx = createContext(null);
 
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
+  // Portal only after mount: document.body does not exist during server rendering.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const api = useMemo(
     () => ({
@@ -78,13 +102,21 @@ export function ToastProvider({ children }) {
   return (
     <ToastCtx.Provider value={api}>
       {children}
-      {createPortal(
+      {mounted && createPortal(
         <div className="ui-toast-stack" aria-live="polite">
-          {toasts.map((t) => (
-            <div key={t.id} className={clsx("ui-toast glass sheen", `ui-toast--${t.tone}`)}>
-              {t.message}
-            </div>
-          ))}
+          {toasts.map((t) => {
+            const ToneIcon = TONE_ICONS[t.tone];
+            return (
+              <div key={t.id} className={clsx("ui-toast glass sheen", `ui-toast--${t.tone}`)}>
+                {ToneIcon ? (
+                  <span className="ui-toast__icon" aria-hidden="true">
+                    <ToneIcon size={16} weight="regular" />
+                  </span>
+                ) : null}
+                <span>{t.message}</span>
+              </div>
+            );
+          })}
         </div>,
         document.body,
       )}

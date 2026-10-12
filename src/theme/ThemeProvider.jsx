@@ -65,6 +65,33 @@ export { DEFAULT_EFFECTS };
 
 const ThemeContext = createContext(null);
 
+// Storage can be missing (SSR) or throw (privacy mode, blocked site data).
+function readStorage(key) {
+  try {
+    return typeof window === "undefined" ? null : window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writeStorage(key, value) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    /* non-fatal: theme still applies for this session */
+  }
+}
+
+function readJson(key) {
+  const raw = readStorage(key);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
 function applyDocumentTheme(themeId, tweaks) {
   const root = document.documentElement;
   root.dataset.theme = themeId;
@@ -116,29 +143,33 @@ function applyDocumentTheme(themeId, tweaks) {
   );
 }
 
-export function ThemeProvider({ children }) {
+/**
+ * @param defaultTheme  theme used when nothing is saved yet
+ * @param persist       remember theme / tweaks / effects in localStorage
+ * @param hotkeys       Shift+1…5 switches themes (demo-friendly; turn off in product apps)
+ */
+export function ThemeProvider({
+  children,
+  defaultTheme = "soft-glass",
+  persist = true,
+  hotkeys = true,
+}) {
   const [themeId, setThemeIdState] = useState(() => {
-    const saved = localStorage.getItem("suk-theme") || "soft-glass";
-    return LEGACY_THEMES[saved] || saved;
+    const saved = (persist && readStorage("suk-theme")) || defaultTheme;
+    const id = LEGACY_THEMES[saved] || saved;
+    return THEMES.some((t) => t.id === id) ? id : "soft-glass";
   });
   const [tweaks, setTweaks] = useState(() => {
-    try {
-      const raw = localStorage.getItem("suk-tweaks");
-      return raw ? { ...DEFAULT_TWEAKS, ...JSON.parse(raw) } : DEFAULT_TWEAKS;
-    } catch {
-      return DEFAULT_TWEAKS;
-    }
+    const saved = persist ? readJson("suk-tweaks") : null;
+    if (saved) return { ...DEFAULT_TWEAKS, ...saved };
+    // Seed the accent from the resolved theme, so a saved Aurora loads violet, not the default sky.
+    return { ...DEFAULT_TWEAKS, accentHue: THEME_ACCENT_HUE[themeId] ?? DEFAULT_TWEAKS.accentHue };
   });
   const [effects, setEffects] = useState(() => {
-    try {
-      const raw = localStorage.getItem("suk-effects");
-      if (!raw) return DEFAULT_EFFECTS;
-      const parsed = JSON.parse(raw);
-      const { metalFx: _legacyMetal, ...rest } = parsed;
-      return { ...DEFAULT_EFFECTS, ...rest };
-    } catch {
-      return DEFAULT_EFFECTS;
-    }
+    const saved = persist ? readJson("suk-effects") : null;
+    if (!saved) return DEFAULT_EFFECTS;
+    const { metalFx: _legacyMetal, ...rest } = saved;
+    return { ...DEFAULT_EFFECTS, ...rest };
   });
 
   function selectTheme(nextId) {
@@ -154,21 +185,22 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     applyDocumentTheme(themeId, tweaks);
-    localStorage.setItem("suk-theme", themeId);
-  }, [themeId, tweaks]);
+    if (persist) writeStorage("suk-theme", themeId);
+  }, [themeId, tweaks, persist]);
 
   useEffect(() => {
-    localStorage.setItem("suk-tweaks", JSON.stringify(tweaks));
-  }, [tweaks]);
+    if (persist) writeStorage("suk-tweaks", JSON.stringify(tweaks));
+  }, [tweaks, persist]);
 
   useEffect(() => {
-    localStorage.setItem("suk-effects", JSON.stringify(effects));
+    if (persist) writeStorage("suk-effects", JSON.stringify(effects));
     document.documentElement.dataset.beam = effects.borderBeam;
     delete document.documentElement.dataset.metal;
-  }, [effects]);
+  }, [effects, persist]);
 
   // Shift+1 … Shift+N cycles themes by index (1-based).
   useEffect(() => {
+    if (!hotkeys) return undefined;
     function onKeyDown(e) {
       if (!e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
       const target = e.target;
@@ -190,7 +222,7 @@ export function ThemeProvider({ children }) {
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [hotkeys]);
 
   const value = useMemo(
     () => ({

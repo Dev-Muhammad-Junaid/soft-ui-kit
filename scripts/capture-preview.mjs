@@ -3,20 +3,23 @@ import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 
-const BASE = "https://dev-muhammad-junaid.github.io/soft-ui-kit";
+// Override to capture a local build: PREVIEW_BASE=http://localhost:5173/soft-ui-kit
+const BASE = process.env.PREVIEW_BASE || "https://dev-muhammad-junaid.github.io/soft-ui-kit";
 const OUT = join(process.cwd(), "docs/preview");
 
 mkdirSync(OUT, { recursive: true });
 
 const shots = [
   { name: "01-landing", path: "/", wait: 1200 },
-  { name: "02-catalog", path: "/catalog", wait: 1500 },
+  { name: "02-catalog", path: "/ui", wait: 1500 },
   { name: "03-charts", path: "/charts", wait: 1800 },
   { name: "04-saas-autumn", path: "/saas/autumn", wait: 1800 },
   { name: "05-effects", path: "/effects", wait: 2000 },
 ];
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(
+  process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {},
+);
 const page = await browser.newPage({
   viewport: { width: 1440, height: 900 },
   deviceScaleFactor: 1.25,
@@ -30,7 +33,7 @@ for (const shot of shots) {
   console.log("saved", file);
 }
 
-await page.goto(`${BASE}/catalog`, { waitUntil: "networkidle", timeout: 60000 });
+await page.goto(`${BASE}/ui`, { waitUntil: "networkidle", timeout: 60000 });
 await page.waitForTimeout(1000);
 await page.getByRole("button", { name: /taste playground/i }).click();
 await page.waitForTimeout(900);
@@ -59,7 +62,7 @@ const frames = [
 for (const name of frames) {
   spawnSync(
     "ffmpeg",
-    ["-y", "-i", `${name}.png`, "-vf", "scale=800:-1", `${name}-sm.jpg", "-q:v", "4"],
+    ["-y", "-i", `${name}.png`, "-vf", "scale=800:-1", "-q:v", "4", `${name}-sm.jpg`],
     { cwd: OUT, stdio: "inherit" },
   );
 }

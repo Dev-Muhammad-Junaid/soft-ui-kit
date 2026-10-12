@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import clsx from "clsx";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, ChevronsUpDown } from "../icons";
+import { Checkbox } from "./forms";
 
 export function Badge({ children, tone = "neutral", className }) {
   return <span className={clsx("ui-badge", `ui-badge--${tone}`, className)}>{children}</span>;
@@ -92,8 +94,7 @@ export function DataTable({ columns, rows, className, selectable = false, onSele
           <tr>
             {selectable ? (
               <th className="ui-data-table__check">
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={selected.size === rows.length && rows.length > 0}
                   onChange={toggleAll}
                   aria-label="Select all"
@@ -103,10 +104,21 @@ export function DataTable({ columns, rows, className, selectable = false, onSele
             {columns.map((col) => (
               <th key={col.key}>
                 {col.sortable ? (
-                  <button type="button" className="ui-data-table__sort" onClick={() => toggleSort(col.key)}>
+                  <button
+                    type="button"
+                    className={clsx("ui-data-table__sort", sort.key === col.key && "is-sorted")}
+                    onClick={() => toggleSort(col.key)}
+                    aria-label={`Sort by ${col.label}`}
+                  >
                     {col.label}
-                    <span aria-hidden="true">
-                      {sort.key === col.key ? (sort.dir === "asc" ? " ↑" : " ↓") : " ↕"}
+                    <span className="ui-data-table__sort-icon" aria-hidden="true">
+                      {sort.key !== col.key ? (
+                        <ChevronsUpDown size={14} />
+                      ) : sort.dir === "asc" ? (
+                        <ChevronUp size={14} />
+                      ) : (
+                        <ChevronDown size={14} />
+                      )}
                     </span>
                   </button>
                 ) : (
@@ -121,8 +133,7 @@ export function DataTable({ columns, rows, className, selectable = false, onSele
             <tr key={row.id} className={clsx(selected.has(row.id) && "is-selected")}>
               {selectable ? (
                 <td className="ui-data-table__check">
-                  <input
-                    type="checkbox"
+                  <Checkbox
                     checked={selected.has(row.id)}
                     onChange={() => toggleRow(row.id)}
                     aria-label={`Select ${row.id}`}
@@ -149,6 +160,7 @@ export function Carousel({ items = [], className }) {
       <div className="ui-carousel__frame">{item}</div>
       <div className="ui-carousel__nav">
         <button type="button" onClick={() => setIndex((i) => (i - 1 + count) % count)}>
+          <ChevronLeft size={14} />
           Prev
         </button>
         <span>
@@ -156,6 +168,7 @@ export function Carousel({ items = [], className }) {
         </span>
         <button type="button" onClick={() => setIndex((i) => (i + 1) % count)}>
           Next
+          <ChevronRight size={14} />
         </button>
       </div>
     </div>
