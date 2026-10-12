@@ -9,7 +9,7 @@ export const FORMATS = {
   thumbnail: { width: 1280, height: 720, stageW: 1280, stageH: 720 },
 };
 
-export const DURATION = 31;
+export const DURATION = 32.5;
 
 export const THEMES = [
   { id: "soft-glass", name: "Soft Glass", dot: "#38bdf8" },
@@ -126,13 +126,19 @@ function sceneHtml(s) {
   <section class="scene" id="s-wall" data-theme="soft-glass">
     ${blobs()}
     <div class="wall-cam"><div class="wall">${s.wall}</div></div>
-    <div class="big-stat"><b class="count" data-to="66">0</b><span>components</span></div>
+    <div class="big-stat"><b class="count" data-to="52">0</b><span>components</span></div>
   </section>
 
   ${themeLayers}
 
   <section class="scene" id="s-taste" data-theme="soft-glass">
     ${blobs()}
+    <div class="taste-shapes" aria-hidden="true"><i class="ts1"></i><i class="ts2"></i><i class="ts3"></i><i class="ts4"></i><i class="ts5"></i></div>
+    <div class="taste-presets" aria-hidden="true">
+      ${["Glassy", "Frosted", "Solid", "Squared", "Rounded", "Any accent"]
+        .map((p) => `<span class="preset">${p}</span>`)
+        .join("")}
+    </div>
     <div class="taste">
       ${s.tastePanel}
       ${s.tasteTarget}
@@ -165,7 +171,7 @@ function sceneHtml(s) {
       <div class="outro__npm glass sheen"><span class="pr">$</span><span class="cmd">npm i soft-ui-kit</span><span class="caret"></span></div>
       <div class="outro__stats">
         <span class="stat glass sheen"><b>5</b> themes</span>
-        <span class="stat glass sheen"><b>66</b> components</span>
+        <span class="stat glass sheen"><b>52</b> components</span>
         <span class="stat glass sheen"><b>12</b> charts</span>
       </div>
     </div>
@@ -192,7 +198,7 @@ function thumbnailHtml(s) {
       <h1 class="th-title"><span>SOFT</span><span>UI KIT</span></h1>
       <div class="th-tags">
         <span class="th-tag">5 THEMES</span>
-        <span class="th-tag">66 COMPONENTS</span>
+        <span class="th-tag">52 COMPONENTS</span>
         <span class="th-tag">12 CHARTS</span>
       </div>
     </div>

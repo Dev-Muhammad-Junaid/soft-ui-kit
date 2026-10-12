@@ -31,6 +31,7 @@ import {
   Tabs,
   ToggleGroup,
   Breadcrumb,
+  IconTile,
 } from "../../src/components/ui/index.js";
 import {
   BarChart,
@@ -51,7 +52,7 @@ import {
   SegmentedBar,
   TimelineBar,
 } from "../../src/components/charts/DotMatrixChart.jsx";
-import { GlassRing } from "../../src/components/effects/GlassRing.jsx";
+import { Logo } from "../../src/components/brand/Logo.jsx";
 import {
   Bell,
   Search,
@@ -299,10 +300,10 @@ function TasteSliders() {
         <b>Taste</b>
         <Badge tone="accent">Live</Badge>
       </div>
-      <Slider label="Border radius" value={1} min={0} max={2} step={0.01} className="ts ts-radius" onChange={noop} />
-      <Slider label="Glass blur" value={22} min={0} max={40} className="ts ts-blur" onChange={noop} />
+      <Slider label="Border radius" value={1} min={0} max={1.4} step={0.05} className="ts ts-radius" onChange={noop} />
+      <Slider label="Blur" value={22} min={4} max={40} className="ts ts-blur" onChange={noop} />
+      <Slider label="Opacity" value={0.55} min={0.15} max={0.9} step={0.01} className="ts ts-opacity" onChange={noop} />
       <Slider label="Accent hue" value={199} min={0} max={360} className="ts ts-hue" onChange={noop} />
-      <Slider label="Ring glow" value={55} min={0} max={100} className="ts ts-glow" onChange={noop} />
     </div>
   );
 }
@@ -312,7 +313,7 @@ function TasteTarget() {
     <div className="tt">
       <div className="tt-card glass sheen">
         <div className="tt-head">
-          <GlassRing size={44}><Sparkles size={20} /></GlassRing>
+          <Logo size={44} />
           <div>
             <b>Soft UI Kit</b>
             <span>Design tokens</span>
@@ -329,6 +330,15 @@ function TasteTarget() {
       <div className="tt-mini">
         <div className="tt-chip glass sheen"><RadialProgress value={72} size={74} label="Score" /></div>
         <div className="tt-chip glass sheen"><Progress value={64} label="Sync" /></div>
+      </div>
+      <div className="tt-form glass sheen">
+        <Input placeholder="you@studio.dev" defaultValue="hello@soft.ui" readOnly />
+        <Switch checked label="Glass" />
+        <div className="w-avatars">
+          <Avatar name="Ava Stone" />
+          <Avatar name="Leo Park" />
+          <Avatar name="Mia Chen" />
+        </div>
       </div>
     </div>
   );
@@ -441,11 +451,7 @@ function withProviders(node, themeName) {
           brand={{
             name: "Soft UI Kit",
             tag: themeName,
-            icon: (
-              <GlassRing size={44} tone="sky" active>
-                <Sparkles size={18} />
-              </GlassRing>
-            ),
+            icon: <Logo size={42} />,
           }}
           items={SHELL_LINKS}
         >
@@ -464,21 +470,12 @@ const ICON_NAMES = [
   "MapPin", "Moon", "MusicNotes", "PaperPlaneTilt", "Planet", "Pulse", "PuzzlePiece", "Shield",
   "ShoppingBag", "Star", "Sun", "Target", "Terminal", "Trophy", "Umbrella", "Wallet",
 ];
-const TONES = ["sky", "lavender", "mint", "peach", "rose", "warn"];
+const TONES = ["accent", "info", "success", "warning", "danger", "neutral"];
 
 export function renderSnippets() {
   const out = {};
 
-  out.logo = html(
-    <GlassRing size={112}>
-      <Sparkles size={52} />
-    </GlassRing>,
-  );
-  out.logoSmall = html(
-    <GlassRing size={64}>
-      <Sparkles size={30} />
-    </GlassRing>,
-  );
+  out.logo = html(<Logo size={128} />);
 
   out.wall = WALL.map((n) => html(n)).join("");
   out.hero = html(<HeroCluster />);
@@ -498,9 +495,9 @@ export function renderSnippets() {
   out.icons = ICON_NAMES.map((name, i) => {
     const Icon = Ph[name] || Ph.Sparkle;
     return html(
-      <GlassRing size={64} tone={TONES[i % TONES.length]} className="ic-ring">
+      <IconTile size="lg" tone={TONES[i % TONES.length]} className="ic-ring">
         <Icon size={28} weight={i % 3 === 0 ? "duotone" : "light"} />
-      </GlassRing>,
+      </IconTile>,
     );
   });
 

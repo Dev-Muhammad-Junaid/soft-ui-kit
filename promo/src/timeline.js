@@ -14,12 +14,12 @@
     themes: 6.0,
     themeStep: 0.8,
     taste: 10.0,
-    charts: 13.5,
+    charts: 15.0,
     slide: 0.5,
-    mosaic: 18.5,
-    dash: 21.0,
-    icons: 25.0,
-    outro: 27.4,
+    mosaic: 20.0,
+    dash: 22.5,
+    icons: 26.5,
+    outro: 28.9,
     end: P.duration,
   };
 
@@ -308,7 +308,7 @@
   );
   const stat = q(".big-stat", wallScene);
   tl.fromTo(stat, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, T.wall + 0.35);
-  counter(q(".count", wallScene), 0, 66, T.wall + 0.4, 1.1);
+  counter(q(".count", wallScene), 0, 52, T.wall + 0.4, 1.1);
 
   // Micro-interactions on the beat.
   const swA = q(".sw-a", wall);
@@ -419,10 +419,10 @@
     );
   }
 
-  /* ════════ 4 · Taste dials ════════ */
+  /* ════════ 4 · Taste: restyle the whole UI instantly ════════ */
   const taste = q("#s-taste");
   push(layers[layers.length - 1], taste, T.taste);
-  drift(taste, T.taste, 3.9);
+  drift(taste, T.taste, 5.3);
   tl.fromTo(
     q(".taste-panel", taste),
     { x: V ? 0 : -60, y: V ? 60 : 0, opacity: 0 },
@@ -430,61 +430,63 @@
     T.taste + 0.25,
   );
   tl.fromTo(
-    qa(".tt-card, .tt-chip", taste),
+    qa(".tt-card, .tt-chip, .tt-form", taste),
     { y: 40, opacity: 0, scale: 0.95 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", stagger: 0.08 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", stagger: 0.07 },
     T.taste + 0.3,
   );
   revealCharts(q(".tt", taste), T.taste + 0.45);
-  tl.fromTo(q(".tt-card", taste), { rotationY: V ? 0 : -10, rotationX: V ? 8 : 0 }, { rotationY: V ? 0 : 8, rotationX: V ? -6 : 0, duration: 3.4, ease: "sine.inOut" }, T.taste + 0.2);
-
-  const hueInput = q(".ts-hue input", taste);
-  const hueLabel = q(".ts-hue .ui-slider__value", taste);
-  const hp = { h: 199 };
-  tl.to(
-    hp,
-    {
-      h: 199 + 360,
-      duration: 1.5,
-      ease: "power1.inOut",
-      onUpdate: () => {
-        hueVars(taste, hp.h, false);
-        const v = Math.round(hp.h % 360);
-        hueInput.value = v;
-        hueLabel.textContent = v;
-      },
-    },
-    T.taste + 0.7,
+  tl.fromTo(
+    q(".tt-card", taste),
+    { rotationY: V ? 0 : -8, rotationX: V ? 6 : 0 },
+    { rotationY: V ? 0 : 6, rotationX: V ? -4 : 0, duration: 4.8, ease: "sine.inOut" },
+    T.taste + 0.2,
+  );
+  // Crisp shapes slide behind the glass so blur and opacity read instantly.
+  tl.fromTo(
+    qa(".taste-shapes i", taste),
+    { x: (i) => [-120, 140, -90, 110, -60][i], y: (i) => [40, -60, 70, -40, 50][i], rotation: 0 },
+    { x: (i) => [140, -120, 110, -90, 80][i], y: (i) => [-50, 60, -60, 50, -40][i], rotation: (i) => (i % 2 ? 50 : -40), duration: 5.2, ease: "none" },
+    T.taste,
   );
 
-  const radInput = q(".ts-radius input", taste);
-  const radLabel = q(".ts-radius .ui-slider__value", taste);
-  const rp = { r: 1 };
-  const applyR = () => {
-    radiusVars(taste, rp.r);
-    radInput.value = rp.r;
-    radLabel.textContent = rp.r.toFixed(2);
-  };
-  tl.to(rp, { r: 0, duration: 0.35, ease: "power2.inOut", onUpdate: applyR }, T.taste + 1.6);
-  tl.to(rp, { r: 2, duration: 0.5, ease: "power2.inOut", onUpdate: applyR }, T.taste + 2.05);
-  tl.to(rp, { r: 1, duration: 0.4, ease: "back.out(2)", onUpdate: applyR }, T.taste + 2.65);
+  // Preset callouts, one per beat-and-a-bit.
+  const PRESETS = [0.85, 1.55, 2.25, 2.95, 3.55, 4.15];
+  qa(".preset", taste).forEach((el, i) => {
+    const at = T.taste + PRESETS[i];
+    tl.fromTo(el, { opacity: 0, scale: 0.6, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 0.28, ease: "back.out(2.6)" }, at);
+    const out = i < PRESETS.length - 1 ? T.taste + PRESETS[i + 1] - 0.08 : T.taste + 4.85;
+    tl.to(el, { opacity: 0, y: -12, duration: 0.12, ease: "power2.in" }, out);
+  });
 
-  const blurInput = q(".ts-blur input", taste);
-  const blurLabel = q(".ts-blur .ui-slider__value", taste);
-  const glowInput = q(".ts-glow input", taste);
-  const glowLabel = q(".ts-glow .ui-slider__value", taste);
-  const bp = { b: 22, g: 55 };
-  const applyB = () => {
-    taste.style.setProperty("--t-glass-blur", `${bp.b}px`);
-    taste.style.setProperty("--t-ring-glow", String(bp.g / 100));
-    blurInput.value = bp.b;
-    blurLabel.textContent = Math.round(bp.b);
-    glowInput.value = bp.g;
-    glowLabel.textContent = Math.round(bp.g);
+  // One writer for every Taste dial: radius, blur, opacity, hue.
+  const dial = (cls) => ({ input: q(`.${cls} input`, taste), label: q(`.${cls} .ui-slider__value`, taste) });
+  const dials = { r: dial("ts-radius"), b: dial("ts-blur"), o: dial("ts-opacity"), h: dial("ts-hue") };
+  const setDial = ({ input, label }, v, min, max, text) => {
+    input.value = v;
+    input.style.setProperty("--slider-fill", `${((v - min) / (max - min)) * 100}%`);
+    label.textContent = text;
   };
-  tl.to(bp, { b: 2, g: 100, duration: 0.4, ease: "power2.inOut", onUpdate: applyB }, T.taste + 2.3);
-  tl.to(bp, { b: 40, g: 20, duration: 0.5, ease: "power2.inOut", onUpdate: applyB }, T.taste + 2.75);
-  tl.to(bp, { b: 22, g: 55, duration: 0.35, ease: "power2.out", onUpdate: applyB }, T.taste + 3.25);
+  const tp = { r: 1, b: 22, o: 0.55, h: 199 };
+  const applyTaste = () => {
+    radiusVars(taste, tp.r);
+    taste.style.setProperty("--t-glass-blur", `${tp.b}px`);
+    taste.style.setProperty("--t-glass-opacity", String(tp.o));
+    hueVars(taste, tp.h, false);
+    const hue = Math.round(tp.h % 360);
+    setDial(dials.r, tp.r, 0, 1.4, tp.r.toFixed(2));
+    setDial(dials.b, tp.b, 4, 40, String(Math.round(tp.b)));
+    setDial(dials.o, tp.o, 0.15, 0.9, tp.o.toFixed(2));
+    setDial(dials.h, hue, 0, 360, String(hue));
+  };
+  const step = (at, to, d = 0.35, ease = "power3.inOut") =>
+    tl.to(tp, { ...to, duration: d, ease, onUpdate: applyTaste }, T.taste + at);
+  step(0.8, { o: 0.12, b: 4 }); // Glassy
+  step(1.5, { o: 0.38, b: 40 }); // Frosted
+  step(2.2, { o: 0.92, b: 12 }); // Solid
+  step(2.9, { r: 0, o: 0.5, b: 22 }); // Squared
+  step(3.5, { r: 1.4 }, 0.4, "back.out(2)"); // Rounded
+  step(4.1, { h: 199 + 360, r: 1 }, 0.75, "power1.inOut"); // Any accent
 
   /* ════════ 5 · Charts, one per beat ════════ */
   const slides = qa(".cslide");

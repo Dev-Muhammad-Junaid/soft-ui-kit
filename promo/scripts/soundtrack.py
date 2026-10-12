@@ -16,7 +16,7 @@ import numpy as np
 from scipy.signal import butter, sosfilt
 
 SR = 48_000
-DUR = 31.0
+DUR = 32.5
 BPM = 120
 BEAT = 60 / BPM
 N = int(SR * DUR)
@@ -24,8 +24,9 @@ rng = np.random.default_rng(7)
 
 # Cue sheet — keep in sync with promo/src/timeline.js
 WALL, THEMES, STEP, TASTE = 2.5, 6.0, 0.8, 10.0
-CHARTS, SLIDE, MOSAIC, DASH = 13.5, 0.5, 18.5, 21.0
-ICONS, OUTRO = 25.0, 27.4
+CHARTS, SLIDE, MOSAIC, DASH = 15.0, 0.5, 20.0, 22.5
+ICONS, OUTRO = 26.5, 28.9
+TASTE_STEPS = [0.8, 1.5, 2.2, 2.9, 3.5, 4.1]
 
 L = np.zeros(N)
 R = np.zeros(N)
@@ -217,6 +218,9 @@ for i in range(1, 5):
     add(whoosh(0.4, 600, 9000, True, 0.35), t - 0.1, pan=(-1) ** i * 0.5)
     add(sparkle(note(76 + i * 2), 4, 0.04), t + 0.05, 0.6, pan=(-1) ** i * 0.3)
 add(whoosh(0.5, 4000, 300, False, 0.5), TASTE - 0.05)
+for n, at in enumerate(TASTE_STEPS):
+    add(whoosh(0.3, 500, 7000, True, 0.32), TASTE + at - 0.1, pan=(-1) ** n * 0.4)
+    add(sparkle(note(74 + n * 2), 3, 0.04), TASTE + at + 0.05, 0.55, pan=(-1) ** n * 0.3)
 add(riser(1.0), CHARTS - 1.0)
 add(impact(0.8), CHARTS)
 for i in range(10):

@@ -488,9 +488,78 @@ body {
 }
 
 /* ——— Taste ——— */
-.taste {
+/* Crisp, saturated shapes behind the glass make blur and opacity changes obvious. */
+.taste-shapes {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+}
+
+.taste-shapes i {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+}
+
+.ts1 { width: 260px; height: 260px; left: 46%; top: 8%; background: linear-gradient(135deg, #f472b6, #a855f7); }
+.ts2 { width: 200px; height: 200px; left: 70%; top: 52%; background: linear-gradient(135deg, #22d3ee, #3b82f6); }
+.ts3 { width: 150px; height: 150px; left: 58%; top: 62%; background: linear-gradient(135deg, #fbbf24, #f97316); border-radius: 28px !important; }
+.ts4 { width: 120px; height: 120px; left: 22%; top: 18%; background: linear-gradient(135deg, #34d399, #06b6d4); }
+.ts5 { width: 90px; height: 90px; left: 84%; top: 14%; background: linear-gradient(135deg, #a3e635, #22c55e); border-radius: 22px !important; }
+
+.fmt-vertical .ts1 { left: 30%; top: 22%; }
+.fmt-vertical .ts2 { left: 58%; top: 34%; }
+.fmt-vertical .ts3 { left: 6%; top: 40%; }
+.fmt-vertical .ts4 { left: 70%; top: 12%; }
+.fmt-vertical .ts5 { left: 12%; top: 18%; }
+
+.taste-presets {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  height: 56px;
+  z-index: 6;
+}
+
+.fmt-vertical .taste-presets {
+  top: 150px;
+}
+
+.preset {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% 0;
+  padding: 8px 26px;
+  border-radius: 999px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: #fff;
+  background: color-mix(in srgb, var(--accent) 88%, #0f172a);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 40%, transparent);
+  opacity: 0;
+}
+
+.tt-form {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.tt-form > * {
+  position: relative;
+  z-index: 1;
+}
+.taste {
+  position: absolute;
+  inset: 70px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -564,7 +633,7 @@ body {
   gap: 12px;
 }
 
-.tt-head > div:not(.glass-ring) {
+.tt-head > div {
   flex: 1;
   display: grid;
 }
@@ -1138,4 +1207,15 @@ body {
   inset: 0;
   z-index: 1;
   opacity: 0;
+}
+
+.fmt-vertical .taste {
+  inset: 220px 0 140px;
+}
+
+/* Icon scene: IconTile scaled up to the stage grid */
+.icons .ui-icon-tile {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
 }

@@ -1,7 +1,7 @@
 # Soft UI Kit — promo video
 
-A ~31 second motion promo for the kit, built with [HyperFrames](https://hyperframes.heygen.com) (HTML → MP4).
-Every component, chart, dashboard, and icon ring in the video is the kit's own React markup and CSS,
+A 32.5 second motion promo for the kit, built with [HyperFrames](https://hyperframes.heygen.com) (HTML → MP4).
+Every component, chart, dashboard, and icon in the video is the kit's own React markup and CSS,
 server-rendered to static HTML. A single seekable GSAP timeline drives all the motion.
 
 | Output | Size | Use |
@@ -14,15 +14,15 @@ server-rendered to static HTML. A single seekable GSAP timeline drives all the m
 
 | Time | Scene |
 | --- | --- |
-| 0.0s | Logo ring + title |
-| 2.5s | Component wall: 24 live components fly in, then switches, tabs, sliders, and progress react on the beat |
+| 0.0s | Kit `Logo` + title |
+| 2.5s | Component wall: 24 live components (52 in the kit) fly in, then switches, tabs, sliders, and progress react on the beat |
 | 6.0s | Theme run: Soft Glass → Crystal → Aurora → Dusk → Midnight (iris wipes from the theme dots) |
-| 10.0s | Taste dials: accent hue sweep, radius morph, glass blur and glow |
-| 13.5s | 10 charts, one per beat, each with its own theme and accent |
-| 18.5s | Bento wall of all 12 chart types |
-| 21.0s | Coverflow through the 5 SaaS dashboards inside `DashboardShell` |
-| 25.0s | Phosphor icon rings |
-| 27.4s | Outro: `npm i soft-ui-kit` |
+| 10.0s | Instant customization with the Taste dials: Glassy → Frosted → Solid → Squared → Rounded → Any accent, over crisp shapes so blur and opacity are visible |
+| 15.0s | 10 charts, one per beat, each with its own theme and accent |
+| 20.0s | Bento wall of all 12 chart types |
+| 22.5s | Coverflow through the 5 SaaS dashboards inside `DashboardShell` |
+| 26.5s | Phosphor icons in `IconTile`s |
+| 28.9s | Outro with the kit `Logo`: `npm i soft-ui-kit` |
 
 ## Rebuild and render
 
