@@ -1,7 +1,7 @@
 import { forwardRef, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
-import { Eye, EyeOff } from "../icons";
+import { ChevronDown, Eye, EyeOff } from "../icons";
 import { useAnchorCoords, useEscapeClose } from "./hooks";
 
 export function FormField({ label, hint, error, htmlFor, children, className, id }) {
@@ -123,13 +123,18 @@ export const Select = forwardRef(function Select(
           {label}
         </label>
       ) : null}
-      <select ref={ref} id={inputId} className="ui-input ui-select" {...props}>
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
+      <span className="ui-select-wrap">
+        <select ref={ref} id={inputId} className="ui-input ui-select" {...props}>
+          {options.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+        <span className="ui-select-wrap__icon" aria-hidden="true">
+          <ChevronDown size={16} />
+        </span>
+      </span>
       {error ? <span className="ui-hint ui-hint--error">{error}</span> : null}
       {!error && hint ? <span className="ui-hint">{hint}</span> : null}
     </div>
@@ -179,9 +184,10 @@ export const Switch = forwardRef(function Switch(
 });
 
 export const Slider = forwardRef(function Slider(
-  { value, onChange, min = 0, max = 100, step, label, hint, className, ...props },
+  { value, onChange, min = 0, max = 100, step, label, hint, className, style, ...props },
   ref,
 ) {
+  const fill = max > min ? ((Number(value ?? min) - min) / (max - min)) * 100 : 0;
   return (
     <label className={clsx("ui-slider", className)}>
       {label ? (
@@ -201,6 +207,7 @@ export const Slider = forwardRef(function Slider(
         step={step}
         value={value}
         onChange={(e) => onChange?.(Number(e.target.value))}
+        style={{ "--slider-fill": `${Math.min(100, Math.max(0, fill))}%`, ...style }}
         {...props}
       />
     </label>

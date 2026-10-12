@@ -40,8 +40,8 @@ export function CatalogPage() {
         <div>
           <h1>UI Kit</h1>
           <p>
-            Forms, layout, overlays, and navigation primitives. Charts and motion
-            effects live on their own pages.
+            Forms, layout, overlays, and navigation primitives. Charts live on
+            their own page.
           </p>
         </div>
       </header>
@@ -75,8 +75,6 @@ export function CatalogPage() {
           {items.length} component{items.length === 1 ? "" : "s"}
           {" · "}
           <Link to="/charts">Charts</Link>
-          {" · "}
-          <Link to="/effects">Effects</Link>
         </p>
       </Card>
 
@@ -109,7 +107,7 @@ export function CatalogPage() {
         <Card>
           <p style={{ margin: 0, color: "var(--ink-muted)" }}>
             No components match “{query}”. Try{" "}
-            <Link to="/charts">Charts</Link> or <Link to="/effects">Effects</Link>.
+            <Link to="/charts">Charts</Link>.
           </p>
         </Card>
       ) : null}

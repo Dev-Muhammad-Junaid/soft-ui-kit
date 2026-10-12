@@ -1,6 +1,6 @@
 /**
  * Soft UI Kit — UI Kit catalog registry.
- * Charts live on /charts · Effects live on /effects.
+ * Charts live on /charts.
  */
 
 export const COMPONENT_CATEGORIES = [
@@ -249,6 +249,15 @@ export const COMPONENT_REGISTRY = [
     tags: ["status"],
     variants: ["neutral", "accent", "success", "warning", "danger"],
     animated: true,
+  },
+  {
+    id: "icon-tile",
+    name: "Icon Tile",
+    category: "data",
+    description: "Static tinted holder for an icon, toned like badges and alerts.",
+    tags: ["icon", "kpi", "status"],
+    sizes: ["sm", "md", "lg"],
+    animated: false,
   },
   {
     id: "avatar",

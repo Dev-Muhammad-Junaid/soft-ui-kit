@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import { Home, PanelLeft, PanelLeftClose, Users } from "../icons";
+import { Home, PanelLeft, PanelLeftClose, Search, Users } from "../icons";
 import clsx from "clsx";
 import { IconButton } from "../ui";
 
@@ -133,7 +133,7 @@ export function DashboardShellPreview() {
   const demoItems = [
     { id: "overview", label: "Overview", icon: Home },
     { id: "team", label: "Team", icon: Users },
-    { id: "search", label: "Search", icon: Home },
+    { id: "search", label: "Search", icon: Search },
   ];
 
   return (

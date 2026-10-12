@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, SlidersHorizontal } from "../components/icons";
-import { GlassOrbField, GlassRing } from "../components/effects/GlassRing";
+import { SlidersHorizontal } from "../components/icons";
+import { GlassOrbField } from "../components/layout/GlassOrbField";
+import { Logo } from "../components/brand/Logo";
 import { PlaygroundDrawer } from "../components/playground/PlaygroundDrawer";
 import { ThemeFab } from "../components/layout/ThemeFab";
 import {
@@ -9,6 +10,7 @@ import {
   Card,
   Checkbox,
   Input,
+  PasswordInput,
   OtpInput,
   Separator,
   Tabs,
@@ -24,9 +26,7 @@ export function SignupPage() {
       <GlassOrbField />
       <div className="auth-layout">
         <aside className="auth-aside glass-surface sheen">
-          <GlassRing size={56} tone="lavender" active>
-            <Sparkles size={22} />
-          </GlassRing>
+          <Logo size={56} />
           <h1>Build soft products faster</h1>
           <p>
             Sign up to explore Travel CRM, Ledger Finance, and Flowboard —
@@ -51,7 +51,7 @@ export function SignupPage() {
                   <div className="stack">
                     <Input label="Full name" placeholder="Jordan Lee" />
                     <Input label="Work email" type="email" placeholder="you@studio.dev" />
-                    <Input label="Password" type="password" placeholder="••••••••" />
+                    <PasswordInput label="Password" placeholder="••••••••" />
                     <Checkbox label="Send me product tips" defaultChecked />
                     <Button>Create account</Button>
                     <Link className="ui-btn ui-btn--secondary ui-btn--md" to="/ui">
@@ -113,7 +113,7 @@ export function LoginPage() {
         <Card className="auth-card" title="Welcome back" description="Log in to Soft UI Kit">
           <div className="stack">
             <Input label="Email" type="email" placeholder="you@studio.dev" />
-            <Input label="Password" type="password" placeholder="••••••••" />
+            <PasswordInput label="Password" placeholder="••••••••" />
             <Button>Log in</Button>
             <Link className="ui-btn ui-btn--secondary ui-btn--md" to="/ui">
               Continue to dashboard

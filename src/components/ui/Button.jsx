@@ -29,7 +29,7 @@ export const Button = forwardRef(function Button(
 });
 
 export const IconButton = forwardRef(function IconButton(
-  { children, className, label, variant = "ghost", type = "button", ...props },
+  { children, className, label, variant = "ghost", size = "md", type = "button", ...props },
   ref,
 ) {
   return (
@@ -37,7 +37,12 @@ export const IconButton = forwardRef(function IconButton(
       ref={ref}
       type={type}
       aria-label={label}
-      className={clsx("ui-icon-btn", `ui-icon-btn--${variant}`, className)}
+      className={clsx(
+        "ui-icon-btn",
+        `ui-icon-btn--${variant}`,
+        size !== "md" && `ui-icon-btn--${size}`,
+        className,
+      )}
       {...props}
     >
       {children}

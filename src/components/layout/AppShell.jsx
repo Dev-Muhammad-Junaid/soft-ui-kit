@@ -4,13 +4,12 @@ import {
   Activity,
   BarChart3,
   BookOpen,
-  Boxes,
+  Menu,
   SlidersHorizontal,
-  Sparkles,
   Store,
-  Wand2,
 } from "../icons";
-import { GlassOrbField, GlassRing } from "../effects/GlassRing";
+import { GlassOrbField } from "./GlassOrbField";
+import { Logo } from "../brand/Logo";
 import { PlaygroundDrawer } from "../playground/PlaygroundDrawer";
 import { IconButton } from "../ui";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -20,7 +19,6 @@ import { DashboardShell, useSidebarCollapsed } from "./DashboardShell";
 const LINKS = [
   { to: "/ui", label: "UI Kit", icon: BookOpen },
   { to: "/charts", label: "Charts", icon: BarChart3 },
-  { to: "/effects", label: "Effects", icon: Wand2 },
   { to: "/saas", label: "SaaS samples", icon: Store },
   { to: "/", label: "Landing", icon: Activity },
 ];
@@ -48,11 +46,7 @@ export function AppShell({ children, sidebarOpen, setSidebarOpen }) {
         brand={{
           name: "Soft UI Kit",
           tag: themeName,
-          icon: (
-            <GlassRing size={44} tone="sky" active>
-              <Sparkles size={18} strokeWidth={1.7} />
-            </GlassRing>
-          ),
+          icon: <Logo size={42} />,
         }}
         items={LINKS}
         linkComponent={NavLink}
@@ -65,7 +59,7 @@ export function AppShell({ children, sidebarOpen, setSidebarOpen }) {
             label="Open navigation"
             onClick={() => setSidebarOpen(true)}
           >
-            <Boxes size={18} />
+            <Menu size={18} />
           </IconButton>
         </div>
         {children}

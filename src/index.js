@@ -17,7 +17,6 @@ export {
   THEMES,
   THEME_ACCENT_HUE,
   DEFAULT_TWEAKS,
-  DEFAULT_EFFECTS,
 } from "./theme/ThemeProvider.jsx";
 
 export {
@@ -40,7 +39,7 @@ export {
   TimelineBar,
 } from "./components/charts/DotMatrixChart.jsx";
 
-export { GlassRing, GlassOrbField } from "./components/effects/GlassRing.jsx";
+export { GlassOrbField } from "./components/layout/GlassOrbField.jsx";
 export {
   DashboardShell,
   DashboardShellPreview,

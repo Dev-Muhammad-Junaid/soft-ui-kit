@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { createPortal } from "react-dom";
-import { Airplane, ArrowDownLeft, ArrowRight, ArrowUpRight, ArrowsClockwise, Bell, BookOpen, Briefcase, CalendarBlank, CaretDown, ChartBar, Check, CheckCircle, Clock, CopySimple, CreditCard, Cube, DotsSixVertical, Eye, EyeSlash, Flag, Folder, Gear, HardDrives, House, Info, Layout, MagicWand, MagnifyingGlass, MapPin, Palette, PiggyBank, Plus, Pulse, Question, Sidebar, SidebarSimple, SlidersHorizontal, Sparkle, SquaresFour, Storefront, Timer, TrendUp, User, Users, Wallet, X } from "@phosphor-icons/react";
+import { Airplane, ArrowDownLeft, ArrowRight, ArrowUpRight, ArrowsClockwise, Bell, BookOpen, Briefcase, CalendarBlank, CaretDown, CaretLeft, CaretRight, CaretUp, CaretUpDown, ChartBar, Check, CheckCircle, Clock, CopySimple, CreditCard, Cube, DotsSixVertical, Eye, EyeSlash, Flag, Folder, Gear, HardDrives, House, Info, Layout, List, MagicWand, MagnifyingGlass, MapPin, Palette, PiggyBank, Plus, Pulse, Question, Sidebar, SidebarSimple, SlidersHorizontal, Sparkle, SquaresFour, Storefront, Timer, TrendUp, User, Users, Wallet, Warning, WarningOctagon, X } from "@phosphor-icons/react";
 //#region \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
 var __exportAll = (all, no_symbols) => {
@@ -41,12 +41,12 @@ var Button = forwardRef(function Button({ children, className, variant = "primar
 		]
 	});
 });
-var IconButton = forwardRef(function IconButton({ children, className, label, variant = "ghost", type = "button", ...props }, ref) {
+var IconButton = forwardRef(function IconButton({ children, className, label, variant = "ghost", size = "md", type = "button", ...props }, ref) {
 	return /* @__PURE__ */ jsx("button", {
 		ref,
 		type,
 		"aria-label": label,
-		className: clsx("ui-icon-btn", `ui-icon-btn--${variant}`, className),
+		className: clsx("ui-icon-btn", `ui-icon-btn--${variant}`, size !== "md" && `ui-icon-btn--${size}`, className),
 		...props,
 		children
 	});
@@ -59,6 +59,8 @@ var IconButton = forwardRef(function IconButton({ children, className, label, va
 */
 var icons_exports = /* @__PURE__ */ __exportAll({
 	Activity: () => Activity,
+	AlertOctagon: () => AlertOctagon,
+	AlertTriangle: () => AlertTriangle,
 	ArrowDownLeft: () => ArrowDownLeft$1,
 	ArrowRight: () => ArrowRight$1,
 	ArrowUpRight: () => ArrowUpRight$1,
@@ -71,6 +73,10 @@ var icons_exports = /* @__PURE__ */ __exportAll({
 	Check: () => Check$1,
 	CheckCircle2: () => CheckCircle2,
 	ChevronDown: () => ChevronDown,
+	ChevronLeft: () => ChevronLeft,
+	ChevronRight: () => ChevronRight,
+	ChevronUp: () => ChevronUp,
+	ChevronsUpDown: () => ChevronsUpDown,
 	Clock3: () => Clock3,
 	CopySimple: () => CopySimple$1,
 	CreditCard: () => CreditCard$1,
@@ -85,6 +91,7 @@ var icons_exports = /* @__PURE__ */ __exportAll({
 	LayoutDashboard: () => LayoutDashboard,
 	LayoutGrid: () => LayoutGrid,
 	MapPin: () => MapPin$1,
+	Menu: () => Menu,
 	Palette: () => Palette$1,
 	PanelLeft: () => PanelLeft,
 	PanelLeftClose: () => PanelLeftClose,
@@ -131,6 +138,10 @@ var CalendarDays = withKitDefaults(CalendarBlank);
 var Check$1 = withKitDefaults(Check);
 var CheckCircle2 = withKitDefaults(CheckCircle);
 var ChevronDown = withKitDefaults(CaretDown);
+var ChevronLeft = withKitDefaults(CaretLeft);
+var ChevronRight = withKitDefaults(CaretRight);
+var ChevronUp = withKitDefaults(CaretUp);
+var ChevronsUpDown = withKitDefaults(CaretUpDown);
 var Clock3 = withKitDefaults(Clock);
 var CopySimple$1 = withKitDefaults(CopySimple);
 var CreditCard$1 = withKitDefaults(CreditCard);
@@ -142,9 +153,12 @@ var GripVertical = withKitDefaults(DotsSixVertical);
 var HelpCircle = withKitDefaults(Question);
 var Home = withKitDefaults(House);
 var Info$1 = withKitDefaults(Info);
+var AlertTriangle = withKitDefaults(Warning);
+var AlertOctagon = withKitDefaults(WarningOctagon);
 var LayoutDashboard = withKitDefaults(Layout);
 var LayoutGrid = withKitDefaults(SquaresFour);
 var MapPin$1 = withKitDefaults(MapPin);
+var Menu = withKitDefaults(List);
 var Palette$1 = withKitDefaults(Palette);
 var PanelLeft = withKitDefaults(Sidebar);
 var PanelLeftClose = withKitDefaults(SidebarSimple);
@@ -357,15 +371,22 @@ var Select = forwardRef(function Select({ className, label, hint, error, options
 				htmlFor: inputId,
 				children: label
 			}) : null,
-			/* @__PURE__ */ jsx("select", {
-				ref,
-				id: inputId,
-				className: "ui-input ui-select",
-				...props,
-				children: options.map((opt) => /* @__PURE__ */ jsx("option", {
-					value: opt.value,
-					children: opt.label
-				}, opt.value))
+			/* @__PURE__ */ jsxs("span", {
+				className: "ui-select-wrap",
+				children: [/* @__PURE__ */ jsx("select", {
+					ref,
+					id: inputId,
+					className: "ui-input ui-select",
+					...props,
+					children: options.map((opt) => /* @__PURE__ */ jsx("option", {
+						value: opt.value,
+						children: opt.label
+					}, opt.value))
+				}), /* @__PURE__ */ jsx("span", {
+					className: "ui-select-wrap__icon",
+					"aria-hidden": "true",
+					children: /* @__PURE__ */ jsx(ChevronDown, { size: 16 })
+				})]
 			}),
 			error ? /* @__PURE__ */ jsx("span", {
 				className: "ui-hint ui-hint--error",
@@ -430,7 +451,8 @@ var Switch = forwardRef(function Switch({ checked, onCheckedChange, label, class
 		}) : null]
 	});
 });
-var Slider = forwardRef(function Slider({ value, onChange, min = 0, max = 100, step, label, hint, className, ...props }, ref) {
+var Slider = forwardRef(function Slider({ value, onChange, min = 0, max = 100, step, label, hint, className, style, ...props }, ref) {
+	const fill = max > min ? (Number(value ?? min) - min) / (max - min) * 100 : 0;
 	return /* @__PURE__ */ jsxs("label", {
 		className: clsx("ui-slider", className),
 		children: [label ? /* @__PURE__ */ jsxs("span", {
@@ -453,6 +475,10 @@ var Slider = forwardRef(function Slider({ value, onChange, min = 0, max = 100, s
 			step,
 			value,
 			onChange: (e) => onChange?.(Number(e.target.value)),
+			style: {
+				"--slider-fill": `${Math.min(100, Math.max(0, fill))}%`,
+				...style
+			},
 			...props
 		})]
 	});
@@ -545,6 +571,13 @@ function Combobox({ label, options = [], value, onChange, placeholder = "Search�
 }
 //#endregion
 //#region src/components/ui/layout.jsx
+function DisclosureIcon() {
+	return /* @__PURE__ */ jsx("span", {
+		className: "ui-disclosure__icon",
+		"aria-hidden": "true",
+		children: /* @__PURE__ */ jsx(ChevronDown, { size: 16 })
+	});
+}
 function Card({ children, className, title, description, action, padded = true, variant = "glass" }) {
 	return /* @__PURE__ */ jsxs("section", {
 		className: clsx("ui-card", variant === "glass" && "glass sheen", variant === "flat" && "ui-card--flat", variant === "soft" && "ui-card--soft", variant === "outline" && "ui-card--outline", padded && "ui-card--padded", className),
@@ -589,7 +622,7 @@ function Accordion({ items, className }) {
 		className: clsx("ui-accordion", className),
 		children: items.map((item) => /* @__PURE__ */ jsxs("details", {
 			className: "ui-accordion__item",
-			children: [/* @__PURE__ */ jsx("summary", { children: item.title }), /* @__PURE__ */ jsx("div", {
+			children: [/* @__PURE__ */ jsxs("summary", { children: [/* @__PURE__ */ jsx("span", { children: item.title }), /* @__PURE__ */ jsx(DisclosureIcon, {})] }), /* @__PURE__ */ jsx("div", {
 				className: "ui-accordion__body",
 				children: item.content
 			})]
@@ -600,7 +633,7 @@ function Collapsible({ title, children, defaultOpen = false, className }) {
 	return /* @__PURE__ */ jsxs("details", {
 		className: clsx("ui-collapsible", className),
 		open: defaultOpen || void 0,
-		children: [/* @__PURE__ */ jsx("summary", { children: title }), /* @__PURE__ */ jsx("div", {
+		children: [/* @__PURE__ */ jsxs("summary", { children: [/* @__PURE__ */ jsx("span", { children: title }), /* @__PURE__ */ jsx(DisclosureIcon, {})] }), /* @__PURE__ */ jsx("div", {
 			className: "ui-collapsible__body",
 			children
 		})]
@@ -654,6 +687,12 @@ function Resizable({ left, right, initial = 42, min = 22, max = 78, className })
 }
 //#endregion
 //#region src/components/ui/feedback.jsx
+var TONE_ICONS = {
+	info: Info$1,
+	success: CheckCircle2,
+	warning: AlertTriangle,
+	danger: AlertOctagon
+};
 function Skeleton({ className, style }) {
 	return /* @__PURE__ */ jsx("div", {
 		className: clsx("ui-skeleton", className),
@@ -661,11 +700,24 @@ function Skeleton({ className, style }) {
 		"aria-hidden": "true"
 	});
 }
-function Alert({ title, children, tone = "info", className }) {
+/** `icon` overrides the tone icon; pass `icon={false}` to hide it. */
+function Alert({ title, children, tone = "info", icon, className }) {
+	const ToneIcon = TONE_ICONS[tone] || Info$1;
+	const glyph = icon === void 0 ? /* @__PURE__ */ jsx(ToneIcon, {
+		size: 16,
+		weight: "regular"
+	}) : icon;
 	return /* @__PURE__ */ jsxs("div", {
 		className: clsx("ui-alert", `ui-alert--${tone}`, className),
-		role: "status",
-		children: [title ? /* @__PURE__ */ jsx("strong", { children: title }) : null, children ? /* @__PURE__ */ jsx("p", { children }) : null]
+		role: tone === "danger" || tone === "warning" ? "alert" : "status",
+		children: [glyph ? /* @__PURE__ */ jsx("span", {
+			className: "ui-alert__icon",
+			"aria-hidden": "true",
+			children: glyph
+		}) : null, /* @__PURE__ */ jsxs("div", {
+			className: "ui-alert__body",
+			children: [title ? /* @__PURE__ */ jsx("strong", { children: title }) : null, children ? /* @__PURE__ */ jsx("p", { children }) : null]
+		})]
 	});
 }
 function Progress({ value = 0, className, label }) {
@@ -709,6 +761,8 @@ function Toast({ open, message, onClose }) {
 var ToastCtx = createContext(null);
 function ToastProvider({ children }) {
 	const [toasts, setToasts] = useState([]);
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
 	const api = useMemo(() => ({ push: (message, tone = "default") => {
 		const id = `${Date.now()}-${Math.random()}`;
 		setToasts((prev) => [...prev, {
@@ -722,13 +776,23 @@ function ToastProvider({ children }) {
 	} }), []);
 	return /* @__PURE__ */ jsxs(ToastCtx.Provider, {
 		value: api,
-		children: [children, createPortal(/* @__PURE__ */ jsx("div", {
+		children: [children, mounted && createPortal(/* @__PURE__ */ jsx("div", {
 			className: "ui-toast-stack",
 			"aria-live": "polite",
-			children: toasts.map((t) => /* @__PURE__ */ jsx("div", {
-				className: clsx("ui-toast glass sheen", `ui-toast--${t.tone}`),
-				children: t.message
-			}, t.id))
+			children: toasts.map((t) => {
+				const ToneIcon = TONE_ICONS[t.tone];
+				return /* @__PURE__ */ jsxs("div", {
+					className: clsx("ui-toast glass sheen", `ui-toast--${t.tone}`),
+					children: [ToneIcon ? /* @__PURE__ */ jsx("span", {
+						className: "ui-toast__icon",
+						"aria-hidden": "true",
+						children: /* @__PURE__ */ jsx(ToneIcon, {
+							size: 16,
+							weight: "regular"
+						})
+					}) : null, /* @__PURE__ */ jsx("span", { children: t.message })]
+				}, t.id);
+			})
 		}), document.body)]
 	});
 }
@@ -744,6 +808,19 @@ function useToast() {
 function Badge({ children, tone = "neutral", className }) {
 	return /* @__PURE__ */ jsx("span", {
 		className: clsx("ui-badge", `ui-badge--${tone}`, className),
+		children
+	});
+}
+/**
+* Static tinted tile for an icon (KPI cards, list rows, empty states).
+* Shares tone tokens with Badge and Alert, so status color reads the same everywhere.
+*/
+function IconTile({ children, tone = "accent", size = "md", className, label }) {
+	return /* @__PURE__ */ jsx("span", {
+		className: clsx("ui-icon-tile", `ui-icon-tile--${tone}`, `ui-icon-tile--${size}`, className),
+		role: label ? "img" : void 0,
+		"aria-label": label,
+		"aria-hidden": label ? void 0 : true,
 		children
 	});
 }
@@ -816,26 +893,26 @@ function DataTable({ columns, rows, className, selectable = false, onSelectionCh
 			className: "ui-table ui-data-table",
 			children: [/* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { children: [selectable ? /* @__PURE__ */ jsx("th", {
 				className: "ui-data-table__check",
-				children: /* @__PURE__ */ jsx("input", {
-					type: "checkbox",
+				children: /* @__PURE__ */ jsx(Checkbox, {
 					checked: selected.size === rows.length && rows.length > 0,
 					onChange: toggleAll,
 					"aria-label": "Select all"
 				})
 			}) : null, columns.map((col) => /* @__PURE__ */ jsx("th", { children: col.sortable ? /* @__PURE__ */ jsxs("button", {
 				type: "button",
-				className: "ui-data-table__sort",
+				className: clsx("ui-data-table__sort", sort.key === col.key && "is-sorted"),
 				onClick: () => toggleSort(col.key),
+				"aria-label": `Sort by ${col.label}`,
 				children: [col.label, /* @__PURE__ */ jsx("span", {
+					className: "ui-data-table__sort-icon",
 					"aria-hidden": "true",
-					children: sort.key === col.key ? sort.dir === "asc" ? " ↑" : " ↓" : " ↕"
+					children: sort.key !== col.key ? /* @__PURE__ */ jsx(ChevronsUpDown, { size: 14 }) : sort.dir === "asc" ? /* @__PURE__ */ jsx(ChevronUp, { size: 14 }) : /* @__PURE__ */ jsx(ChevronDown, { size: 14 })
 				})]
 			}) : col.label }, col.key))] }) }), /* @__PURE__ */ jsx("tbody", { children: sorted.map((row) => /* @__PURE__ */ jsxs("tr", {
 				className: clsx(selected.has(row.id) && "is-selected"),
 				children: [selectable ? /* @__PURE__ */ jsx("td", {
 					className: "ui-data-table__check",
-					children: /* @__PURE__ */ jsx("input", {
-						type: "checkbox",
+					children: /* @__PURE__ */ jsx(Checkbox, {
 						checked: selected.has(row.id),
 						onChange: () => toggleRow(row.id),
 						"aria-label": `Select ${row.id}`
@@ -857,20 +934,20 @@ function Carousel({ items = [], className }) {
 		}), /* @__PURE__ */ jsxs("div", {
 			className: "ui-carousel__nav",
 			children: [
-				/* @__PURE__ */ jsx("button", {
+				/* @__PURE__ */ jsxs("button", {
 					type: "button",
 					onClick: () => setIndex((i) => (i - 1 + count) % count),
-					children: "Prev"
+					children: [/* @__PURE__ */ jsx(ChevronLeft, { size: 14 }), "Prev"]
 				}),
 				/* @__PURE__ */ jsxs("span", { children: [
 					items.length === 0 ? 0 : index + 1,
 					"/",
 					items.length
 				] }),
-				/* @__PURE__ */ jsx("button", {
+				/* @__PURE__ */ jsxs("button", {
 					type: "button",
 					onClick: () => setIndex((i) => (i + 1) % count),
-					children: "Next"
+					children: ["Next", /* @__PURE__ */ jsx(ChevronRight, { size: 14 })]
 				})
 			]
 		})]
@@ -965,7 +1042,7 @@ function Dialog({ open, onClose, title, children, footer, description }) {
 						children: description
 					}) : null] }), /* @__PURE__ */ jsx("button", {
 						type: "button",
-						className: "ui-icon-btn ui-icon-btn--ghost",
+						className: "ui-icon-btn ui-icon-btn--ghost ui-icon-btn--sm",
 						onClick: onClose,
 						"aria-label": "Close",
 						children: /* @__PURE__ */ jsx(X$1, { size: 16 })
@@ -1024,7 +1101,7 @@ function Sheet({ open, onClose, title, children, side = "right" }) {
 				className: "ui-sheet__head",
 				children: [/* @__PURE__ */ jsx("h3", { children: title }), /* @__PURE__ */ jsx("button", {
 					type: "button",
-					className: "ui-icon-btn ui-icon-btn--ghost",
+					className: "ui-icon-btn ui-icon-btn--ghost ui-icon-btn--sm",
 					onClick: onClose,
 					"aria-label": "Close",
 					children: /* @__PURE__ */ jsx(X$1, { size: 16 })
@@ -1192,35 +1269,41 @@ function Breadcrumb({ items, className }) {
 			className: "ui-breadcrumb__item",
 			children: [i > 0 ? /* @__PURE__ */ jsx("span", {
 				className: "ui-breadcrumb__sep",
-				children: "/"
+				"aria-hidden": "true",
+				children: /* @__PURE__ */ jsx(ChevronRight, { size: 12 })
 			}) : null, item.href ? /* @__PURE__ */ jsx("a", {
 				href: item.href,
 				children: item.label
-			}) : /* @__PURE__ */ jsx("span", { children: item.label })]
+			}) : /* @__PURE__ */ jsx("span", {
+				"aria-current": i === items.length - 1 ? "page" : void 0,
+				children: item.label
+			})]
 		}, item.label))
 	});
 }
 function Pagination({ page, pages, onChange, className }) {
-	return /* @__PURE__ */ jsxs("div", {
+	return /* @__PURE__ */ jsxs("nav", {
 		className: clsx("ui-pagination", className),
+		"aria-label": "Pagination",
 		children: [
-			/* @__PURE__ */ jsx("button", {
+			/* @__PURE__ */ jsxs("button", {
 				type: "button",
 				disabled: page <= 1,
 				onClick: () => onChange?.(page - 1),
-				children: "Prev"
+				children: [/* @__PURE__ */ jsx(ChevronLeft, { size: 14 }), "Prev"]
 			}),
 			Array.from({ length: pages }, (_, i) => i + 1).map((n) => /* @__PURE__ */ jsx("button", {
 				type: "button",
 				className: clsx(n === page && "is-active"),
+				"aria-current": n === page ? "page" : void 0,
 				onClick: () => onChange?.(n),
 				children: n
 			}, n)),
-			/* @__PURE__ */ jsx("button", {
+			/* @__PURE__ */ jsxs("button", {
 				type: "button",
 				disabled: page >= pages,
 				onClick: () => onChange?.(page + 1),
-				children: "Next"
+				children: ["Next", /* @__PURE__ */ jsx(ChevronRight, { size: 14 })]
 			})
 		]
 	});
@@ -1320,7 +1403,7 @@ function Menubar({ menus = [], className }) {
 //#region src/components/ui/registry.js
 /**
 * Soft UI Kit — UI Kit catalog registry.
-* Charts live on /charts · Effects live on /effects.
+* Charts live on /charts.
 */
 var COMPONENT_CATEGORIES = [
 	{
@@ -1625,6 +1708,23 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
+		id: "icon-tile",
+		name: "Icon Tile",
+		category: "data",
+		description: "Static tinted holder for an icon, toned like badges and alerts.",
+		tags: [
+			"icon",
+			"kpi",
+			"status"
+		],
+		sizes: [
+			"sm",
+			"md",
+			"lg"
+		],
+		animated: false
+	},
+	{
 		id: "avatar",
 		name: "Avatar",
 		category: "data",
@@ -1863,167 +1963,6 @@ function searchComponents(query, category = "all") {
 	});
 }
 //#endregion
-//#region src/components/playground/tweakControls.js
-/**
-* Taste dials — Core UI (kit chrome) then Effects (glass rings + border-beam).
-* Keep in sync with /ui, /charts, and /effects demos.
-*/
-var TWEAK_GROUPS = [
-	{
-		id: "layout",
-		tier: "core",
-		title: "Layout",
-		hint: "Corner radius across cards, buttons, inputs, and panels",
-		controls: [{
-			key: "radiusScale",
-			label: "Border radius",
-			min: 0,
-			max: 1.4,
-			step: .05,
-			tip: "0 = sharp · 1 = default · higher = softer"
-		}]
-	},
-	{
-		id: "glass",
-		tier: "core",
-		title: "Glass",
-		hint: "Frost on cards, sheets, sidebar, and glass panels",
-		controls: [
-			{
-				key: "glassBlur",
-				label: "Blur",
-				min: 4,
-				max: 40,
-				step: 1,
-				tip: "How frosted glass surfaces look"
-			},
-			{
-				key: "glassOpacity",
-				label: "Opacity",
-				min: .15,
-				max: .9,
-				step: .01,
-				tip: "Transparency of glass fills"
-			},
-			{
-				key: "glassSaturation",
-				label: "Saturation",
-				min: .8,
-				max: 2,
-				step: .05,
-				tip: "Color punch through the frost"
-			},
-			{
-				key: "rimStrength",
-				label: "Rim highlight",
-				min: .2,
-				max: 1,
-				step: .01,
-				tip: "Bright edge on glass borders"
-			}
-		]
-	},
-	{
-		id: "color",
-		tier: "core",
-		title: "Color",
-		hint: "Accent used for buttons, focus rings, and highlights",
-		controls: [{
-			key: "accentHue",
-			label: "Accent hue",
-			min: 0,
-			max: 360,
-			step: 1,
-			tip: "Primary brand tint for the kit"
-		}]
-	},
-	{
-		id: "depth",
-		tier: "core",
-		title: "Depth & motion",
-		hint: "Shadows, elevation, and how lively the UI feels",
-		controls: [
-			{
-				key: "shadowIntensity",
-				label: "Shadow",
-				min: .2,
-				max: 1.8,
-				step: .05,
-				tip: "Depth of cards and floating panels"
-			},
-			{
-				key: "surfaceLift",
-				label: "Surface lift",
-				min: .4,
-				max: 1.6,
-				step: .05,
-				tip: "Baseline elevation of surfaces"
-			},
-			{
-				key: "hoverLift",
-				label: "Hover lift",
-				min: 0,
-				max: 1.2,
-				step: .05,
-				tip: "How much cards rise on hover"
-			},
-			{
-				key: "motionStrength",
-				label: "Motion",
-				min: 0,
-				max: 1.5,
-				step: .05,
-				tip: "Chart draw-in and UI animation strength"
-			}
-		]
-	},
-	{
-		id: "rings",
-		tier: "effects",
-		title: "Glass ring badges",
-		hint: "Shown on the Effects page — brand marks & KPI icons",
-		controls: [
-			{
-				key: "ringShine",
-				label: "Shine",
-				min: 0,
-				max: 1.5,
-				step: .01,
-				tip: "Spinning highlight on the ring"
-			},
-			{
-				key: "ringThickness",
-				label: "Thickness",
-				min: 1,
-				max: 6,
-				step: .1,
-				tip: "Ring stroke width"
-			},
-			{
-				key: "ringSpread",
-				label: "Spread",
-				min: 2,
-				max: 14,
-				step: .5,
-				tip: "Gap to the outer glow"
-			},
-			{
-				key: "ringGlow",
-				label: "Glow",
-				min: 0,
-				max: 1.2,
-				step: .01,
-				tip: "Soft halo around the ring"
-			}
-		]
-	}
-];
-var DEFAULT_EFFECTS = {
-	borderBeam: "off",
-	borderBeamColor: "ocean"
-};
-TWEAK_GROUPS.flatMap((g) => g.controls);
-//#endregion
 //#region src/theme/ThemeProvider.jsx
 var THEMES = [
 	{
@@ -2069,10 +2008,6 @@ var DEFAULT_TWEAKS = {
 	glassOpacity: .55,
 	glassSaturation: 1.35,
 	rimStrength: .92,
-	ringShine: .85,
-	ringThickness: 2.5,
-	ringSpread: 6,
-	ringGlow: .55,
 	shadowIntensity: 1,
 	radiusScale: 1,
 	accentHue: 199,
@@ -2081,6 +2016,27 @@ var DEFAULT_TWEAKS = {
 	motionStrength: 1
 };
 var ThemeContext = createContext(null);
+function readStorage(key) {
+	try {
+		return typeof window === "undefined" ? null : window.localStorage.getItem(key);
+	} catch {
+		return null;
+	}
+}
+function writeStorage(key, value) {
+	try {
+		window.localStorage.setItem(key, value);
+	} catch {}
+}
+function readJson(key) {
+	const raw = readStorage(key);
+	if (!raw) return null;
+	try {
+		return JSON.parse(raw);
+	} catch {
+		return null;
+	}
+}
 function applyDocumentTheme(themeId, tweaks) {
 	const root = document.documentElement;
 	root.dataset.theme = themeId;
@@ -2089,10 +2045,6 @@ function applyDocumentTheme(themeId, tweaks) {
 	root.style.setProperty("--t-glass-opacity", String(tweaks.glassOpacity));
 	root.style.setProperty("--t-glass-sat", String(tweaks.glassSaturation));
 	root.style.setProperty("--t-rim", String(tweaks.rimStrength));
-	root.style.setProperty("--t-ring-shine", String(tweaks.ringShine));
-	root.style.setProperty("--t-ring-thickness", `${tweaks.ringThickness}px`);
-	root.style.setProperty("--t-ring-spread", `${tweaks.ringSpread}px`);
-	root.style.setProperty("--t-ring-glow", String(tweaks.ringGlow));
 	root.style.setProperty("--t-shadow", String(tweaks.shadowIntensity));
 	root.style.setProperty("--t-radius", String(tweaks.radiusScale));
 	root.style.setProperty("--t-accent-h", String(hue));
@@ -2111,34 +2063,30 @@ function applyDocumentTheme(themeId, tweaks) {
 	root.style.setProperty("--chart-3", `hsl(${(hue + 130) % 360} 70% ${isDark ? 58 : 46}%)`);
 	root.style.setProperty("--chart-4", `hsl(${(hue + 210) % 360} 80% ${isDark ? 62 : 52}%)`);
 }
-function ThemeProvider({ children }) {
+/**
+* @param defaultTheme  theme used when nothing is saved yet
+* @param persist       remember theme and Taste tweaks in localStorage
+* @param hotkeys       Shift+1…5 switches themes (demo-friendly; turn off in product apps)
+*/
+function ThemeProvider({ children, defaultTheme = "soft-glass", persist = true, hotkeys = true }) {
 	const [themeId, setThemeIdState] = useState(() => {
-		const saved = localStorage.getItem("suk-theme") || "soft-glass";
-		return LEGACY_THEMES[saved] || saved;
+		const saved = persist && readStorage("suk-theme") || defaultTheme;
+		const id = LEGACY_THEMES[saved] || saved;
+		return THEMES.some((t) => t.id === id) ? id : "soft-glass";
 	});
 	const [tweaks, setTweaks] = useState(() => {
-		try {
-			const raw = localStorage.getItem("suk-tweaks");
-			return raw ? {
-				...DEFAULT_TWEAKS,
-				...JSON.parse(raw)
-			} : DEFAULT_TWEAKS;
-		} catch {
-			return DEFAULT_TWEAKS;
-		}
-	});
-	const [effects, setEffects] = useState(() => {
-		try {
-			const raw = localStorage.getItem("suk-effects");
-			if (!raw) return DEFAULT_EFFECTS;
-			const { metalFx: _legacyMetal, ...rest } = JSON.parse(raw);
+		const saved = persist ? readJson("suk-tweaks") : null;
+		if (saved) {
+			const { ringShine: _s, ringThickness: _t, ringSpread: _p, ringGlow: _g, ...rest } = saved;
 			return {
-				...DEFAULT_EFFECTS,
+				...DEFAULT_TWEAKS,
 				...rest
 			};
-		} catch {
-			return DEFAULT_EFFECTS;
 		}
+		return {
+			...DEFAULT_TWEAKS,
+			accentHue: THEME_ACCENT_HUE[themeId] ?? DEFAULT_TWEAKS.accentHue
+		};
 	});
 	function selectTheme(nextId) {
 		const id = LEGACY_THEMES[nextId] || nextId;
@@ -2148,20 +2096,19 @@ function ThemeProvider({ children }) {
 			accentHue: THEME_ACCENT_HUE[id] ?? prev.accentHue
 		}));
 	}
-	const effectTheme = themeId === "dusk" || themeId === "midnight" ? "dark" : "light";
 	useEffect(() => {
 		applyDocumentTheme(themeId, tweaks);
-		localStorage.setItem("suk-theme", themeId);
-	}, [themeId, tweaks]);
+		if (persist) writeStorage("suk-theme", themeId);
+	}, [
+		themeId,
+		tweaks,
+		persist
+	]);
 	useEffect(() => {
-		localStorage.setItem("suk-tweaks", JSON.stringify(tweaks));
-	}, [tweaks]);
+		if (persist) writeStorage("suk-tweaks", JSON.stringify(tweaks));
+	}, [tweaks, persist]);
 	useEffect(() => {
-		localStorage.setItem("suk-effects", JSON.stringify(effects));
-		document.documentElement.dataset.beam = effects.borderBeam;
-		delete document.documentElement.dataset.metal;
-	}, [effects]);
-	useEffect(() => {
+		if (!hotkeys) return void 0;
 		function onKeyDown(e) {
 			if (!e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
 			const target = e.target;
@@ -2175,7 +2122,7 @@ function ThemeProvider({ children }) {
 		}
 		window.addEventListener("keydown", onKeyDown);
 		return () => window.removeEventListener("keydown", onKeyDown);
-	}, []);
+	}, [hotkeys]);
 	const value = useMemo(() => ({
 		themeId,
 		setThemeId: selectTheme,
@@ -2202,23 +2149,8 @@ function ThemeProvider({ children }) {
 				...DEFAULT_TWEAKS,
 				...nextTweaks
 			});
-		},
-		effects,
-		effectTheme,
-		setEffects,
-		updateEffect: (key, value) => {
-			setEffects((prev) => ({
-				...prev,
-				[key]: value
-			}));
-		},
-		resetEffects: () => setEffects(DEFAULT_EFFECTS)
-	}), [
-		themeId,
-		tweaks,
-		effects,
-		effectTheme
-	]);
+		}
+	}), [themeId, tweaks]);
 	return /* @__PURE__ */ jsx(ThemeContext.Provider, {
 		value,
 		children
@@ -2558,14 +2490,16 @@ function RadialBars({ series = [], className = "", size = 200 }) {
 					cx,
 					cy,
 					r,
-					strokeWidth: size * .07
+					style: { strokeWidth: size * .07 }
 				}), /* @__PURE__ */ jsx("circle", {
 					className: "radial-fill",
 					cx,
 					cy,
 					r,
-					strokeWidth: size * .07,
-					stroke: s.color || `var(--chart-${i % 4 + 1})`,
+					style: {
+						strokeWidth: size * .07,
+						stroke: s.color || `var(--chart-${i % 4 + 1})`
+					},
 					strokeDasharray: `${dash} ${c}`,
 					transform: `rotate(-90 ${cx} ${cy})`
 				})] }, s.label);
@@ -2655,7 +2589,7 @@ function FunnelChart({ stages = [], className = "" }) {
 					className: "funnel-bar",
 					style: {
 						width: `${Math.max(28, Math.round(s.value / max * 100))}%`,
-						background: s.color || `var(--chart-${i % 4 + 1})`
+						backgroundColor: s.color || `var(--chart-${i % 4 + 1})`
 					},
 					children: [/* @__PURE__ */ jsx("span", { children: s.label }), /* @__PURE__ */ jsx("strong", { children: s.value })]
 				})
@@ -2875,32 +2809,8 @@ function TimelineBar({ markers, className, stripedTail = true }) {
 	});
 }
 //#endregion
-//#region src/components/effects/GlassRing.jsx
-/**
-* Shiny glass ring — decorative / accent ring with tweakable shine.
-* `soft` reduces elevation for KPI / dense dashboard use.
-*/
-function GlassRing({ children, className, size = 56, tone = "accent", active = true, soft = false, as: Comp = "div", ...props }) {
-	return /* @__PURE__ */ jsxs(Comp, {
-		className: clsx("glass-ring", `glass-ring--${tone}`, soft && "glass-ring--soft", active && "is-active", className),
-		style: { "--ring-size": `${size}px` },
-		...props,
-		children: [
-			!soft ? /* @__PURE__ */ jsx("span", {
-				className: "glass-ring__shine",
-				"aria-hidden": "true"
-			}) : null,
-			!soft ? /* @__PURE__ */ jsx("span", {
-				className: "glass-ring__glow",
-				"aria-hidden": "true"
-			}) : null,
-			/* @__PURE__ */ jsx("span", {
-				className: "glass-ring__core",
-				children
-			})
-		]
-	});
-}
+//#region src/components/layout/GlassOrbField.jsx
+/** Soft blurred color fields behind glass surfaces, so the frost has something to blur. Static. */
 function GlassOrbField({ denser = false }) {
 	return /* @__PURE__ */ jsxs("div", {
 		className: clsx("orb-field", denser && "orb-field--dense"),
@@ -3048,7 +2958,7 @@ function DashboardShellPreview() {
 						{
 							id: "search",
 							label: "Search",
-							icon: Home
+							icon: Search
 						}
 					].map((item) => {
 						const Icon = item.icon;
@@ -3095,6 +3005,6 @@ function DashboardShellPreview() {
 	});
 }
 //#endregion
-export { Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, BarChart, Breadcrumb, Button, COMPONENT_CATEGORIES, COMPONENT_REGISTRY, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, ContextMenu, DEFAULT_EFFECTS, DEFAULT_TWEAKS, DashboardShell, DashboardShellPreview, DataTable, DateField, Dialog, DonutChart, DotMatrixChart, DropdownMenu, EmptyState, FormField, FunnelChart, GlassOrbField, GlassRing, HeatmapChart, HoverCard, IconButton, Input, InputGroup, Kbd, Label, LineChart, Menubar, OtpInput, Pagination, PasswordInput, Popover, Progress, RadarChart, RadialBars, RadialProgress, Radio, Resizable, ScatterChart, ScrollArea, SegmentedBar, Select, Separator, Sheet, Skeleton, Slider, Sparkline, Switch, THEMES, THEME_ACCENT_HUE, Table, Tabs, Textarea, ThemeProvider, TimelineBar, Toast, ToastProvider, Toggle, ToggleGroup, Tooltip, cn, icons_exports as icons, searchComponents, useSidebarCollapsed, useTheme, useToast };
+export { Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, BarChart, Breadcrumb, Button, COMPONENT_CATEGORIES, COMPONENT_REGISTRY, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, ContextMenu, DEFAULT_TWEAKS, DashboardShell, DashboardShellPreview, DataTable, DateField, Dialog, DonutChart, DotMatrixChart, DropdownMenu, EmptyState, FormField, FunnelChart, GlassOrbField, HeatmapChart, HoverCard, IconButton, IconTile, Input, InputGroup, Kbd, Label, LineChart, Menubar, OtpInput, Pagination, PasswordInput, Popover, Progress, RadarChart, RadialBars, RadialProgress, Radio, Resizable, ScatterChart, ScrollArea, SegmentedBar, Select, Separator, Sheet, Skeleton, Slider, Sparkline, Switch, THEMES, THEME_ACCENT_HUE, Table, Tabs, Textarea, ThemeProvider, TimelineBar, Toast, ToastProvider, Toggle, ToggleGroup, Tooltip, cn, icons_exports as icons, searchComponents, useSidebarCollapsed, useTheme, useToast };
 
 //# sourceMappingURL=soft-ui-kit.js.map

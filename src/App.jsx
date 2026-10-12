@@ -4,7 +4,6 @@ import { AppShell } from "./components/layout/AppShell";
 import { ToastProvider } from "./components/ui";
 import { CatalogPage } from "./pages/CatalogPage";
 import { ChartsGalleryPage } from "./pages/ChartsGalleryPage";
-import { EffectsPage } from "./pages/EffectsPage";
 import { LandingPage } from "./pages/LandingPage";
 import { SaasHubPage } from "./pages/SaasHubPage";
 import { LoginPage, SignupPage } from "./pages/SignupPage";
@@ -42,7 +41,7 @@ export default function App() {
           <Route path="/ui" element={<CatalogPage />} />
           <Route path="/catalog" element={<Navigate to="/ui" replace />} />
           <Route path="/charts" element={<ChartsGalleryPage />} />
-          <Route path="/effects" element={<EffectsPage />} />
+          <Route path="/effects" element={<Navigate to="/ui" replace />} />
           <Route path="/saas" element={<SaasHubPage />} />
           <Route path="/saas/dashboard" element={<OpsDashboard />} />
           <Route path="/saas/autumn" element={<AutumnInsightDashboard />} />

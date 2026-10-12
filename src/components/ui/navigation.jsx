@@ -1,5 +1,6 @@
 import { forwardRef, useState } from "react";
 import clsx from "clsx";
+import { ChevronLeft, ChevronRight } from "../icons";
 
 export function Tabs({ tabs, value, onChange, className }) {
   return (
@@ -28,8 +29,16 @@ export function Breadcrumb({ items, className }) {
     <nav className={clsx("ui-breadcrumb", className)} aria-label="Breadcrumb">
       {items.map((item, i) => (
         <span key={item.label} className="ui-breadcrumb__item">
-          {i > 0 ? <span className="ui-breadcrumb__sep">/</span> : null}
-          {item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+          {i > 0 ? (
+            <span className="ui-breadcrumb__sep" aria-hidden="true">
+              <ChevronRight size={12} />
+            </span>
+          ) : null}
+          {item.href ? (
+            <a href={item.href}>{item.label}</a>
+          ) : (
+            <span aria-current={i === items.length - 1 ? "page" : undefined}>{item.label}</span>
+          )}
         </span>
       ))}
     </nav>
@@ -38,8 +47,9 @@ export function Breadcrumb({ items, className }) {
 
 export function Pagination({ page, pages, onChange, className }) {
   return (
-    <div className={clsx("ui-pagination", className)}>
+    <nav className={clsx("ui-pagination", className)} aria-label="Pagination">
       <button type="button" disabled={page <= 1} onClick={() => onChange?.(page - 1)}>
+        <ChevronLeft size={14} />
         Prev
       </button>
       {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
@@ -47,6 +57,7 @@ export function Pagination({ page, pages, onChange, className }) {
           key={n}
           type="button"
           className={clsx(n === page && "is-active")}
+          aria-current={n === page ? "page" : undefined}
           onClick={() => onChange?.(n)}
         >
           {n}
@@ -54,8 +65,9 @@ export function Pagination({ page, pages, onChange, className }) {
       ))}
       <button type="button" disabled={page >= pages} onClick={() => onChange?.(page + 1)}>
         Next
+        <ChevronRight size={14} />
       </button>
-    </div>
+    </nav>
   );
 }
 

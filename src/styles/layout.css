@@ -85,7 +85,6 @@
   }
 }
 
-
 .brand {
   display: flex;
   align-items: center;
@@ -695,14 +694,6 @@
   gap: 14px;
 }
 
-.taste-effects {
-  display: grid;
-  gap: 14px;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
-}
-
 .taste-group {
   padding: 12px;
   border-radius: var(--radius-md);
@@ -730,61 +721,6 @@
 
 .taste-controls--compact .taste-group {
   padding: 10px;
-}
-
-.taste-option-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.taste-option-chip {
-  height: 30px;
-  padding: 0 11px;
-  border-radius: var(--radius-pill);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink-muted);
-  background: var(--glass-base);
-  border: 1px solid var(--line);
-  transition: transform 140ms ease, box-shadow 140ms ease, color 140ms ease, border-color 140ms ease;
-}
-
-.taste-option-chip:hover {
-  transform: translateY(-1px);
-  color: var(--ink);
-}
-
-.taste-option-chip.is-active {
-  color: var(--ink);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-float);
-  background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
-}
-
-.taste-option-label {
-  margin: 12px 0 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink-muted);
-}
-
-.taste-effect-preview__card {
-  padding: 14px;
-  border-radius: var(--radius-lg);
-  display: grid;
-  gap: 8px;
-}
-
-.taste-effect-preview__card strong {
-  font-size: 13px;
-}
-
-.taste-effect-preview__card p {
-  margin: 0;
-  font-size: 12px;
-  color: var(--ink-muted);
-  line-height: 1.4;
 }
 
 .taste-banner {
@@ -907,12 +843,12 @@
   gap: 16px;
   flex-wrap: wrap;
 }
-.marketing-nav a {
+.marketing-nav a:not(.ui-btn) {
   font-size: 14px;
   font-weight: 700;
   color: var(--ink-muted);
 }
-.marketing-nav a:hover { color: var(--ink); }
+.marketing-nav a:not(.ui-btn):hover { color: var(--ink); }
 .marketing-hero {
   max-width: 920px;
   margin: 0 auto;
@@ -1332,7 +1268,6 @@
 .catalog-card__preview > .preview-row,
 .catalog-card__preview > .preview-card-grid,
 .catalog-card__preview > .dash-preview,
-.catalog-card__preview > .catalog-effect-demo,
 .catalog-card__preview > .ui-resizable,
 .catalog-card__preview > .ui-scroll,
 .catalog-card__preview > .ui-accordion,
@@ -1425,24 +1360,6 @@
   .taste-banner { align-items: flex-start; }
   .taste-banner .row { width: 100%; }
 }
-
-/* Effects playground */
-.effects-page code {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: var(--radius-xs);
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
-}
-.effect-demo-card {
-  height: 100%;
-}
-.effect-demo-copy {
-  margin: 0 0 14px;
-  font-size: 13px;
-  color: var(--ink-muted);
-  line-height: 1.45;
-}
 .effect-search {
   display: flex;
   align-items: center;
@@ -1515,16 +1432,11 @@
 .preview-card-grid .ui-card {
   margin: 0;
 }
-.preview-row--rings {
-  justify-content: space-between;
-}
-.preview-ring-cell {
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink-muted);
+.preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 .catalog-scroll-demo {
   max-height: 160px;
@@ -1541,24 +1453,6 @@
 .catalog-resizable-demo {
   min-height: 140px;
   width: 100%;
-}
-.catalog-effect-demo__stage {
-  width: 100%;
-}
-.catalog-effect-demo__card {
-  padding: 16px;
-  border-radius: var(--radius-lg);
-  display: grid;
-  gap: 8px;
-}
-.catalog-effect-demo__card strong {
-  font-size: 13px;
-}
-.catalog-effect-demo__card p {
-  margin: 0;
-  font-size: 12px;
-  color: var(--ink-muted);
-  line-height: 1.4;
 }
 
 /* Catalog chart previews — consistent height / alignment */

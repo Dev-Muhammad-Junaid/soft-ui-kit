@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Check, Sparkles, SlidersHorizontal, CopySimple } from "../components/icons";
+import { ArrowRight, Check, SlidersHorizontal, CopySimple } from "../components/icons";
 import { useState } from "react";
-import { GlassOrbField, GlassRing } from "../components/effects/GlassRing";
+import { GlassOrbField } from "../components/layout/GlassOrbField";
+import { Logo } from "../components/brand/Logo";
 import { PlaygroundDrawer } from "../components/playground/PlaygroundDrawer";
 import { ThemeFab } from "../components/layout/ThemeFab";
 import { BarChart, DonutChart } from "../components/charts/Charts";
@@ -46,9 +47,7 @@ export function LandingPage() {
       <GlassOrbField denser />
       <header className="marketing-nav glass sheen">
         <div className="row">
-          <GlassRing size={40} tone="sky" active>
-            <Sparkles size={16} />
-          </GlassRing>
+          <Logo size={36} />
           <strong>Soft UI Kit</strong>
         </div>
         <nav className="row">
@@ -129,7 +128,7 @@ export function LandingPage() {
             <ul className="marketing-checks">
               {[
                 "ThemeProvider + Taste-ready tokens",
-                "UI Kit · Charts · Effects pages",
+                "UI Kit and Charts galleries",
                 "Forms, overlays, data tables, charts",
                 "cn() helper for class merging",
               ].map((item) => (

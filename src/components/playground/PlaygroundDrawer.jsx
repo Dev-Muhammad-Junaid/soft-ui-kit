@@ -26,7 +26,7 @@ export function PlaygroundDrawer({ open, onClose }) {
         <header className="playground-panel__head">
           <div>
             <h2>Taste</h2>
-            <p>Core UI first, then scroll for rings &amp; motion effects.</p>
+            <p>Radius, glass, color, and depth for every kit surface.</p>
           </div>
           <IconButton label="Close taste panel" variant="ghost" onClick={onClose}>
             <X size={18} />
