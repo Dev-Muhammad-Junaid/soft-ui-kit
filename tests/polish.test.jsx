@@ -5,6 +5,7 @@ import {
   Breadcrumb,
   DataTable,
   IconButton,
+  IconTile,
   Pagination,
   RadialBars,
   Select,
@@ -156,5 +157,49 @@ describe("ThemeProvider options", () => {
       </ThemeProvider>,
     );
     expect(screen.getByTestId("theme").textContent).toBe("soft-glass");
+  });
+});
+
+describe("effects removal", () => {
+  it("no longer ships GlassRing, border-beam effects, or ring dials", async () => {
+    const kit = await import("../src/index.js");
+    expect(kit.GlassRing).toBeUndefined();
+    expect(kit.DEFAULT_EFFECTS).toBeUndefined();
+    expect(Object.keys(kit.DEFAULT_TWEAKS).some((k) => k.startsWith("ring"))).toBe(false);
+  });
+
+  it("drops stale ring dials from saved tweaks", () => {
+    localStorage.setItem("suk-tweaks", JSON.stringify({ ringShine: 1.2, glassBlur: 30 }));
+    function Probe() {
+      const { tweaks } = useTheme();
+      return <span data-testid="tw">{JSON.stringify(tweaks)}</span>;
+    }
+    render(
+      <ThemeProvider hotkeys={false}>
+        <Probe />
+      </ThemeProvider>,
+    );
+    const tweaks = JSON.parse(screen.getByTestId("tw").textContent);
+    expect(tweaks.glassBlur).toBe(30);
+    expect(tweaks.ringShine).toBeUndefined();
+    localStorage.clear();
+  });
+
+  it("renders IconTile as a static tone tile", () => {
+    const { container, rerender } = render(
+      <IconTile tone="success" size="lg">
+        <icons.Check />
+      </IconTile>,
+    );
+    const tile = container.querySelector(".ui-icon-tile");
+    expect(tile).toHaveClass("ui-icon-tile--success", "ui-icon-tile--lg");
+    expect(tile).toHaveAttribute("aria-hidden", "true");
+
+    rerender(
+      <IconTile label="Cash">
+        <icons.Wallet />
+      </IconTile>,
+    );
+    expect(screen.getByRole("img", { name: "Cash" })).toHaveClass("ui-icon-tile--accent");
   });
 });

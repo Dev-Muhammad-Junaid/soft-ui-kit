@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SlidersHorizontal } from "../components/icons";
-import { GlassOrbField } from "../components/effects/GlassRing";
+import { GlassOrbField } from "../components/layout/GlassOrbField";
 import { Logo } from "../components/brand/Logo";
 import { PlaygroundDrawer } from "../components/playground/PlaygroundDrawer";
 import { ThemeFab } from "../components/layout/ThemeFab";

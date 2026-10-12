@@ -589,6 +589,29 @@ a.ui-btn {
   border-color: color-mix(in srgb, var(--danger) 40%, var(--line));
 }
 
+/* Icon tile — static, tone-tinted holder for an icon */
+.ui-icon-tile {
+  --tile-ink: var(--accent-ink);
+  --tile-tint: var(--accent);
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  color: var(--tile-ink);
+  background: color-mix(in srgb, var(--tile-tint) 14%, var(--glass-base));
+  border: 1px solid color-mix(in srgb, var(--tile-tint) 28%, var(--line));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, calc(0.4 * var(--t-rim)));
+}
+.ui-icon-tile--sm { width: 32px; height: 32px; border-radius: var(--radius-sm); }
+.ui-icon-tile--md { width: 40px; height: 40px; }
+.ui-icon-tile--lg { width: 48px; height: 48px; }
+.ui-icon-tile--neutral { --tile-ink: var(--ink-muted); --tile-tint: var(--ink); }
+.ui-icon-tile--info { --tile-ink: var(--info-ink); --tile-tint: var(--info); }
+.ui-icon-tile--success { --tile-ink: var(--success-ink); --tile-tint: var(--success); }
+.ui-icon-tile--warning { --tile-ink: var(--warning-ink); --tile-tint: var(--warning); }
+.ui-icon-tile--danger { --tile-ink: var(--danger-ink); --tile-tint: var(--danger); }
+.ui-icon-tile--neutral { background: color-mix(in srgb, var(--ink) 6%, var(--glass-base)); }
+
 /* Avatar */
 .ui-avatar {
   display: inline-grid;
@@ -890,18 +913,6 @@ details[open] > summary .ui-disclosure__icon {
 .kit-pill.is-hoverable:hover,
 .kit-pill.glass:hover {
   transform: translateY(calc(-1px * var(--t-hover-lift)));
-}
-
-.glass-ring {
-  transition: transform calc(160ms * var(--t-motion)) ease;
-}
-
-.glass-ring:hover {
-  transform: scale(calc(1 + 0.04 * var(--t-hover-lift)));
-}
-
-.glass-ring--soft:hover {
-  transform: none;
 }
 
 /* Breadcrumb / Pagination */

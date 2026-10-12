@@ -33,7 +33,7 @@ export {
   ToastProvider,
   useToast,
 } from "./feedback.jsx";
-export { Badge, Avatar, Table, DataTable, Carousel, Calendar } from "./data.jsx";
+export { Badge, IconTile, Avatar, Table, DataTable, Carousel, Calendar } from "./data.jsx";
 export {
   Dialog,
   AlertDialog,

@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { DEFAULT_EFFECTS } from "../components/playground/tweakControls";
 
 export const THEMES = [
   {
@@ -48,10 +47,6 @@ export const DEFAULT_TWEAKS = {
   glassOpacity: 0.55,
   glassSaturation: 1.35,
   rimStrength: 0.92,
-  ringShine: 0.85,
-  ringThickness: 2.5,
-  ringSpread: 6,
-  ringGlow: 0.55,
   shadowIntensity: 1,
   radiusScale: 1,
   accentHue: 199,
@@ -60,7 +55,6 @@ export const DEFAULT_TWEAKS = {
   motionStrength: 1,
 };
 
-export { DEFAULT_EFFECTS };
 
 
 const ThemeContext = createContext(null);
@@ -102,10 +96,6 @@ function applyDocumentTheme(themeId, tweaks) {
   root.style.setProperty("--t-glass-opacity", String(tweaks.glassOpacity));
   root.style.setProperty("--t-glass-sat", String(tweaks.glassSaturation));
   root.style.setProperty("--t-rim", String(tweaks.rimStrength));
-  root.style.setProperty("--t-ring-shine", String(tweaks.ringShine));
-  root.style.setProperty("--t-ring-thickness", `${tweaks.ringThickness}px`);
-  root.style.setProperty("--t-ring-spread", `${tweaks.ringSpread}px`);
-  root.style.setProperty("--t-ring-glow", String(tweaks.ringGlow));
   root.style.setProperty("--t-shadow", String(tweaks.shadowIntensity));
   root.style.setProperty("--t-radius", String(tweaks.radiusScale));
   root.style.setProperty("--t-accent-h", String(hue));
@@ -145,7 +135,7 @@ function applyDocumentTheme(themeId, tweaks) {
 
 /**
  * @param defaultTheme  theme used when nothing is saved yet
- * @param persist       remember theme / tweaks / effects in localStorage
+ * @param persist       remember theme and Taste tweaks in localStorage
  * @param hotkeys       Shift+1…5 switches themes (demo-friendly; turn off in product apps)
  */
 export function ThemeProvider({
@@ -161,15 +151,13 @@ export function ThemeProvider({
   });
   const [tweaks, setTweaks] = useState(() => {
     const saved = persist ? readJson("suk-tweaks") : null;
-    if (saved) return { ...DEFAULT_TWEAKS, ...saved };
+    if (saved) {
+      // Drop dials from the removed glass-ring effect that older saves still carry.
+      const { ringShine: _s, ringThickness: _t, ringSpread: _p, ringGlow: _g, ...rest } = saved;
+      return { ...DEFAULT_TWEAKS, ...rest };
+    }
     // Seed the accent from the resolved theme, so a saved Aurora loads violet, not the default sky.
     return { ...DEFAULT_TWEAKS, accentHue: THEME_ACCENT_HUE[themeId] ?? DEFAULT_TWEAKS.accentHue };
-  });
-  const [effects, setEffects] = useState(() => {
-    const saved = persist ? readJson("suk-effects") : null;
-    if (!saved) return DEFAULT_EFFECTS;
-    const { metalFx: _legacyMetal, ...rest } = saved;
-    return { ...DEFAULT_EFFECTS, ...rest };
   });
 
   function selectTheme(nextId) {
@@ -181,8 +169,6 @@ export function ThemeProvider({
     }));
   }
 
-  const effectTheme = themeId === "dusk" || themeId === "midnight" ? "dark" : "light";
-
   useEffect(() => {
     applyDocumentTheme(themeId, tweaks);
     if (persist) writeStorage("suk-theme", themeId);
@@ -192,11 +178,6 @@ export function ThemeProvider({
     if (persist) writeStorage("suk-tweaks", JSON.stringify(tweaks));
   }, [tweaks, persist]);
 
-  useEffect(() => {
-    if (persist) writeStorage("suk-effects", JSON.stringify(effects));
-    document.documentElement.dataset.beam = effects.borderBeam;
-    delete document.documentElement.dataset.metal;
-  }, [effects, persist]);
 
   // Shift+1 … Shift+N cycles themes by index (1-based).
   useEffect(() => {
@@ -247,15 +228,8 @@ export function ThemeProvider({
         }
         if (nextTweaks) setTweaks({ ...DEFAULT_TWEAKS, ...nextTweaks });
       },
-      effects,
-      effectTheme,
-      setEffects,
-      updateEffect: (key, value) => {
-        setEffects((prev) => ({ ...prev, [key]: value }));
-      },
-      resetEffects: () => setEffects(DEFAULT_EFFECTS),
     }),
-    [themeId, tweaks, effects, effectTheme],
+    [themeId, tweaks],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

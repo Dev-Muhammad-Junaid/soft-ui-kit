@@ -7,9 +7,8 @@ import {
   Menu,
   SlidersHorizontal,
   Store,
-  Wand2,
 } from "../icons";
-import { GlassOrbField } from "../effects/GlassRing";
+import { GlassOrbField } from "./GlassOrbField";
 import { Logo } from "../brand/Logo";
 import { PlaygroundDrawer } from "../playground/PlaygroundDrawer";
 import { IconButton } from "../ui";
@@ -20,7 +19,6 @@ import { DashboardShell, useSidebarCollapsed } from "./DashboardShell";
 const LINKS = [
   { to: "/ui", label: "UI Kit", icon: BookOpen },
   { to: "/charts", label: "Charts", icon: BarChart3 },
-  { to: "/effects", label: "Effects", icon: Wand2 },
   { to: "/saas", label: "SaaS samples", icon: Store },
   { to: "/", label: "Landing", icon: Activity },
 ];

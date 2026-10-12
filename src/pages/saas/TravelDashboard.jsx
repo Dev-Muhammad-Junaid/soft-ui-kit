@@ -6,10 +6,10 @@ import {
   Users,
 } from "../../components/icons";
 import { BarChart, DonutChart, LineChart } from "../../components/charts/Charts";
-import { GlassRing } from "../../components/effects/GlassRing";
 import { SuggestedTasteBanner } from "../../components/saas/SuggestedTasteBanner";
 import {
   Avatar,
+  IconTile,
   Badge,
   Breadcrumb,
   Button,
@@ -61,19 +61,19 @@ export function TravelDashboard() {
 
       <div className="grid-4" style={{ marginTop: 18, marginBottom: 18 }}>
         {[
-          { label: "Active trips", value: "128", icon: Plane, tone: "sky" },
-          { label: "Guests in care", value: "842", icon: Users, tone: "mint" },
-          { label: "Departures (7d)", value: "36", icon: CalendarDays, tone: "peach" },
-          { label: "Top region", value: "EU", icon: MapPin, tone: "lavender" },
+          { label: "Active trips", value: "128", icon: Plane, tone: "info" },
+          { label: "Guests in care", value: "842", icon: Users, tone: "success" },
+          { label: "Departures (7d)", value: "36", icon: CalendarDays, tone: "warning" },
+          { label: "Top region", value: "EU", icon: MapPin, tone: "accent" },
         ].map((s) => {
           const Icon = s.icon;
           return (
             <Card key={s.label} className="stat-card is-hoverable" padded>
               <div className="row" style={{ justifyContent: "space-between" }}>
                 <span className="stat-card__label">{s.label}</span>
-                <GlassRing size={52} tone={s.tone} soft>
-                  <Icon size={20} strokeWidth={1.75} />
-                </GlassRing>
+                <IconTile tone={s.tone} size="lg">
+                  <Icon size={20} />
+                </IconTile>
               </div>
               <span className="stat-card__value">{s.value}</span>
             </Card>

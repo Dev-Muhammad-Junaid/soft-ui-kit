@@ -811,6 +811,19 @@ function Badge({ children, tone = "neutral", className }) {
 		children
 	});
 }
+/**
+* Static tinted tile for an icon (KPI cards, list rows, empty states).
+* Shares tone tokens with Badge and Alert, so status color reads the same everywhere.
+*/
+function IconTile({ children, tone = "accent", size = "md", className, label }) {
+	return /* @__PURE__ */ jsx("span", {
+		className: clsx("ui-icon-tile", `ui-icon-tile--${tone}`, `ui-icon-tile--${size}`, className),
+		role: label ? "img" : void 0,
+		"aria-label": label,
+		"aria-hidden": label ? void 0 : true,
+		children
+	});
+}
 function Avatar({ name, src, size = "md", className }) {
 	const initials = name?.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
 	return /* @__PURE__ */ jsx("span", {
@@ -1390,7 +1403,7 @@ function Menubar({ menus = [], className }) {
 //#region src/components/ui/registry.js
 /**
 * Soft UI Kit — UI Kit catalog registry.
-* Charts live on /charts · Effects live on /effects.
+* Charts live on /charts.
 */
 var COMPONENT_CATEGORIES = [
 	{
@@ -1695,6 +1708,23 @@ var COMPONENT_REGISTRY = [
 		animated: true
 	},
 	{
+		id: "icon-tile",
+		name: "Icon Tile",
+		category: "data",
+		description: "Static tinted holder for an icon, toned like badges and alerts.",
+		tags: [
+			"icon",
+			"kpi",
+			"status"
+		],
+		sizes: [
+			"sm",
+			"md",
+			"lg"
+		],
+		animated: false
+	},
+	{
 		id: "avatar",
 		name: "Avatar",
 		category: "data",
@@ -1933,167 +1963,6 @@ function searchComponents(query, category = "all") {
 	});
 }
 //#endregion
-//#region src/components/playground/tweakControls.js
-/**
-* Taste dials — Core UI (kit chrome) then Effects (glass rings + border-beam).
-* Keep in sync with /ui, /charts, and /effects demos.
-*/
-var TWEAK_GROUPS = [
-	{
-		id: "layout",
-		tier: "core",
-		title: "Layout",
-		hint: "Corner radius across cards, buttons, inputs, and panels",
-		controls: [{
-			key: "radiusScale",
-			label: "Border radius",
-			min: 0,
-			max: 1.4,
-			step: .05,
-			tip: "0 = sharp · 1 = default · higher = softer"
-		}]
-	},
-	{
-		id: "glass",
-		tier: "core",
-		title: "Glass",
-		hint: "Frost on cards, sheets, sidebar, and glass panels",
-		controls: [
-			{
-				key: "glassBlur",
-				label: "Blur",
-				min: 4,
-				max: 40,
-				step: 1,
-				tip: "How frosted glass surfaces look"
-			},
-			{
-				key: "glassOpacity",
-				label: "Opacity",
-				min: .15,
-				max: .9,
-				step: .01,
-				tip: "Transparency of glass fills"
-			},
-			{
-				key: "glassSaturation",
-				label: "Saturation",
-				min: .8,
-				max: 2,
-				step: .05,
-				tip: "Color punch through the frost"
-			},
-			{
-				key: "rimStrength",
-				label: "Rim highlight",
-				min: .2,
-				max: 1,
-				step: .01,
-				tip: "Bright edge on glass borders"
-			}
-		]
-	},
-	{
-		id: "color",
-		tier: "core",
-		title: "Color",
-		hint: "Accent used for buttons, focus rings, and highlights",
-		controls: [{
-			key: "accentHue",
-			label: "Accent hue",
-			min: 0,
-			max: 360,
-			step: 1,
-			tip: "Primary brand tint for the kit"
-		}]
-	},
-	{
-		id: "depth",
-		tier: "core",
-		title: "Depth & motion",
-		hint: "Shadows, elevation, and how lively the UI feels",
-		controls: [
-			{
-				key: "shadowIntensity",
-				label: "Shadow",
-				min: .2,
-				max: 1.8,
-				step: .05,
-				tip: "Depth of cards and floating panels"
-			},
-			{
-				key: "surfaceLift",
-				label: "Surface lift",
-				min: .4,
-				max: 1.6,
-				step: .05,
-				tip: "Baseline elevation of surfaces"
-			},
-			{
-				key: "hoverLift",
-				label: "Hover lift",
-				min: 0,
-				max: 1.2,
-				step: .05,
-				tip: "How much cards rise on hover"
-			},
-			{
-				key: "motionStrength",
-				label: "Motion",
-				min: 0,
-				max: 1.5,
-				step: .05,
-				tip: "Chart draw-in and UI animation strength"
-			}
-		]
-	},
-	{
-		id: "rings",
-		tier: "effects",
-		title: "Glass ring badges",
-		hint: "Shown on the Effects page — brand marks & KPI icons",
-		controls: [
-			{
-				key: "ringShine",
-				label: "Shine",
-				min: 0,
-				max: 1.5,
-				step: .01,
-				tip: "Spinning highlight on the ring"
-			},
-			{
-				key: "ringThickness",
-				label: "Thickness",
-				min: 1,
-				max: 6,
-				step: .1,
-				tip: "Ring stroke width"
-			},
-			{
-				key: "ringSpread",
-				label: "Spread",
-				min: 2,
-				max: 14,
-				step: .5,
-				tip: "Gap to the outer glow"
-			},
-			{
-				key: "ringGlow",
-				label: "Glow",
-				min: 0,
-				max: 1.2,
-				step: .01,
-				tip: "Soft halo around the ring"
-			}
-		]
-	}
-];
-var DEFAULT_EFFECTS = {
-	borderBeam: "off",
-	borderBeamColor: "ocean"
-};
-TWEAK_GROUPS.flatMap((g) => g.controls);
-//#endregion
 //#region src/theme/ThemeProvider.jsx
 var THEMES = [
 	{
@@ -2139,10 +2008,6 @@ var DEFAULT_TWEAKS = {
 	glassOpacity: .55,
 	glassSaturation: 1.35,
 	rimStrength: .92,
-	ringShine: .85,
-	ringThickness: 2.5,
-	ringSpread: 6,
-	ringGlow: .55,
 	shadowIntensity: 1,
 	radiusScale: 1,
 	accentHue: 199,
@@ -2180,10 +2045,6 @@ function applyDocumentTheme(themeId, tweaks) {
 	root.style.setProperty("--t-glass-opacity", String(tweaks.glassOpacity));
 	root.style.setProperty("--t-glass-sat", String(tweaks.glassSaturation));
 	root.style.setProperty("--t-rim", String(tweaks.rimStrength));
-	root.style.setProperty("--t-ring-shine", String(tweaks.ringShine));
-	root.style.setProperty("--t-ring-thickness", `${tweaks.ringThickness}px`);
-	root.style.setProperty("--t-ring-spread", `${tweaks.ringSpread}px`);
-	root.style.setProperty("--t-ring-glow", String(tweaks.ringGlow));
 	root.style.setProperty("--t-shadow", String(tweaks.shadowIntensity));
 	root.style.setProperty("--t-radius", String(tweaks.radiusScale));
 	root.style.setProperty("--t-accent-h", String(hue));
@@ -2204,7 +2065,7 @@ function applyDocumentTheme(themeId, tweaks) {
 }
 /**
 * @param defaultTheme  theme used when nothing is saved yet
-* @param persist       remember theme / tweaks / effects in localStorage
+* @param persist       remember theme and Taste tweaks in localStorage
 * @param hotkeys       Shift+1…5 switches themes (demo-friendly; turn off in product apps)
 */
 function ThemeProvider({ children, defaultTheme = "soft-glass", persist = true, hotkeys = true }) {
@@ -2215,22 +2076,16 @@ function ThemeProvider({ children, defaultTheme = "soft-glass", persist = true, 
 	});
 	const [tweaks, setTweaks] = useState(() => {
 		const saved = persist ? readJson("suk-tweaks") : null;
-		if (saved) return {
-			...DEFAULT_TWEAKS,
-			...saved
-		};
+		if (saved) {
+			const { ringShine: _s, ringThickness: _t, ringSpread: _p, ringGlow: _g, ...rest } = saved;
+			return {
+				...DEFAULT_TWEAKS,
+				...rest
+			};
+		}
 		return {
 			...DEFAULT_TWEAKS,
 			accentHue: THEME_ACCENT_HUE[themeId] ?? DEFAULT_TWEAKS.accentHue
-		};
-	});
-	const [effects, setEffects] = useState(() => {
-		const saved = persist ? readJson("suk-effects") : null;
-		if (!saved) return DEFAULT_EFFECTS;
-		const { metalFx: _legacyMetal, ...rest } = saved;
-		return {
-			...DEFAULT_EFFECTS,
-			...rest
 		};
 	});
 	function selectTheme(nextId) {
@@ -2241,7 +2096,6 @@ function ThemeProvider({ children, defaultTheme = "soft-glass", persist = true, 
 			accentHue: THEME_ACCENT_HUE[id] ?? prev.accentHue
 		}));
 	}
-	const effectTheme = themeId === "dusk" || themeId === "midnight" ? "dark" : "light";
 	useEffect(() => {
 		applyDocumentTheme(themeId, tweaks);
 		if (persist) writeStorage("suk-theme", themeId);
@@ -2253,11 +2107,6 @@ function ThemeProvider({ children, defaultTheme = "soft-glass", persist = true, 
 	useEffect(() => {
 		if (persist) writeStorage("suk-tweaks", JSON.stringify(tweaks));
 	}, [tweaks, persist]);
-	useEffect(() => {
-		if (persist) writeStorage("suk-effects", JSON.stringify(effects));
-		document.documentElement.dataset.beam = effects.borderBeam;
-		delete document.documentElement.dataset.metal;
-	}, [effects, persist]);
 	useEffect(() => {
 		if (!hotkeys) return void 0;
 		function onKeyDown(e) {
@@ -2300,23 +2149,8 @@ function ThemeProvider({ children, defaultTheme = "soft-glass", persist = true, 
 				...DEFAULT_TWEAKS,
 				...nextTweaks
 			});
-		},
-		effects,
-		effectTheme,
-		setEffects,
-		updateEffect: (key, value) => {
-			setEffects((prev) => ({
-				...prev,
-				[key]: value
-			}));
-		},
-		resetEffects: () => setEffects(DEFAULT_EFFECTS)
-	}), [
-		themeId,
-		tweaks,
-		effects,
-		effectTheme
-	]);
+		}
+	}), [themeId, tweaks]);
 	return /* @__PURE__ */ jsx(ThemeContext.Provider, {
 		value,
 		children
@@ -2975,32 +2809,8 @@ function TimelineBar({ markers, className, stripedTail = true }) {
 	});
 }
 //#endregion
-//#region src/components/effects/GlassRing.jsx
-/**
-* Shiny glass ring — decorative / accent ring with tweakable shine.
-* `soft` reduces elevation for KPI / dense dashboard use.
-*/
-function GlassRing({ children, className, size = 56, tone = "accent", active = true, soft = false, as: Comp = "div", ...props }) {
-	return /* @__PURE__ */ jsxs(Comp, {
-		className: clsx("glass-ring", `glass-ring--${tone}`, soft && "glass-ring--soft", active && "is-active", className),
-		style: { "--ring-size": `${size}px` },
-		...props,
-		children: [
-			!soft ? /* @__PURE__ */ jsx("span", {
-				className: "glass-ring__shine",
-				"aria-hidden": "true"
-			}) : null,
-			!soft ? /* @__PURE__ */ jsx("span", {
-				className: "glass-ring__glow",
-				"aria-hidden": "true"
-			}) : null,
-			/* @__PURE__ */ jsx("span", {
-				className: "glass-ring__core",
-				children
-			})
-		]
-	});
-}
+//#region src/components/layout/GlassOrbField.jsx
+/** Soft blurred color fields behind glass surfaces, so the frost has something to blur. Static. */
 function GlassOrbField({ denser = false }) {
 	return /* @__PURE__ */ jsxs("div", {
 		className: clsx("orb-field", denser && "orb-field--dense"),
@@ -3195,6 +3005,6 @@ function DashboardShellPreview() {
 	});
 }
 //#endregion
-export { Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, BarChart, Breadcrumb, Button, COMPONENT_CATEGORIES, COMPONENT_REGISTRY, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, ContextMenu, DEFAULT_EFFECTS, DEFAULT_TWEAKS, DashboardShell, DashboardShellPreview, DataTable, DateField, Dialog, DonutChart, DotMatrixChart, DropdownMenu, EmptyState, FormField, FunnelChart, GlassOrbField, GlassRing, HeatmapChart, HoverCard, IconButton, Input, InputGroup, Kbd, Label, LineChart, Menubar, OtpInput, Pagination, PasswordInput, Popover, Progress, RadarChart, RadialBars, RadialProgress, Radio, Resizable, ScatterChart, ScrollArea, SegmentedBar, Select, Separator, Sheet, Skeleton, Slider, Sparkline, Switch, THEMES, THEME_ACCENT_HUE, Table, Tabs, Textarea, ThemeProvider, TimelineBar, Toast, ToastProvider, Toggle, ToggleGroup, Tooltip, cn, icons_exports as icons, searchComponents, useSidebarCollapsed, useTheme, useToast };
+export { Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, BarChart, Breadcrumb, Button, COMPONENT_CATEGORIES, COMPONENT_REGISTRY, Calendar, Card, Carousel, Checkbox, Collapsible, Combobox, Command, ContextMenu, DEFAULT_TWEAKS, DashboardShell, DashboardShellPreview, DataTable, DateField, Dialog, DonutChart, DotMatrixChart, DropdownMenu, EmptyState, FormField, FunnelChart, GlassOrbField, HeatmapChart, HoverCard, IconButton, IconTile, Input, InputGroup, Kbd, Label, LineChart, Menubar, OtpInput, Pagination, PasswordInput, Popover, Progress, RadarChart, RadialBars, RadialProgress, Radio, Resizable, ScatterChart, ScrollArea, SegmentedBar, Select, Separator, Sheet, Skeleton, Slider, Sparkline, Switch, THEMES, THEME_ACCENT_HUE, Table, Tabs, Textarea, ThemeProvider, TimelineBar, Toast, ToastProvider, Toggle, ToggleGroup, Tooltip, cn, icons_exports as icons, searchComponents, useSidebarCollapsed, useTheme, useToast };
 
 //# sourceMappingURL=soft-ui-kit.js.map
