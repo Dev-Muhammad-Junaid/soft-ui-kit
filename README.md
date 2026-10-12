@@ -74,7 +74,7 @@ export function App() {
 | Prop | Default | What it does |
 | --- | --- | --- |
 | `defaultTheme` | `"soft-glass"` | Theme used when nothing is saved yet |
-| `persist` | `true` | Remember theme, Taste tweaks, and effects in `localStorage` |
+| `persist` | `true` | Remember theme and Taste tweaks in `localStorage` |
 | `hotkeys` | `true` | `Shift+1…5` switches themes. Turn off in product apps |
 
 `ThemeProvider` and `ToastProvider` are safe to server-render (Next.js, Remix). Without a provider, the stylesheet falls back to Soft Glass tokens.
@@ -90,11 +90,10 @@ Every component pulls from shared tokens, so overrides stay consistent:
 
 ### What’s exported
 
-- **UI** — Button, Card, Input, Dialog, Table, Tabs, ToastProvider, …
+- **UI** — Button, Card, IconTile, Input, Dialog, Table, Tabs, ToastProvider, …
 - **Theme** — `ThemeProvider`, `useTheme`, `THEMES`, `DEFAULT_TWEAKS`
 - **Charts** — Bar, Line, Donut, Sparkline, Heatmap, Radar, Funnel, …
-- **Layout** — `DashboardShell` (collapsible sidebar). Pass `linkComponent={NavLink}` if you use React Router; otherwise links render as `<a href>`.
-- **Effects** — `GlassRing`, `GlassOrbField`
+- **Layout** — `GlassOrbField` (static blurred backdrop for glass pages), `DashboardShell` (collapsible sidebar). Pass `linkComponent={NavLink}` if you use React Router; otherwise links render as `<a href>`.
 - **Utils** — `cn()`
 - **Icons** — `import { icons } from "soft-ui-kit"` (Phosphor, light weight, used for every chevron, caret, and status glyph in the kit). Custom icon style labs live on `explore/icons-*` and are **not** part of this package.
 
@@ -114,8 +113,8 @@ npm run build:lib # package entry only → dist/lib
 ## Features
 
 - **5 themes** — Soft Glass, Crystal, Aurora, Dusk, Midnight
-- **Taste playground** (demo) — live radius, glass, color, effects
-- **UI Kit · Charts · Effects** — separate galleries; Taste dials stay in sync
+- **Taste playground** (demo) — live radius, glass, color, and depth
+- **UI Kit · Charts** — separate galleries; Taste dials stay in sync
 - **SaaS samples** — Ops, Autumn, Travel, Finance, Kanban
 - **Phosphor icons** — light-stroke set for kit chrome; experimental icon languages stay on `explore/icons-*` (do not merge into `main`)
 

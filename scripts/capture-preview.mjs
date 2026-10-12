@@ -14,7 +14,6 @@ const shots = [
   { name: "02-catalog", path: "/ui", wait: 1500 },
   { name: "03-charts", path: "/charts", wait: 1800 },
   { name: "04-saas-autumn", path: "/saas/autumn", wait: 1800 },
-  { name: "05-effects", path: "/effects", wait: 2000 },
 ];
 
 const browser = await chromium.launch(
@@ -54,8 +53,7 @@ const frames = [
   "02-catalog",
   "03-charts",
   "04-saas-autumn",
-  "05-effects",
-  "06-taste",
+    "06-taste",
   "07-dusk",
 ];
 
@@ -74,7 +72,7 @@ for (const name of frames) {
 }
 gifArgs.push(
   "-filter_complex",
-  "[0:v][1:v][2:v][3:v][4:v][5:v][6:v]concat=n=7:v=1:a=0,scale=960:-1:flags=lanczos,fps=8,split[s0][s1];[s0]palettegen=max_colors=160:stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4",
+  "[0:v][1:v][2:v][3:v][4:v][5:v]concat=n=6:v=1:a=0,scale=960:-1:flags=lanczos,fps=8,split[s0][s1];[s0]palettegen=max_colors=160:stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4",
   "preview.gif",
 );
 spawnSync("ffmpeg", ["-y", ...gifArgs], { cwd: OUT, stdio: "inherit" });

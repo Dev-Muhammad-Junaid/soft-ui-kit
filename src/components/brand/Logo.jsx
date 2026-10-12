@@ -9,6 +9,7 @@ export function Logo({ size = 40, title = "Soft UI Kit", className }) {
   const fill = `suk-fill-${uid}`;
   const sheen = `suk-sheen-${uid}`;
   const glow = `suk-glow-${uid}`;
+  const knob = `suk-knob-${uid}`;
   return (
     <svg
       className={className}
@@ -21,9 +22,9 @@ export function Logo({ size = 40, title = "Soft UI Kit", className }) {
     >
       <defs>
         <linearGradient id={fill} x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#7dd3fc" />
-          <stop offset="0.5" stopColor="#38bdf8" />
-          <stop offset="1" stopColor="#8b5cf6" />
+          <stop offset="0" stopColor="#a8e2fb" />
+          <stop offset="0.5" stopColor="#7cc4f6" />
+          <stop offset="1" stopColor="#a99cf7" />
         </linearGradient>
         <linearGradient id={sheen} x1="32" y1="4" x2="32" y2="34" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#fff" stopOpacity="0.5" />
@@ -37,9 +38,13 @@ export function Logo({ size = 40, title = "Soft UI Kit", className }) {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(50 52) rotate(90) scale(22)"
         >
-          <stop offset="0" stopColor="#f0abfc" stopOpacity="0.6" />
-          <stop offset="1" stopColor="#f0abfc" stopOpacity="0" />
+          <stop offset="0" stopColor="#f5d0fe" stopOpacity="0.45" />
+          <stop offset="1" stopColor="#f5d0fe" stopOpacity="0" />
         </radialGradient>
+        <linearGradient id={knob} x1="37" y1="36" x2="49" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#6fb8f3" />
+          <stop offset="1" stopColor="#9488f2" />
+        </linearGradient>
       </defs>
       <rect x="4" y="4" width="56" height="56" rx="19" fill={`url(#${fill})`} />
       <rect x="4" y="4" width="56" height="56" rx="19" fill={`url(#${glow})`} />
@@ -59,7 +64,7 @@ export function Logo({ size = 40, title = "Soft UI Kit", className }) {
       <circle cx="21" cy="22" r="7" fill="#fff" />
       <rect x="13" y="34" width="38" height="16" rx="8" fill="#fff" />
       <circle cx="43" cy="43" r="6.5" fill="#0f172a" fillOpacity="0.12" />
-      <circle cx="43" cy="42" r="6" fill={`url(#${fill})`} />
+      <circle cx="43" cy="42" r="6" fill={`url(#${knob})`} />
     </svg>
   );
 }

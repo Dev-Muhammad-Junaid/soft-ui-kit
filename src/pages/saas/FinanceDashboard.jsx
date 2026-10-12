@@ -7,10 +7,10 @@ import {
   Wallet,
 } from "../../components/icons";
 import { BarChart, DonutChart, LineChart, Sparkline } from "../../components/charts/Charts";
-import { GlassRing } from "../../components/effects/GlassRing";
 import { SuggestedTasteBanner } from "../../components/saas/SuggestedTasteBanner";
 import {
   Alert,
+  IconTile,
   Badge,
   Button,
   Card,
@@ -67,19 +67,19 @@ export function FinanceDashboard() {
 
       <div className="grid-4" style={{ marginTop: 18, marginBottom: 18 }}>
         {[
-          { label: "Cash", value: "$2.4M", spark: [40, 42, 39, 45, 48, 52, 50], icon: Wallet, tone: "mint" },
-          { label: "MRR", value: "$186k", spark: [20, 22, 24, 23, 26, 28, 30], icon: PiggyBank, tone: "sky" },
-          { label: "Burn", value: "$74k", spark: [30, 28, 32, 31, 29, 27, 26], icon: ArrowDownLeft, tone: "peach" },
-          { label: "Collections", value: "92%", spark: [70, 72, 75, 78, 80, 88, 92], icon: CreditCard, tone: "lavender" },
+          { label: "Cash", value: "$2.4M", spark: [40, 42, 39, 45, 48, 52, 50], icon: Wallet, tone: "success" },
+          { label: "MRR", value: "$186k", spark: [20, 22, 24, 23, 26, 28, 30], icon: PiggyBank, tone: "info" },
+          { label: "Burn", value: "$74k", spark: [30, 28, 32, 31, 29, 27, 26], icon: ArrowDownLeft, tone: "warning" },
+          { label: "Collections", value: "92%", spark: [70, 72, 75, 78, 80, 88, 92], icon: CreditCard, tone: "accent" },
         ].map((s) => {
           const Icon = s.icon;
           return (
             <Card key={s.label} className="stat-card is-hoverable" padded>
               <div className="row" style={{ justifyContent: "space-between" }}>
                 <span className="stat-card__label">{s.label}</span>
-                <GlassRing size={52} tone={s.tone} soft>
-                  <Icon size={20} strokeWidth={1.75} />
-                </GlassRing>
+                <IconTile tone={s.tone} size="lg">
+                  <Icon size={20} />
+                </IconTile>
               </div>
               <div className="row" style={{ justifyContent: "space-between", alignItems: "flex-end" }}>
                 <span className="stat-card__value">{s.value}</span>

@@ -4,6 +4,17 @@
 
 Design review pass: consistency, contrast, icons, and a new brand mark.
 
+### Removed (breaking)
+- **Effects section.** The glass-ring and border-beam effects didn't match the rest of the kit, so they're gone:
+  - `GlassRing` (the animated ring around icons). Use the new static **`IconTile`** instead.
+  - `DEFAULT_EFFECTS`, plus `effects`, `effectTheme`, `updateEffect` and `resetEffects` from `useTheme()`.
+  - The ring Taste dials (`ringShine`, `ringThickness`, `ringSpread`, `ringGlow`) and their `--t-ring-*` CSS variables. Saved tweaks that still carry them are cleaned up on load.
+  - The demo's Effects page (`/effects` now redirects to the UI Kit) and the `border-beam` dependency.
+- `GlassOrbField` stays, now listed under Layout: it's the static blurred backdrop the glass surfaces frost over.
+
+### Added
+- **`IconTile`**: a static, tone-tinted tile for icons (`accent`, `neutral`, `info`, `success`, `warning`, `danger`; sizes `sm`, `md`, `lg`). It uses the same tone tokens as Badge and Alert.
+
 ### Fixed
 - **Glass sheen covered content.** The `.sheen` highlight was painted over card text, washing out every title in light themes. It now sits behind content.
 - **Background orbs covered text.** Decorative orbs painted over page copy on narrow screens (the landing hero was nearly invisible on mobile).
@@ -19,7 +30,7 @@ Design review pass: consistency, contrast, icons, and a new brand mark.
 - New semantic text tokens `--success-ink`, `--warning-ink`, `--danger-ink`, `--info-ink`. Badges, alerts, toasts, and error hints use them instead of pastel fills.
 - Form controls get a visible `--control-border` (unchecked checkboxes, radios, and OTP cells were white-on-white).
 - Switch on-state follows the accent (it was hard-coded mint).
-- Dark themes set `color-scheme: dark`, so native date pickers, selects, and scrollbars match. Knobs, avatars, and glass rings are toned for dark surfaces.
+- Dark themes set `color-scheme: dark`, so native date pickers, selects, and scrollbars match. Knobs and avatars are toned for dark surfaces.
 - Soft Glass tokens are the default when no `data-theme` is set.
 
 ### Consistency
@@ -44,4 +55,4 @@ Design review pass: consistency, contrast, icons, and a new brand mark.
 - Badge `tone="info"`, toast tones `info` / `warning`.
 
 ### Brand
-- New logo: a glass pebble holding two soft switches. Favicon, apple-touch icon, and README wordmark (light and dark) in `docs/brand`.
+- New logo: a glass pebble holding two soft switches, on a soft sky-to-periwinkle gradient. Favicon, apple-touch icon, and README wordmark (light and dark) in `docs/brand`.

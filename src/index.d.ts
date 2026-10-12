@@ -14,13 +14,12 @@ export function cn(...inputs: Array<string | false | null | undefined>): string;
 export const THEMES: Array<{ id: string; name: string; description: string }>;
 export const THEME_ACCENT_HUE: Record<string, number>;
 export const DEFAULT_TWEAKS: Record<string, number>;
-export const DEFAULT_EFFECTS: Record<string, string>;
 
 export function ThemeProvider(props: {
   children: ReactNode;
   /** Theme used when nothing is saved yet. Default "soft-glass". */
   defaultTheme?: "soft-glass" | "crystal" | "aurora" | "dusk" | "midnight";
-  /** Remember theme, tweaks, and effects in localStorage. Default true. */
+  /** Remember theme and Taste tweaks in localStorage. Default true. */
   persist?: boolean;
   /** Shift+1…5 switches themes. Default true; set false in product apps. */
   hotkeys?: boolean;
@@ -31,8 +30,6 @@ export function useTheme(): {
   themes: typeof THEMES;
   tweaks: typeof DEFAULT_TWEAKS;
   setTweaks: (next: typeof DEFAULT_TWEAKS | ((prev: typeof DEFAULT_TWEAKS) => typeof DEFAULT_TWEAKS)) => void;
-  effects: typeof DEFAULT_EFFECTS;
-  effectTheme: string;
 };
 
 export const Button: ForwardRefExoticComponent<
@@ -182,6 +179,15 @@ export function Badge(props: {
   tone?: "neutral" | "accent" | "info" | "success" | "warning" | "danger";
   className?: string;
 }): JSX.Element;
+/** Static tinted tile for an icon; shares tone tokens with Badge and Alert. */
+export function IconTile(props: {
+  children?: ReactNode;
+  tone?: "accent" | "neutral" | "info" | "success" | "warning" | "danger";
+  size?: "sm" | "md" | "lg";
+  /** Accessible name; omit when the icon is decorative. */
+  label?: string;
+  className?: string;
+}): JSX.Element;
 export function Avatar(props: { name?: string; src?: string; size?: "sm" | "md" | "lg"; className?: string }): JSX.Element;
 export function Table(props: {
   columns: Array<{ key: string; label: ReactNode; render?: (row: Record<string, unknown>) => ReactNode }>;
@@ -300,13 +306,7 @@ export function DotMatrixChart(props: Record<string, unknown>): JSX.Element;
 export function SegmentedBar(props: Record<string, unknown>): JSX.Element;
 export function TimelineBar(props: Record<string, unknown>): JSX.Element;
 
-export function GlassRing(props: {
-  size?: number;
-  tone?: string;
-  active?: boolean;
-  soft?: boolean;
-  children?: ReactNode;
-}): JSX.Element;
+/** Static blurred color fields placed behind glass layouts. */
 export function GlassOrbField(props: { denser?: boolean }): JSX.Element;
 
 export function DashboardShell(props: {

@@ -1,11 +1,10 @@
 /**
- * Taste dials — Core UI (kit chrome) then Effects (glass rings + border-beam).
- * Keep in sync with /ui, /charts, and /effects demos.
+ * Taste dials — radius, glass, color, and depth shared by every kit surface.
+ * Keep in sync with the /ui and /charts demos.
  */
 export const TWEAK_GROUPS = [
   {
     id: "layout",
-    tier: "core",
     title: "Layout",
     hint: "Corner radius across cards, buttons, inputs, and panels",
     controls: [
@@ -21,7 +20,6 @@ export const TWEAK_GROUPS = [
   },
   {
     id: "glass",
-    tier: "core",
     title: "Glass",
     hint: "Frost on cards, sheets, sidebar, and glass panels",
     controls: [
@@ -40,7 +38,6 @@ export const TWEAK_GROUPS = [
   },
   {
     id: "color",
-    tier: "core",
     title: "Color",
     hint: "Accent used for buttons, focus rings, and highlights",
     controls: [
@@ -56,7 +53,6 @@ export const TWEAK_GROUPS = [
   },
   {
     id: "depth",
-    tier: "core",
     title: "Depth & motion",
     hint: "Shadows, elevation, and how lively the UI feels",
     controls: [
@@ -94,40 +90,7 @@ export const TWEAK_GROUPS = [
       },
     ],
   },
-  {
-    id: "rings",
-    tier: "effects",
-    title: "Glass ring badges",
-    hint: "Shown on the Effects page — brand marks & KPI icons",
-    controls: [
-      { key: "ringShine", label: "Shine", min: 0, max: 1.5, step: 0.01, tip: "Spinning highlight on the ring" },
-      { key: "ringThickness", label: "Thickness", min: 1, max: 6, step: 0.1, tip: "Ring stroke width" },
-      { key: "ringSpread", label: "Spread", min: 2, max: 14, step: 0.5, tip: "Gap to the outer glow" },
-      { key: "ringGlow", label: "Glow", min: 0, max: 1.2, step: 0.01, tip: "Soft halo around the ring" },
-    ],
-  },
 ];
-
-export const BORDER_BEAM_OPTIONS = [
-  { id: "off", label: "Off" },
-  { id: "md", label: "Travel" },
-  { id: "sm", label: "Compact" },
-  { id: "line", label: "Line" },
-  { id: "pulse-inner", label: "Pulse" },
-  { id: "pulse-outside", label: "Halo" },
-];
-
-export const BORDER_BEAM_COLORS = [
-  { id: "ocean", label: "Ocean" },
-  { id: "sunset", label: "Sunset" },
-  { id: "colorful", label: "Rainbow" },
-  { id: "mono", label: "Mono" },
-];
-
-export const DEFAULT_EFFECTS = {
-  borderBeam: "off",
-  borderBeamColor: "ocean",
-};
 
 /** Flat list of slider controls. */
 export const TWEAK_CONTROLS = TWEAK_GROUPS.flatMap((g) => g.controls);

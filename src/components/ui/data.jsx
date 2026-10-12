@@ -7,6 +7,23 @@ export function Badge({ children, tone = "neutral", className }) {
   return <span className={clsx("ui-badge", `ui-badge--${tone}`, className)}>{children}</span>;
 }
 
+/**
+ * Static tinted tile for an icon (KPI cards, list rows, empty states).
+ * Shares tone tokens with Badge and Alert, so status color reads the same everywhere.
+ */
+export function IconTile({ children, tone = "accent", size = "md", className, label }) {
+  return (
+    <span
+      className={clsx("ui-icon-tile", `ui-icon-tile--${tone}`, `ui-icon-tile--${size}`, className)}
+      role={label ? "img" : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : true}
+    >
+      {children}
+    </span>
+  );
+}
+
 export function Avatar({ name, src, size = "md", className }) {
   const initials = name
     ?.split(" ")

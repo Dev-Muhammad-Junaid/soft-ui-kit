@@ -2,22 +2,22 @@
   <title>Soft UI Kit</title>
   <defs>
     <linearGradient id="suk-fill" x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#7dd3fc"/>
-      <stop offset="0.5" stop-color="#38bdf8"/>
-      <stop offset="1" stop-color="#8b5cf6"/>
+      <stop offset="0" stop-color="#a8e2fb"/>
+      <stop offset="0.5" stop-color="#7cc4f6"/>
+      <stop offset="1" stop-color="#a99cf7"/>
     </linearGradient>
     <linearGradient id="suk-sheen" x1="32" y1="4" x2="32" y2="34" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#fff" stop-opacity="0.5"/>
       <stop offset="1" stop-color="#fff" stop-opacity="0"/>
     </linearGradient>
     <radialGradient id="suk-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 52) rotate(90) scale(22)">
-      <stop offset="0" stop-color="#f0abfc" stop-opacity="0.6"/>
-      <stop offset="1" stop-color="#f0abfc" stop-opacity="0"/>
+      <stop offset="0" stop-color="#f5d0fe" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#f5d0fe" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="suk-knob" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(41 39.5) scale(8)">
-      <stop offset="0" stop-color="#fff"/>
-      <stop offset="1" stop-color="#bae6fd"/>
-    </radialGradient>
+    <linearGradient id="suk-knob" x1="37" y1="36" x2="49" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6fb8f3"/>
+      <stop offset="1" stop-color="#9488f2"/>
+    </linearGradient>
   </defs>
   <rect x="4" y="4" width="56" height="56" rx="19" fill="url(#suk-fill)"/>
   <rect x="4" y="4" width="56" height="56" rx="19" fill="url(#suk-glow)"/>
@@ -30,5 +30,5 @@
   <!-- On switch (bottom): solid track, knob right -->
   <rect x="13" y="34" width="38" height="16" rx="8" fill="#fff"/>
   <circle cx="43" cy="43" r="6.5" fill="#0f172a" fill-opacity="0.12"/>
-  <circle cx="43" cy="42" r="6" fill="url(#suk-fill)"/>
+  <circle cx="43" cy="42" r="6" fill="url(#suk-knob)"/>
 </svg>

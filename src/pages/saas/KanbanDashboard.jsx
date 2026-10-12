@@ -6,10 +6,10 @@ import {
   Timer,
 } from "../../components/icons";
 import { BarChart, LineChart } from "../../components/charts/Charts";
-import { GlassRing } from "../../components/effects/GlassRing";
 import { SuggestedTasteBanner } from "../../components/saas/SuggestedTasteBanner";
 import {
   Avatar,
+  IconTile,
   Badge,
   Button,
   Card,
@@ -205,9 +205,9 @@ export function KanbanDashboard() {
             <Progress label="Review queue" value={board.review.length * 20} />
           </div>
           <div className="row">
-            <GlassRing size={56} tone="lavender" active>
+            <IconTile tone="accent" size="lg">
               <Flag size={20} />
-            </GlassRing>
+            </IconTile>
             <div>
               <strong>Focus mode</strong>
               <p style={{ margin: "4px 0 0", color: "var(--ink-muted)", fontSize: 13 }}>

@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Search } from "../../components/icons";
+import { AlertTriangle, CheckCircle2, Info, Search, Sparkles, Wallet } from "../../components/icons";
 import { DashboardShellPreview } from "../../components/layout/DashboardShell";
 import {
   Accordion,
   Alert,
   AlertDialog,
   Avatar,
+  IconTile,
   Badge,
   Breadcrumb,
   Button,
@@ -285,6 +286,26 @@ export function CatalogPreview({ id }) {
           <Badge tone="success">Healthy</Badge>
           <Badge tone="warning">Watch</Badge>
           <Badge tone="danger">Sev-1</Badge>
+        </div>
+      );
+    case "icon-tile":
+      return (
+        <div className="preview-row">
+          <IconTile>
+            <Sparkles size={18} />
+          </IconTile>
+          <IconTile tone="info">
+            <Info size={18} />
+          </IconTile>
+          <IconTile tone="success">
+            <CheckCircle2 size={18} />
+          </IconTile>
+          <IconTile tone="warning">
+            <AlertTriangle size={18} />
+          </IconTile>
+          <IconTile tone="neutral" size="sm">
+            <Wallet size={16} />
+          </IconTile>
         </div>
       );
     case "avatar":
