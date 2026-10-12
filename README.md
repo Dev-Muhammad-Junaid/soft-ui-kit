@@ -12,6 +12,8 @@ Glass + soft React UI kit — install it like any other Node module, then import
   <a href="https://dev-muhammad-junaid.github.io/soft-ui-kit/"><strong>Live demo →</strong></a>
 </p>
 
+**Promo video:** [landscape 16:9](docs/promo/soft-ui-kit-landscape-16x9.mp4) · [vertical 9:16 for Reels and Shorts](docs/promo/soft-ui-kit-vertical-9x16.mp4). Built with HyperFrames from the kit's own components; see [`promo/`](promo/README.md).
+
 ---
 
 ## Install

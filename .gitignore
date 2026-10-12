@@ -29,3 +29,8 @@ coverage
 
 # Local full-res capture frames (keep gif + sm jpgs in docs/preview)
 docs/preview/*.png
+
+# Promo video: generated HyperFrames projects + scratch renders (finals live in docs/promo)
+promo/video/
+promo/renders/
+promo/assets/soundtrack.wav
